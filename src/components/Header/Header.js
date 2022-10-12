@@ -7,13 +7,21 @@ export default function Header() {
     <div className="container flex justify-between mx-auto my-10">
       <button
         disabled
-        className="animate-bounce font-bold text-6xl text-yellow-500"
+        className="animate-bounce font-bold text-4xl text-yellow-500"
       >
         Cybersoft
       </button>
-      <NavLink className="text-black font-bold text-3xl" to="/">
-        Lịch Chiếu
-      </NavLink>
+      <div className="space-x-5">
+        <NavLink className="text-black font-bold text-xl" to="/">
+          Schedule
+        </NavLink>
+        <NavLink className="text-black font-bold text-xl" to="/">
+          News & Promotion
+        </NavLink>{" "}
+        <NavLink className="text-black font-bold text-xl" to="/">
+          Ticket
+        </NavLink>
+      </div>
       <UserNav />
     </div>
   );

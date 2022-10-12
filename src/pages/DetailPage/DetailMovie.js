@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TOKEN_CYBERSOFT } from "../../services/configURL";
@@ -28,7 +29,9 @@ export default function DetailMovie() {
         <img className="w-full h-full" src={detailMovie?.hinhAnh} alt="" />
       </div>
       <div className="text-left ml-5 my-auto">
-        <h6>{detailMovie?.ngayKhoiChieu}</h6>
+        <h6>
+          {moment(detailMovie?.ngayKhoiChieu).format("DD//MM/YYYY - hh:mm")}
+        </h6>
         <h4>{detailMovie?.tenPhim}</h4>
         <h6>120 phút</h6>
         <button className="rounded px-4 py-2 bg-red-500 text-white">

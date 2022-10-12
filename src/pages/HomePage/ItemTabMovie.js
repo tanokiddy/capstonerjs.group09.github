@@ -14,9 +14,13 @@ export default function ItemTabMovie({ movie }) {
         <div className="grid grid-cols-3 gap-5">
           {movie.lstLichChieuTheoPhim.slice(0, 6).map((gioChieu, index) => {
             return (
-              <div className="p-3 rounded bg-red-600 text-white" key={index}>
+              <div
+                type="button"
+                className="p-3 rounded bg-red-600 text-white"
+                key={index}
+              >
                 {moment(gioChieu.ngayChieuGioChieu).format(
-                  "DD/MM/YYYY ~ hh:mm"
+                  "DD/MM/YYYY - hh:mm"
                 )}
               </div>
             );

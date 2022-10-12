@@ -11,13 +11,14 @@ export default function Copyright() {
         />
       </div>
       <div>
-        <h6>TIX - SẢN PHẨM CỦA CÔNG TY CỔ PHẦN ZION</h6>
+        <h4 className="font-bold text-xl">
+          TIX - PRODUCT OF JOINT STOCK COMPANY ZION{" "}
+        </h4>
         <span>
-          Địa chỉ: Z06 Đường số 13, Phường Tân Thuận Đông, Quận 7, Tp. Hồ Chí
-          Minh, Việt Nam. Giấy chứng nhận đăng ký kinh doanh số: 0101659783,
-          đăng ký thay đổi lần thứ 30, ngày 22 tháng 01 năm 2020 do Sở kế hoạch
-          và đầu tư Thành phố Hồ Chí Minh cấp. Số Điện Thoại (Hotline): 1900 545
-          436
+          Address: Z06 13th street, Tan Thuan Dong Ward, District 7, HCMC.
+          Business registration certificate: 0101659783, registered for the 30th
+          change on 22/01/2020, issued by HCMC Department of Planning and
+          Investment. Hotline: 1900 545 436
         </span>
       </div>
       <div>

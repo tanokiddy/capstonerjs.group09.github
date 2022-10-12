@@ -34,7 +34,7 @@ export default function ContactHome() {
     });
   };
   return (
-    <div className="container grid grid-cols-3 text-center">
+    <div className="container grid grid-cols-3 text-center py-3 border-t border-black">
       <div className="text-left">
         <h6>TIX</h6>
         <div className="flex space-x-5">
@@ -43,13 +43,13 @@ export default function ContactHome() {
             <p>Brands Guidelines</p>
           </div>
           <div>
-            <p>Thoả thuận sử dụng</p>
-            <p>Chính sách bảo mật</p>
+            <p>Terms of Use</p>
+            <p>Privacy Policy</p>
           </div>
         </div>
       </div>
       <div className="text-left">
-        <h6>ĐỐI TÁC</h6>
+        <h6>PARTNERS</h6>
         <div className="flex">{renderMovieLogo()}</div>
       </div>
       <div className="grid grid-cols-2">

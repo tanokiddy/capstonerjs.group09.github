@@ -59,7 +59,7 @@ export default function BookingByMovie() {
                               className="p-3 rounded bg-red-600 text-white"
                             >
                               {moment(movie.ngayChieuGioChieu).format(
-                                "DD/MM/YYYY ~ hh:mm"
+                                "DD/MM/YYYY - hh:mm"
                               )}
                             </div>
                           </NavLink>
