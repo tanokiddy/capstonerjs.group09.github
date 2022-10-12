@@ -24,7 +24,13 @@ export default function BookingByMovie() {
     return booking.map((heThongRapChieu, index) => {
       return (
         <Tabs.TabPane
-          tab={<img src={heThongRapChieu.logo} className="w-16 h-16"></img>}
+          tab={
+            <img
+              alt="logo"
+              src={heThongRapChieu.logo}
+              className="w-16 h-16"
+            ></img>
+          }
           key={index}
         >
           <Tabs tabPosition="left">
