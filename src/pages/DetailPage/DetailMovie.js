@@ -1,17 +1,25 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import {
+  loadingOffAction,
+  loadingOnAction,
+} from "../../redux/actions/loadingAction";
 import { movieServ } from "../../services/movieService";
 
 export default function DetailMovie() {
   let [detailMovie, setDetailMovie] = useState({});
   let { id } = useParams();
+  let dispatch = useDispatch();
   useEffect(() => {
+    dispatch(loadingOnAction());
     movieServ
       .getScheduleInfoByIdMovie(id)
       .then((res) => {
         console.log(res);
         setDetailMovie(res.data.content);
+        dispatch(loadingOffAction());
       })
       .catch((err) => {
         console.log(err);

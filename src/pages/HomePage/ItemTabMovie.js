@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import { NavLink } from "react-router-dom";
 
 export default function ItemTabMovie({ movie }) {
   return (
@@ -14,15 +15,16 @@ export default function ItemTabMovie({ movie }) {
         <div className="grid grid-cols-3 gap-5">
           {movie.lstLichChieuTheoPhim.slice(0, 6).map((gioChieu, index) => {
             return (
-              <div
-                type="button"
-                className="p-3 rounded bg-red-600 text-white"
-                key={index}
-              >
-                {moment(gioChieu.ngayChieuGioChieu).format(
-                  "DD/MM/YYYY - hh:mm"
-                )}
-              </div>
+              <NavLink key={index} to={`/purchase/${gioChieu.maLichChieu}`}>
+                <div
+                  type="button"
+                  className="p-3 rounded bg-red-600 text-white"
+                >
+                  {moment(gioChieu.ngayChieuGioChieu).format(
+                    "DD/MM/YYYY - hh:mm"
+                  )}
+                </div>
+              </NavLink>
             );
           })}
         </div>

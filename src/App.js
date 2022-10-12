@@ -17,7 +17,7 @@ function App() {
         <Route path="/purchase/:id" element={<BookingPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
       </Routes>
-      {/* <Spinner /> */}
+      <Spinner />
     </BrowserRouter>
   );
 }

@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import {
+  loadingOffAction,
+  loadingOnAction,
+} from "../../redux/actions/loadingAction";
 import { movieServ } from "../../services/movieService";
 export default function BookingPage() {
   let { id } = useParams();
   const [movieBooking, setMovieBooking] = useState({});
+  let dispatch = useDispatch();
   useEffect(() => {
+    dispatch(loadingOnAction());
     movieServ
       .getListTheatre(id)
       .then((res) => {
         console.log("res", res);
         setMovieBooking(res.data.content);
+        dispatch(loadingOffAction());
       })
       .catch((err) => {
         console.log(err);

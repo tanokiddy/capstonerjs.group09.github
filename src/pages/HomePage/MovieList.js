@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import {
+  loadingOffAction,
+  loadingOnAction,
+} from "../../redux/actions/loadingAction";
 import { movieServ } from "../../services/movieService";
 import MovieItem from "./MovieItem";
 
 export default function MovieList() {
   const [movie, setMovie] = useState([]);
+  let dispatch = useDispatch();
   useEffect(() => {
+    dispatch(loadingOnAction());
     movieServ
       .getListMovie()
       .then((res) => {
         console.log(res);
         setMovie(res.data.content);
+        dispatch(loadingOffAction());
       })
       .catch((err) => {
         console.log(err);

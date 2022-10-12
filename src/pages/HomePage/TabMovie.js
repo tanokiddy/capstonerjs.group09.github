@@ -2,15 +2,23 @@ import React, { useState, useEffect } from "react";
 import { Tabs } from "antd";
 import ItemTabMovie from "./ItemTabMovie";
 import { movieServ } from "../../services/movieService";
+import { useDispatch } from "react-redux";
+import {
+  loadingOffAction,
+  loadingOnAction,
+} from "../../redux/actions/loadingAction";
 
 export default function TabMovie() {
   const [tabMovie, setTabMovie] = useState([]);
+  let dispatch = useDispatch();
   useEffect(() => {
+    dispatch(loadingOnAction());
     movieServ
       .getScheduleMovieByTheatre()
       .then((res) => {
         console.log(res);
         setTabMovie(res.data.content);
+        dispatch(loadingOffAction());
       })
       .catch((err) => {
         console.log(err);

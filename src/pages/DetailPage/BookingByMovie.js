@@ -3,16 +3,24 @@ import React, { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import moment from "moment";
 import { movieServ } from "../../services/movieService";
+import { useDispatch } from "react-redux";
+import {
+  loadingOffAction,
+  loadingOnAction,
+} from "../../redux/actions/loadingAction";
 
 export default function BookingByMovie() {
   const [booking, setBooking] = useState([]);
   let { id } = useParams();
+  let dispatch = useDispatch();
   useEffect(() => {
+    dispatch(loadingOnAction());
     movieServ
       .getScheduleInfoByIdMovie(id)
       .then((res) => {
         console.log(res);
         setBooking(res.data.content.heThongRapChieu);
+        dispatch(loadingOffAction());
       })
       .catch((err) => {
         console.log(err);
