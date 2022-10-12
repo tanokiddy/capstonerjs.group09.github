@@ -1,7 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 export default function MovieItem({ movie }) {
+  let user = useSelector((state) => state.userReducer.userInfo);
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
       <img
@@ -19,11 +21,19 @@ export default function MovieItem({ movie }) {
         <p className="text-gray-700 text-base truncate">{movie.moTa}</p>
       </div>
       <div className="text-center">
-        <NavLink to={`/detail/${movie.maPhim}`}>
-          <button className="rounded bg-red-500 text-white px-4 py-2 my-2">
-            More Detail
-          </button>
-        </NavLink>
+        {user ? (
+          <NavLink to={`/detail/${movie.maPhim}`}>
+            <button className="rounded bg-red-500 text-white px-4 py-2 my-2">
+              More Detail
+            </button>
+          </NavLink>
+        ) : (
+          <NavLink to="/login">
+            <button className="rounded bg-red-500 text-white px-4 py-2 my-2">
+              More Detail
+            </button>
+          </NavLink>
+        )}
       </div>
     </div>
   );

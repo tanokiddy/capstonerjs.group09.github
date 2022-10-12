@@ -1,21 +1,15 @@
 import { Tabs } from "antd";
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import { TOKEN_CYBERSOFT } from "../../services/configURL";
 import moment from "moment";
+import { movieServ } from "../../services/movieService";
 
 export default function BookingByMovie() {
   const [booking, setBooking] = useState([]);
   let { id } = useParams();
   useEffect(() => {
-    axios({
-      baseURL: `https://movienew.cybersoft.edu.vn/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${id}`,
-      method: "GET",
-      headers: {
-        TokenCybersoft: TOKEN_CYBERSOFT,
-      },
-    })
+    movieServ
+      .getScheduleInfoByIdMovie(id)
       .then((res) => {
         console.log(res);
         setBooking(res.data.content.heThongRapChieu);

@@ -1,18 +1,12 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { TOKEN_CYBERSOFT } from "../../services/configURL";
+import { movieServ } from "../../services/movieService";
 export default function BookingPage() {
   let { id } = useParams();
   const [movieBooking, setMovieBooking] = useState({});
   useEffect(() => {
-    axios({
-      baseURL: `https://movienew.cybersoft.edu.vn/api/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${id}`,
-      method: "GET",
-      headers: {
-        TokenCybersoft: TOKEN_CYBERSOFT,
-      },
-    })
+    movieServ
+      .getListTheatre(id)
       .then((res) => {
         console.log("res", res);
         setMovieBooking(res.data.content);
@@ -76,25 +70,25 @@ export default function BookingPage() {
             <tbody>
               <tr>
                 <th className="flex justify-between">
-                  Cụm rạp:{" "}
+                  Theatre:{" "}
                   <span className="text-right">{thongTinPhim?.tenCumRap}</span>
                 </th>
               </tr>
               <tr>
                 <th className="flex justify-between">
-                  Địa chỉ:{" "}
+                  Address:{" "}
                   <span className="text-right">{thongTinPhim?.diaChi}</span>
                 </th>
               </tr>
               <tr>
                 <th className="flex justify-between">
-                  Rạp:{" "}
+                  Screen:{" "}
                   <span className="text-right">{thongTinPhim?.tenRap}</span>
                 </th>
               </tr>
               <tr>
                 <th className="flex justify-between">
-                  Ngày giờ chiếu:{" "}
+                  Showtimes:{" "}
                   <span className="text-right">
                     {thongTinPhim?.gioChieu} - {thongTinPhim?.ngayChieu}
                   </span>
@@ -102,12 +96,12 @@ export default function BookingPage() {
               </tr>
               <tr>
                 <th className="flex justify-between">
-                  Tên phim:{" "}
+                  Movie name:{" "}
                   <span className="text-right">{thongTinPhim?.tenPhim}</span>
                 </th>
               </tr>
               <tr>
-                <th className="flex justify-between">Chọn:</th>
+                <th className="flex justify-between">Selected:</th>
               </tr>
               <tr>
                 <th>

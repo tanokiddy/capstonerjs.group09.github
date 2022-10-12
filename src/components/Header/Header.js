@@ -5,12 +5,11 @@ import UserNav from "./UserNav";
 export default function Header() {
   return (
     <div className="container flex justify-between mx-auto my-10">
-      <button
-        disabled
-        className="animate-bounce font-bold text-4xl text-yellow-500"
-      >
-        Cybersoft
-      </button>
+      <NavLink to="/">
+        <button className="animate-bounce font-bold text-4xl text-yellow-500">
+          Cybersoft
+        </button>
+      </NavLink>
       <div className="space-x-5">
         <NavLink className="text-black font-bold text-xl" to="/">
           Schedule

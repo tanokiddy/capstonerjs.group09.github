@@ -1,18 +1,12 @@
 import { Carousel } from "antd";
-import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { TOKEN_CYBERSOFT } from "../../services/configURL";
+import { movieServ } from "../../services/movieService";
 
 export default function CarouselHome() {
   const [carousel, setCarousel] = useState([]);
   useEffect(() => {
-    axios({
-      baseURL: `https://movienew.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachBanner`,
-      method: "GET",
-      headers: {
-        TokenCybersoft: TOKEN_CYBERSOFT,
-      },
-    })
+    movieServ
+      .getMovieBanner()
       .then((res) => {
         console.log(res);
         setCarousel(res.data.content);

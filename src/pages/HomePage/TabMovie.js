@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Tabs } from "antd";
-import axios from "axios";
-import { TOKEN_CYBERSOFT } from "../../services/configURL";
 import ItemTabMovie from "./ItemTabMovie";
+import { movieServ } from "../../services/movieService";
 
 export default function TabMovie() {
   const [tabMovie, setTabMovie] = useState([]);
   useEffect(() => {
-    axios({
-      baseURL: ` https://movienew.cybersoft.edu.vn/api/QuanLyRap/LayThongTinLichChieuHeThongRap`,
-      method: "GET",
-      headers: {
-        TokenCybersoft: TOKEN_CYBERSOFT,
-      },
-    })
+    movieServ
+      .getScheduleMovieByTheatre()
       .then((res) => {
         console.log(res);
         setTabMovie(res.data.content);

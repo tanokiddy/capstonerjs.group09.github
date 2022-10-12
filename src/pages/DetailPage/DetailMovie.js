@@ -1,20 +1,14 @@
-import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { TOKEN_CYBERSOFT } from "../../services/configURL";
+import { movieServ } from "../../services/movieService";
 
 export default function DetailMovie() {
   let [detailMovie, setDetailMovie] = useState({});
   let { id } = useParams();
   useEffect(() => {
-    axios({
-      baseURL: `https://movienew.cybersoft.edu.vn/api/QuanLyPhim/LayThongTinPhim?MaPhim=${id}`,
-      method: "GET",
-      headers: {
-        TokenCybersoft: TOKEN_CYBERSOFT,
-      },
-    })
+    movieServ
+      .getScheduleInfoByIdMovie(id)
       .then((res) => {
         console.log(res);
         setDetailMovie(res.data.content);

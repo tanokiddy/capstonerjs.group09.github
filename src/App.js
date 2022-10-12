@@ -5,6 +5,7 @@ import DetailPage from "./pages/DetailPage/DetailPage";
 import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import Spinner from "./components/Spinner/Spinner";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/purchase/:id" element={<BookingPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
       </Routes>
+      {/* <Spinner /> */}
     </BrowserRouter>
   );
 }

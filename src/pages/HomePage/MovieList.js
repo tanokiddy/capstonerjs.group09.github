@@ -1,18 +1,12 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { TOKEN_CYBERSOFT } from "../../services/configURL";
+import { movieServ } from "../../services/movieService";
 import MovieItem from "./MovieItem";
 
 export default function MovieList() {
   const [movie, setMovie] = useState([]);
   useEffect(() => {
-    axios({
-      baseURL: `https://movienew.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP04`,
-      method: "GET",
-      headers: {
-        TokenCybersoft: TOKEN_CYBERSOFT,
-      },
-    })
+    movieServ
+      .getListMovie()
       .then((res) => {
         console.log(res);
         setMovie(res.data.content);

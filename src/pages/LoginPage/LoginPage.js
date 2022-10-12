@@ -1,15 +1,42 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import bg_login from "../../assets/bg.login.json";
-import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import React from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
-
+import { userServ } from "../../services/userService";
+import { localServ } from "../../services/localService";
+import { useDispatch } from "react-redux";
+import { SET_USER } from "../../redux/constants/constants";
 export default function LoginPage() {
-  const [userLogin, setUserLogin] = useState({ taiKhoan: "", matKhau: "" });
-
+  let navigate = useNavigate();
+  let dispatch = useDispatch();
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+    let onSuccess = () => {
+      message.success("Login successful");
+    };
+    let onFail = () => {
+      message.error("Login failed");
+    };
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
+    // console.log("Received values of form: ", values);
+    userServ
+      .userLogin(values)
+      .then((res) => {
+        console.log(res);
+        localServ.user.setDataUser(res.data.content);
+        onSuccess();
+        dispatch({
+          type: SET_USER,
+          payload: res.data.content,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        onFail();
+      });
   };
   return (
     <div className="flex justify-center container items-center">
@@ -23,7 +50,7 @@ export default function LoginPage() {
         onFinish={onFinish}
       >
         <Form.Item
-          name="username"
+          name="taiKhoan"
           rules={[
             {
               required: true,
@@ -34,12 +61,11 @@ export default function LoginPage() {
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="Username"
-            name="taiKhoan"
           />
         </Form.Item>
         <Form.Item
           className="mb-0"
-          name="password"
+          name="matKhau"
           rules={[
             {
               required: true,
@@ -51,7 +77,6 @@ export default function LoginPage() {
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
             placeholder="Password"
-            name="matKhau"
           />
         </Form.Item>
         <Form.Item className="flex justify-end">
