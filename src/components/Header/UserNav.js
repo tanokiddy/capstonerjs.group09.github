@@ -36,9 +36,11 @@ export default function UserNav() {
             </button>
           </NavLink>
 
-          <button className="bg-blue-500 duration-200 hover:bg-blue-700 px-4 py-2 rounded font-bold text-white">
-            Register
-          </button>
+          <NavLink to="/register">
+            <button className="bg-blue-500 duration-200 hover:bg-blue-700 px-4 py-2 rounded font-bold text-white">
+              Register
+            </button>
+          </NavLink>
         </div>
       );
     }

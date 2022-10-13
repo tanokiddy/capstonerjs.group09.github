@@ -23,13 +23,13 @@ export default function MovieItem({ movie }) {
       <div className="text-center">
         {user ? (
           <NavLink to={`/detail/${movie.maPhim}`}>
-            <button className="rounded bg-red-500 text-white px-4 py-2 my-2">
+            <button className="rounded bg-red-500 text-white px-4 py-2 w-full my-auto">
               More Detail
             </button>
           </NavLink>
         ) : (
           <NavLink to="/login">
-            <button className="rounded bg-red-500 text-white px-4 py-2 my-2">
+            <button className="rounded bg-red-500 text-white px-4 py-2 w-full my-auto">
               More Detail
             </button>
           </NavLink>

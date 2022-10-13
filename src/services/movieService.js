@@ -22,4 +22,8 @@ export const movieServ = {
     let uri = `/api/QuanLyPhim/LayDanhSachBanner`;
     return https.get(uri);
   },
+  postBookingTicket: (bookingState) => {
+    let uri = `api/QuanLyDatVe/DatVe`;
+    return https.post(uri, bookingState);
+  },
 };

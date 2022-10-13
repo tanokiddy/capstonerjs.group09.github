@@ -1,15 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   loadingOffAction,
   loadingOnAction,
 } from "../../redux/actions/loadingAction";
+import { bookTicketAction } from "../../redux/actions/movieAction";
 import { movieServ } from "../../services/movieService";
+
 export default function BookingPage() {
   let { id } = useParams();
   const [movieBooking, setMovieBooking] = useState({});
   let dispatch = useDispatch();
+  let seatState = useSelector((state) => state.movieReducer.seat);
+  let bookingState = useSelector((state) => state.movieReducer.booking);
+
+  const handleBookNow = () => {
+    console.log(bookingState);
+    dispatch(loadingOnAction());
+    movieServ
+      .postBookingTicket(bookingState)
+      .then((res) => {
+        console.log(res);
+        dispatch(loadingOffAction());
+        alert("Đặt vé thành công");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     dispatch(loadingOnAction());
     movieServ
@@ -24,7 +45,7 @@ export default function BookingPage() {
       });
   }, []);
   const renderBookingPage = () => {
-    console.log("movieBooking", movieBooking);
+    // console.log("movieBooking", movieBooking);
     let { thongTinPhim, danhSachGhe } = movieBooking;
     return (
       <div className="flex">
@@ -35,19 +56,25 @@ export default function BookingPage() {
             if (statusSeat === false && typeOfSeat === "Thuong") {
               return (
                 <button
+                  onClick={() => {
+                    dispatch(bookTicketAction(seat, thongTinPhim));
+                  }}
                   key={index}
                   className="rounded py-1 bg-gray-300 hover:bg-gray-200 duration-200 text-black"
                 >
-                  <span>{seat?.tenGhe}</span>
+                  {seat?.tenGhe}
                 </button>
               );
             } else if (statusSeat === false && typeOfSeat === "Vip") {
               return (
                 <button
+                  onClick={() => {
+                    dispatch(bookTicketAction(seat, thongTinPhim));
+                  }}
                   key={index}
                   className="rounded py-1 bg-orange-400 hover:bg-gray-200 duration-200 text-black"
                 >
-                  <span>{seat?.tenGhe}</span>
+                  {seat?.tenGhe}
                 </button>
               );
             } else if (statusSeat === true) {
@@ -71,7 +98,11 @@ export default function BookingPage() {
                   style={{ borderBottom: 0 }}
                   className="text-center text-2xl"
                 >
-                  0 VND
+                  {seatState.giaVe ? (
+                    <span> {seatState?.giaVe?.toLocaleString()} VND</span>
+                  ) : (
+                    <span>0 VND</span>
+                  )}
                 </th>
               </tr>
             </thead>
@@ -109,11 +140,23 @@ export default function BookingPage() {
                 </th>
               </tr>
               <tr>
-                <th className="flex justify-between">Selected:</th>
+                <th className="flex justify-between">
+                  Selected:{" "}
+                  {seatState.tenGhe ? (
+                    <span className="text-right">Ghế {seatState?.tenGhe}</span>
+                  ) : (
+                    <></>
+                  )}
+                </th>
               </tr>
               <tr>
                 <th>
-                  <button className="bg-red-500 text-white text-2xl w-full py-2">
+                  <button
+                    onClick={() => {
+                      handleBookNow(bookingState);
+                    }}
+                    className="bg-red-500 text-white text-2xl w-full py-2"
+                  >
                     BOOK NOW
                   </button>
                 </th>
