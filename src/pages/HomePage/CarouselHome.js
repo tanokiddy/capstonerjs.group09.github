@@ -1,6 +1,10 @@
-import { Carousel } from "antd";
 import React, { useState, useEffect } from "react";
 import { movieServ } from "../../services/movieService";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// import required modules
+import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper";
 
 export default function CarouselHome() {
   const [carousel, setCarousel] = useState([]);
@@ -18,22 +22,27 @@ export default function CarouselHome() {
   const renderCarousel = () => {
     return carousel.map((carousel, index) => {
       return (
-        <div className="w-full h-full">
-          <img
-            key={index}
-            className="object-cover w-full h-full overflow-hidden"
-            src={carousel.hinhAnh}
-            alt=""
-          />
-        </div>
+        <SwiperSlide key={index}>
+          <img src={carousel.hinhAnh} className="h-full" alt="" />
+        </SwiperSlide>
       );
     });
   };
   return (
-    <div className="my-5 container">
-      <Carousel dotPosition="left" autoplay>
+    <div className="my-5 mx-auto">
+      <Swiper
+        cssMode={true}
+        navigation={true}
+        pagination={{
+          clickable: true,
+        }}
+        mousewheel={true}
+        keyboard={true}
+        modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+        className="mySwiper"
+      >
         {renderCarousel()}
-      </Carousel>
+      </Swiper>
     </div>
   );
 }
