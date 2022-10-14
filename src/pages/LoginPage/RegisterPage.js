@@ -38,7 +38,10 @@ const formItemLayout = {
 };
 export default function RegisterPage() {
   let onSuccess = () => {
-    message.success("Login successful");
+    message.success("Register successful");
+    setTimeout(() => {
+      navigate("/login");
+    }, 1500);
   };
   const [form] = Form.useForm();
   let dispatch = useDispatch();
@@ -52,7 +55,6 @@ export default function RegisterPage() {
         console.log(res);
         dispatch(loadingOffAction());
         onSuccess();
-        navigate("/");
       })
       .catch((err) => {
         console.log(err);
