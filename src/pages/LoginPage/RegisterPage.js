@@ -31,9 +31,6 @@ const formItemLayout = {
     xs: {
       span: 24,
     },
-    sm: {
-      span: 16,
-    },
   },
 };
 export default function RegisterPage() {
@@ -62,10 +59,10 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex justify-center container">
+    <div className="flex items-center container">
       <Lottie className="w-2/3 h-96" animationData={bg_login} />
       <Form
-        className="w-1/3"
+        className="w-1/3 text-right"
         {...formItemLayout}
         form={form}
         name="register"
@@ -88,7 +85,6 @@ export default function RegisterPage() {
             placeholder="Username"
           />
         </Form.Item>
-
         <Form.Item
           name="matKhau"
           rules={[
@@ -122,7 +118,6 @@ export default function RegisterPage() {
             placeholder="Email"
           />
         </Form.Item>
-
         <Form.Item
           name="soDt"
           rules={[
@@ -138,25 +133,25 @@ export default function RegisterPage() {
           />
         </Form.Item>
         {/* <Form.Item
-          name="maNhom"
-          rules={[
-            {
-              required: true,
-              message: "Please select group code!",
-            },
-          ]}
-        >
-          <Select placeholder="select your group code">
-            <Option value="GP00">GP00</Option>
-            <Option value="GP01">GP01</Option>
-            <Option value="GP02">GP02</Option>
-            <Option value="GP03">GP03</Option>
-            <Option value="GP04">GP04</Option>
-            <Option value="GP05">GP05</Option>
-            <Option value="GP06">GP06</Option>
-            <Option value="GP07">GP07</Option>
-          </Select>
-        </Form.Item> */}
+            name="maNhom"
+            rules={[
+              {
+                required: true,
+                message: "Please select group code!",
+              },
+            ]}
+          >
+            <Select placeholder="select your group code">
+              <Option value="GP00">GP00</Option>
+              <Option value="GP01">GP01</Option>
+              <Option value="GP02">GP02</Option>
+              <Option value="GP03">GP03</Option>
+              <Option value="GP04">GP04</Option>
+              <Option value="GP05">GP05</Option>
+              <Option value="GP06">GP06</Option>
+              <Option value="GP07">GP07</Option>
+            </Select>
+          </Form.Item> */}
         <Form.Item
           name="hoTen"
           tooltip="What do you want others to call you?"
@@ -174,21 +169,21 @@ export default function RegisterPage() {
           />
         </Form.Item>
         {/* <Form.Item
-          name="agreement"
-          valuePropName="checked"
-          rules={[
-            {
-              validator: (_, value) =>
-                value
-                  ? Promise.resolve()
-                  : Promise.reject(new Error("You must accept agreement")),
-            },
-          ]}
-        >
-          <Checkbox>
-            I have read the <a href="">agreement</a>
-          </Checkbox>
-        </Form.Item> */}
+            name="agreement"
+            valuePropName="checked"
+            rules={[
+              {
+                validator: (_, value) =>
+                  value
+                    ? Promise.resolve()
+                    : Promise.reject(new Error("You must accept agreement")),
+              },
+            ]}
+          >
+            <Checkbox>
+              I have read the <a href="">agreement</a>
+            </Checkbox>
+          </Form.Item> */}
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Register
