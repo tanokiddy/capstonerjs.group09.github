@@ -27,16 +27,16 @@ export default function ContactHome() {
           type="button"
           key={index}
           src={item.logo}
-          className="h-10 w-10 mx-2"
+          className="h-10 w-10 mx-2 logo-partner"
           alt=""
         ></img>
       );
     });
   };
   return (
-    <div className="container grid grid-cols-3 text-center py-3 border-t border-black">
+    <div className="container grid grid-cols-3 text-center py-3">
       <div className="text-left">
-        <h6>TIX</h6>
+        <div className="mb-3">TIX</div>
         <div className="flex space-x-5">
           <div>
             <p>FAQ</p>
@@ -49,12 +49,12 @@ export default function ContactHome() {
         </div>
       </div>
       <div className="text-left">
-        <h6>PARTNERS</h6>
+        <div className="mb-3">PARTNERS</div>
         <div className="flex">{renderMovieLogo()}</div>
       </div>
       <div className="grid grid-cols-2">
         <div>
-          <h6>MOBILE APP</h6>
+          <div className="mb-3">MOBILE APP</div>
           <div className="space-x-5">
             <i
               type="button"
@@ -69,7 +69,7 @@ export default function ContactHome() {
           </div>
         </div>
         <div className="text-left">
-          <h6>SOCIAL</h6>
+          <div className="mb-3">SOCIAL</div>
           <div className="flex space-x-3">
             <img
               type="button"

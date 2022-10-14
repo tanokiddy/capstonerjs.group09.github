@@ -29,7 +29,7 @@ export default function MovieList() {
     });
   };
   return (
-    <div className="grid grid-cols-5 gap-4 container mx-auto">
+    <div className="grid grid-cols-5 gap-4 container mx-auto pb-2">
       {renderMovie()}
     </div>
   );

@@ -4,7 +4,7 @@ import Copyright from "./Copyright";
 
 export default function Footer() {
   return (
-    <div>
+    <div style={{ backgroundColor: "#212121" }} className="py-3 text-white">
       <ContactHome />
       <Copyright />
     </div>

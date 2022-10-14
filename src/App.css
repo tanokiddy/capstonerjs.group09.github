@@ -28,11 +28,29 @@
   width: 100%;
   height: 100%;
 }
+.swiper-wrapper {
+  height: 750px;
+  padding-bottom: 50px;
+}
 .swiper-pagination-bullet {
   width: 15px;
   height: 15px;
+  transition: all 0.5s;
+}
+.swiper-pagination-bullet:hover {
+  opacity: 1;
+}
+.swiper-pagination-bullet-active {
+  background-color: red;
 }
 :root {
   --swiper-theme-color: grey;
   font-weight: bold;
+}
+
+.logo-partner {
+  transition: all 0.5s;
+}
+.logo-partner:hover {
+  filter: grayscale(95%);
 }
