@@ -7,31 +7,28 @@ import Lottie from "lottie-react";
 import { userServ } from "../../services/userService";
 import { localServ } from "../../services/localService";
 import { useDispatch } from "react-redux";
-import { SET_USER } from "../../redux/constants/constants";
+import { userLoginAction } from "../../redux/actions/userAction";
 export default function LoginPage() {
   let navigate = useNavigate();
   let dispatch = useDispatch();
   const onFinish = (values) => {
     let onSuccess = () => {
       message.success("Login successful");
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
     };
     let onFail = () => {
       message.error("Login failed");
     };
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
     // console.log("Received values of form: ", values);
     userServ
       .userLogin(values)
       .then((res) => {
         console.log(res);
         localServ.user.setDataUser(res.data.content);
+        dispatch(userLoginAction(res.data.content));
         onSuccess();
-        dispatch({
-          type: SET_USER,
-          payload: res.data.content,
-        });
       })
       .catch((err) => {
         console.log(err);

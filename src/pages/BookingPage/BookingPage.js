@@ -14,6 +14,20 @@ export default function BookingPage() {
   let dispatch = useDispatch();
   let seatState = useSelector((state) => state.movieReducer.seat);
   let bookingState = useSelector((state) => state.movieReducer.booking);
+  console.log({ seatState, bookingState });
+  useEffect(() => {
+    dispatch(loadingOnAction());
+    movieServ
+      .getListTheatre(id)
+      .then((res) => {
+        console.log("res", res);
+        setMovieBooking(res.data.content);
+        dispatch(loadingOffAction());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const handleBookNow = () => {
     console.log(bookingState);
@@ -31,19 +45,6 @@ export default function BookingPage() {
       });
   };
 
-  useEffect(() => {
-    dispatch(loadingOnAction());
-    movieServ
-      .getListTheatre(id)
-      .then((res) => {
-        console.log("res", res);
-        setMovieBooking(res.data.content);
-        dispatch(loadingOffAction());
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
   const renderBookingPage = () => {
     // console.log("movieBooking", movieBooking);
     let { thongTinPhim, danhSachGhe } = movieBooking;

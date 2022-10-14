@@ -7,9 +7,6 @@ export const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    // case SELECT_SEAT: {
-    //   return { ...state, seat: action.seat };
-    // }
     case BOOK_TICKET: {
       let cloneState = { ...state };
       cloneState = {

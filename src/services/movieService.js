@@ -1,4 +1,6 @@
-import { https } from "./configURL";
+import axios from "axios";
+import { BASE_URL, https, TOKEN_CYBERSOFT } from "./configURL";
+import { localServ } from "./localService";
 
 export const movieServ = {
   getListMovie: () => {
@@ -23,7 +25,14 @@ export const movieServ = {
     return https.get(uri);
   },
   postBookingTicket: (bookingState) => {
-    let uri = `api/QuanLyDatVe/DatVe`;
-    return https.post(uri, bookingState);
+    return axios({
+      url: `${BASE_URL}/api/QuanLyDatVe/DatVe`,
+      data: bookingState,
+      method: "POST",
+      headers: {
+        TokenCybersoft: TOKEN_CYBERSOFT,
+        Authorization: "Bearer " + localServ.user.getDataUser()?.accessToken,
+      },
+    });
   },
 };

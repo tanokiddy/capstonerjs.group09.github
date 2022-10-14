@@ -1,16 +1,22 @@
-import { Button, Checkbox, Form, Input, Select } from "antd";
+import { Button, Checkbox, Form, Input, message, Select } from "antd";
 import React from "react";
 import bg_login from "../../assets/bg.login.json";
 import Lottie from "lottie-react";
 import { userServ } from "../../services/userService";
 import { useDispatch } from "react-redux";
-import { LOADING_OFF, LOADING_ON } from "../../redux/constants/constants";
 import {
   loadingOffAction,
   loadingOnAction,
 } from "../../redux/actions/loadingAction";
 import { useNavigate } from "react-router-dom";
-
+import {
+  LockOutlined,
+  UserOutlined,
+  MailOutlined,
+  PhoneOutlined,
+  HddOutlined,
+  IdcardOutlined,
+} from "@ant-design/icons";
 const { Option } = Select;
 const formItemLayout = {
   labelCol: {
@@ -31,6 +37,9 @@ const formItemLayout = {
   },
 };
 export default function RegisterPage() {
+  let onSuccess = () => {
+    message.success("Login successful");
+  };
   const [form] = Form.useForm();
   let dispatch = useDispatch();
   let navigate = useNavigate();
@@ -42,6 +51,7 @@ export default function RegisterPage() {
       .then((res) => {
         console.log(res);
         dispatch(loadingOffAction());
+        onSuccess();
         navigate("/");
       })
       .catch((err) => {
@@ -50,10 +60,10 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center container">
       <Lottie className="w-2/3 h-96" animationData={bg_login} />
       <Form
-        className="w-1/2"
+        className="w-1/3"
         {...formItemLayout}
         form={form}
         name="register"
@@ -71,7 +81,10 @@ export default function RegisterPage() {
             },
           ]}
         >
-          <Input placeholder="Username" />
+          <Input
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Username"
+          />
         </Form.Item>
 
         <Form.Item
@@ -84,7 +97,10 @@ export default function RegisterPage() {
           ]}
           hasFeedback
         >
-          <Input.Password placeholder="Password" />
+          <Input.Password
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            placeholder="Password"
+          />
         </Form.Item>
         <Form.Item
           name="email"
@@ -99,7 +115,10 @@ export default function RegisterPage() {
             },
           ]}
         >
-          <Input placeholder="Email" />
+          <Input
+            prefix={<MailOutlined className="site-form-item-icon" />}
+            placeholder="Email"
+          />
         </Form.Item>
 
         <Form.Item
@@ -111,9 +130,12 @@ export default function RegisterPage() {
             },
           ]}
         >
-          <Input placeholder="Phone Number" />
+          <Input
+            prefix={<PhoneOutlined className="site-form-item-icon" />}
+            placeholder="Phone Number"
+          />
         </Form.Item>
-        <Form.Item
+        {/* <Form.Item
           name="maNhom"
           rules={[
             {
@@ -132,7 +154,7 @@ export default function RegisterPage() {
             <Option value="GP06">GP06</Option>
             <Option value="GP07">GP07</Option>
           </Select>
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item
           name="hoTen"
           tooltip="What do you want others to call you?"
@@ -144,7 +166,10 @@ export default function RegisterPage() {
             },
           ]}
         >
-          <Input placeholder="Full Name" />
+          <Input
+            prefix={<IdcardOutlined className="site-form-item-icon" />}
+            placeholder="Full Name"
+          />
         </Form.Item>
         {/* <Form.Item
           name="agreement"
