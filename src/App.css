@@ -54,3 +54,31 @@
 .logo-partner:hover {
   filter: grayscale(95%);
 }
+
+#movieItem img {
+  transition: all 0.5s;
+}
+
+#movieItem:hover img {
+  filter: brightness(60%);
+}
+#movieItem:hover .fa-caret-right {
+  opacity: 1 !important;
+}
+.fa-caret-right {
+  transition: all 0.5s;
+}
+.fa-caret-right:hover {
+  filter: brightness(60%);
+}
+#movieItem #moreDetail {
+  transition: all 0.5s;
+}
+#movieItem:hover #moreDetail {
+  display: inline-block !important;
+  margin-top: 5%;
+}
+#movieItem:hover #movieText {
+  display: none !important;
+  transition: all 0.5s;
+}
