@@ -4,21 +4,16 @@ import UserNav from "./UserNav";
 
 export default function Header() {
   return (
-    <div className="container flex justify-between mx-auto my-8">
-      <NavLink to="/">
-        <button className="animate-bounce font-bold text-4xl text-yellow-500">
-          Cybersoft
-        </button>
-        {/* <div>
+    <div className="fixed grid grid-cols-3 p-7 w-full z-50 bg-white opacity-90">
+      <div className="flex items-center">
+        <NavLink to="/">
           <img
-            style={{ width: "30%" }}
+            style={{ width: "40%", height: "40%" }}
             src="http://demo1.cybersoft.edu.vn/logo.png"
-            alt=""
-            className="mx-0"
           />
-        </div> */}
-      </NavLink>
-      <div className="space-x-5">
+        </NavLink>
+      </div>
+      <div className="space-x-5 flex items-center">
         <NavLink className="text-black font-bold text-xl" to="/">
           Schedule
         </NavLink>
@@ -29,7 +24,9 @@ export default function Header() {
           Ticket
         </NavLink>
       </div>
-      <UserNav />
+      <div className="flex items-center justify-end">
+        <UserNav />
+      </div>
     </div>
   );
 }

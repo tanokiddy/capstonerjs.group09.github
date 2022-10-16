@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { TOKEN_CYBERSOFT } from "../../services/configURL";
-
+import { GrAndroid, GrApple } from "react-icons/gr";
 export default function ContactHome() {
   const [tabMovie, setTabMovie] = useState([]);
   useEffect(() => {
@@ -53,24 +53,16 @@ export default function ContactHome() {
         <div className="flex">{renderMovieLogo()}</div>
       </div>
       <div className="grid grid-cols-2">
-        <div>
+        <div className="text-left">
           <div className="mb-3">MOBILE APP</div>
-          <div className="space-x-5">
-            <i
-              type="button"
-              style={{ fontSize: 35 }}
-              className="fa fa-android"
-            ></i>
-            <i
-              type="button"
-              style={{ fontSize: 35 }}
-              className="fa fa-apple fa-lg"
-            ></i>
+          <div className="space-x-2 flex justify-center">
+            <GrAndroid type="button" style={{ fontSize: 35 }} />
+            <GrApple type="button" style={{ fontSize: 35 }} />
           </div>
         </div>
         <div className="text-left">
           <div className="mb-3">SOCIAL</div>
-          <div className="flex space-x-3">
+          <div className="flex justify-center space-x-3">
             <img
               type="button"
               style={{ width: 35, height: 35 }}
