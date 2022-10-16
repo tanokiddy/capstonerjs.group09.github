@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 export default function MovieItem({ movie }) {
   let user = useSelector((state) => state.userReducer.userInfo);
-
   return (
     <div
       type="button"
@@ -42,9 +41,8 @@ export default function MovieItem({ movie }) {
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content ">
+          <div className="modal-content">
             <ReactPlayer height="500px" controls={true} url={movie.trailer} />
-            {/* <iframe src={movie.trailer} frameborder="0"></iframe> */}
           </div>
         </div>
       </div>

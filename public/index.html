@@ -25,8 +25,8 @@
     <!-- FONT-AWESOME -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.0/css/font-awesome.css"
+      integrity="sha512-72McA95q/YhjwmWFMGe8RI3aZIMCTJWPBbV8iQY3jy1z9+bi6+jHnERuNrDPo/WGYEzzNs4WdHNyyEr/yXJ9pA=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
@@ -51,5 +51,14 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+      $("body").on("hide.bs.modal", ".modal", function () {
+        const $modal = $(this);
+        // return early if there were no embedded YouTube videos
+        if ($modal.find("iframe").length === 0) return;
+        const html = $modal.html();
+        $modal.html(html);
+      });
+    </script>
   </body>
 </html>
