@@ -71,14 +71,10 @@
 .fa-caret-right:hover {
   filter: brightness(60%);
 }
-#movieItem #moreDetail {
-  transition: all 0.5s;
-}
 #movieItem:hover #moreDetail {
   display: inline-block !important;
   margin-top: 5%;
 }
 #movieItem:hover #movieText {
-  display: none !important;
-  transition: all 0.5s;
+  display: none;
 }

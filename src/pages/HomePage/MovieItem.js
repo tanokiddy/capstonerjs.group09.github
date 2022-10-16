@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-
 export default function MovieItem({ movie }) {
   let user = useSelector((state) => state.userReducer.userInfo);
+
   return (
     <div
       type="button"
@@ -34,16 +34,17 @@ export default function MovieItem({ movie }) {
         ></i>
       </div>
       <div
-        class="modal fade"
+        className="modal fade"
         id={"model" + movie.maPhim}
         tabIndex="-1"
         role="dialog"
         aria-labelledby="modelTitleId"
         aria-hidden="true"
       >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content ">
-            <ReactPlayer url={movie.trailer} />
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content ">
+            <ReactPlayer height="500px" controls={true} url={movie.trailer} />
+            {/* <iframe src={movie.trailer} frameborder="0"></iframe> */}
           </div>
         </div>
       </div>
