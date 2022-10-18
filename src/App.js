@@ -2,22 +2,39 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import BookingPage from "./pages/BookingPage/BookingPage";
 import DetailPage from "./pages/DetailPage/DetailPage";
-import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import Spinner from "./components/Spinner/Spinner";
 import RegisterPage from "./pages/LoginPage/RegisterPage";
+import SecureView from "./HOC/SecureView";
+import Layout from "./HOC/Layout";
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
       <Routes>
-        <Route path="/" element={<HomePage />}></Route>
-        <Route path="/detail/:id" element={<DetailPage />}></Route>
-        <Route path="/purchase/:id" element={<BookingPage />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/register" element={<RegisterPage />}></Route>
+        <Route path="/" element={<Layout Component={HomePage} />}></Route>
+        <Route
+          path="/detail/:id"
+          element={
+            <SecureView>
+              <Layout Component={DetailPage} />
+            </SecureView>
+          }
+        ></Route>
+        <Route
+          path="/purchase/:id"
+          element={
+            <SecureView>
+              <Layout Component={BookingPage} />
+            </SecureView>
+          }
+        ></Route>
+        <Route path="/login" element={<Layout Component={LoginPage} />}></Route>
+        <Route
+          path="/register"
+          element={<Layout Component={RegisterPage} />}
+        ></Route>
       </Routes>
       <Spinner />
     </BrowserRouter>
