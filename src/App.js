@@ -8,6 +8,7 @@ import Spinner from "./components/Spinner/Spinner";
 import RegisterPage from "./pages/LoginPage/RegisterPage";
 import SecureView from "./HOC/SecureView";
 import Layout from "./HOC/Layout";
+import AdminPage from "./pages/Admin/AdminPage";
 
 function App() {
   return (
@@ -34,6 +35,14 @@ function App() {
         <Route
           path="/register"
           element={<Layout Component={RegisterPage} />}
+        ></Route>
+        <Route
+          path="/admin"
+          element={
+            <SecureView>
+              <AdminPage />
+            </SecureView>
+          }
         ></Route>
       </Routes>
       <Spinner />

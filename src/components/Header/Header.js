@@ -4,10 +4,7 @@ import UserNav from "./UserNav";
 
 export default function Header() {
   return (
-    <div
-      style={{ height: "20%" }}
-      className="z-50 relative grid grid-cols-3 p-7 w-full  bg-white opacity-90"
-    >
+    <div className="z-50 relative grid grid-cols-3 p-7 w-full  bg-white opacity-90">
       <div className="flex items-center">
         <NavLink to="/">
           <img
