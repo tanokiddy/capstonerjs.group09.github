@@ -42,7 +42,7 @@ export default function CarouselHome() {
     });
   };
   return (
-    <div className="mb-5 mx-auto">
+    <div className="mb-2 mx-auto">
       <Swiper
         cssMode={true}
         navigation={true}
