@@ -8,18 +8,31 @@ import { userServ } from "../../services/userService";
 import { localServ } from "../../services/localService";
 import { useDispatch } from "react-redux";
 import { userLoginAction } from "../../redux/actions/userAction";
+import Swal from "sweetalert2";
 export default function LoginPage() {
   let navigate = useNavigate();
   let dispatch = useDispatch();
   const onFinish = (values) => {
     let onSuccess = () => {
-      message.success("Login successful");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Login Successful",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       setTimeout(() => {
         navigate("/");
       }, 1500);
     };
     let onFail = () => {
-      message.error("Login failed");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Login Failed",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     };
     // console.log("Received values of form: ", values);
     userServ
