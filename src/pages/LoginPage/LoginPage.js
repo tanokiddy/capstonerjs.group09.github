@@ -36,7 +36,7 @@ export default function LoginPage() {
       });
   };
   return (
-    <div className="flex justify-center container items-center">
+    <div className="flex justify-center container items-center pt-20">
       <Lottie className="w-2/3 h-96" animationData={bg_login} />
       <Form
         name="normal_login"

@@ -95,3 +95,6 @@
 .site-layout .site-layout-background {
   background: #fff;
 }
+* {
+  scroll-behavior: smooth;
+}

@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import Spinner from "./components/Spinner/Spinner";
 import RegisterPage from "./pages/LoginPage/RegisterPage";
 import SecureView from "./HOC/SecureView";
+import LayoutNon from "./HOC/LayoutNon";
 import Layout from "./HOC/Layout";
 import AdminPage from "./pages/Admin/AdminPage";
 
@@ -19,7 +20,7 @@ function App() {
           path="/detail/:id"
           element={
             <SecureView>
-              <Layout Component={DetailPage} />
+              <LayoutNon Component={DetailPage} />
             </SecureView>
           }
         ></Route>
@@ -27,14 +28,17 @@ function App() {
           path="/purchase/:id"
           element={
             <SecureView>
-              <Layout Component={BookingPage} />
+              <LayoutNon Component={BookingPage} />
             </SecureView>
           }
         ></Route>
-        <Route path="/login" element={<Layout Component={LoginPage} />}></Route>
+        <Route
+          path="/login"
+          element={<LayoutNon Component={LoginPage} />}
+        ></Route>
         <Route
           path="/register"
-          element={<Layout Component={RegisterPage} />}
+          element={<LayoutNon Component={RegisterPage} />}
         ></Route>
         <Route
           path="/admin"

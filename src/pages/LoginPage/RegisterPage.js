@@ -1,4 +1,10 @@
-import { Button, Checkbox, Form, Input, message, Select } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  message,
+  // Select
+} from "antd";
 import React from "react";
 import bg_login from "../../assets/bg.login.json";
 import Lottie from "lottie-react";
@@ -14,10 +20,9 @@ import {
   UserOutlined,
   MailOutlined,
   PhoneOutlined,
-  HddOutlined,
   IdcardOutlined,
 } from "@ant-design/icons";
-const { Option } = Select;
+// const { Option } = Select;
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -59,7 +64,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex items-center container">
+    <div className="flex items-center container pt-20">
       <Lottie className="w-2/3 h-96" animationData={bg_login} />
       <Form
         className="w-1/3 text-right"

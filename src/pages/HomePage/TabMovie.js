@@ -67,8 +67,12 @@ export default function TabMovie() {
   };
 
   return (
-    <div className="container my-2 py-3 border-t border-red-500">
-      <Tabs defaultActiveKey="1" tabPosition="left">
+    <div id="TabMovie" className="container mb-2 py-20 border-t border-red-500">
+      <Tabs
+        className="border-black border"
+        defaultActiveKey="1"
+        tabPosition="left"
+      >
         {renderTabMovie()}
       </Tabs>
     </div>
