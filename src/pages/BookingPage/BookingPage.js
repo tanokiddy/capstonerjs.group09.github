@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 import {
   loadingOffAction,
   loadingOnAction,
@@ -14,7 +15,7 @@ export default function BookingPage() {
   let dispatch = useDispatch();
   let seatState = useSelector((state) => state.movieReducer.seat);
   let bookingState = useSelector((state) => state.movieReducer.booking);
-  console.log({ seatState, bookingState });
+  console.log("bookingState", bookingState);
   useEffect(() => {
     dispatch(loadingOnAction());
     movieServ
@@ -37,8 +38,16 @@ export default function BookingPage() {
       .then((res) => {
         console.log(res);
         dispatch(loadingOffAction());
-        alert("Đặt vé thành công");
-        window.location.reload();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Booking successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       })
       .catch((err) => {
         console.log(err);
@@ -99,11 +108,15 @@ export default function BookingPage() {
                   style={{ borderBottom: 0 }}
                   className="text-center text-2xl"
                 >
-                  {seatState.giaVe ? (
-                    <span> {seatState?.giaVe?.toLocaleString()} VND</span>
-                  ) : (
-                    <span>0 VND</span>
-                  )}
+                  <span>
+                    {seatState
+                      .reduce(
+                        (total, seatStateItem) => seatStateItem?.giaVe + total,
+                        0
+                      )
+                      .toLocaleString()}
+                    VND
+                  </span>
                 </th>
               </tr>
             </thead>
@@ -143,8 +156,13 @@ export default function BookingPage() {
               <tr>
                 <th className="flex justify-between">
                   Selected:{" "}
-                  {seatState.tenGhe ? (
-                    <span className="text-right">Ghế {seatState?.tenGhe}</span>
+                  {seatState[0]?.tenGhe ? (
+                    <span className="text-right">
+                      Ghế{" "}
+                      {seatState.map((seatStateItem) => {
+                        return `${seatStateItem?.tenGhe}, `;
+                      })}
+                    </span>
                   ) : (
                     <></>
                   )}
@@ -168,5 +186,5 @@ export default function BookingPage() {
       </div>
     );
   };
-  return <div className="">{renderBookingPage()}</div>;
+  return <div className="pt-24">{renderBookingPage()}</div>;
 }
