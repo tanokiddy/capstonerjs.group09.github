@@ -14,6 +14,7 @@ export default function BookingPage() {
   const [movieBooking, setMovieBooking] = useState({});
   let dispatch = useDispatch();
   let seatState = useSelector((state) => state.movieReducer.seat);
+  console.log("seatState: ", seatState);
   let bookingState = useSelector((state) => state.movieReducer.booking);
   console.log("bookingState", bookingState);
   useEffect(() => {
@@ -53,52 +54,95 @@ export default function BookingPage() {
         console.log(err);
       });
   };
-
   const renderBookingPage = () => {
     // console.log("movieBooking", movieBooking);
     let { thongTinPhim, danhSachGhe } = movieBooking;
     return (
       <div className="flex">
-        <div className="w-2/3 px-5 grid grid-cols-10 gap-5">
-          {danhSachGhe?.map((seat, index) => {
-            let statusSeat = seat?.daDat;
-            let typeOfSeat = seat?.loaiGhe;
-            if (statusSeat === false && typeOfSeat === "Thuong") {
-              return (
-                <button
-                  onClick={() => {
-                    dispatch(bookTicketAction(seat, thongTinPhim));
-                  }}
-                  key={index}
-                  className="rounded py-1 bg-gray-300 hover:bg-gray-200 duration-200 text-black"
-                >
-                  {seat?.tenGhe}
-                </button>
-              );
-            } else if (statusSeat === false && typeOfSeat === "Vip") {
-              return (
-                <button
-                  onClick={() => {
-                    dispatch(bookTicketAction(seat, thongTinPhim));
-                  }}
-                  key={index}
-                  className="rounded py-1 bg-orange-400 hover:bg-gray-200 duration-200 text-black"
-                >
-                  {seat?.tenGhe}
-                </button>
-              );
-            } else if (statusSeat === true) {
-              return (
-                <button
-                  key={index}
-                  disabled
-                  className="rounded py-1 bg-gray-500 text-black"
-                >
-                  <span>X</span>
-                </button>
-              );
-            }
-          })}
+        <div className="w-2/3 ">
+          <div className="px-5">
+            <div className=" py-3 text-2xl bg-gray-500 text-white mb-3 text-center">
+              SCREEN
+            </div>
+          </div>
+          <div className="px-5 grid grid-cols-10 gap-5">
+            {danhSachGhe?.map((seat, index) => {
+              let statusSeat = seat?.daDat;
+              let typeOfSeat = seat?.loaiGhe;
+              let index1 = seatState.findIndex((item) => {
+                return item.maGhe === seat.maGhe;
+              });
+              if (statusSeat === false && typeOfSeat === "Thuong") {
+                return (
+                  <button
+                    onClick={() => {
+                      dispatch(bookTicketAction(seat, thongTinPhim));
+                    }}
+                    key={index}
+                    style={index1 !== -1 ? { backgroundColor: "green" } : {}}
+                    className="rounded py-1 bg-gray-300 hover:bg-gray-200 duration-200 text-black"
+                  >
+                    {seat?.tenGhe}
+                  </button>
+                );
+              } else if (statusSeat === false && typeOfSeat === "Vip") {
+                return (
+                  <button
+                    onClick={() => {
+                      dispatch(bookTicketAction(seat, thongTinPhim));
+                    }}
+                    key={index}
+                    style={index1 !== -1 ? { backgroundColor: "green" } : {}}
+                    className="rounded py-1 bg-orange-400 hover:bg-gray-200 duration-200 text-black"
+                  >
+                    {seat?.tenGhe}
+                  </button>
+                );
+              } else if (statusSeat === true) {
+                return (
+                  <button
+                    key={index}
+                    disabled
+                    className="rounded py-1 bg-gray-500 text-black"
+                  >
+                    <span>X</span>
+                  </button>
+                );
+              }
+            })}
+          </div>
+          <div className="grid grid-cols-4 my-3 px-5">
+            <div className="flex justify-center items-center">
+              <div
+                style={{ width: "30px", height: "30px" }}
+                className="mr-1 rounded bg-gray-300 text-black"
+              ></div>
+              <span>Standard</span>
+            </div>
+            <div className="flex justify-center items-center">
+              <div
+                style={{ width: "30px", height: "30px" }}
+                className="mr-1 rounded bg-orange-500 text-black"
+              ></div>
+              <span>VIP</span>
+            </div>
+            <div className="flex justify-center items-center">
+              <div
+                style={{ width: "30px", height: "30px" }}
+                className="mr-1 rounded bg-green-700 text-black"
+              ></div>
+              <span>Checked</span>
+            </div>
+            <div className="flex justify-center items-center">
+              <div
+                style={{ width: "30px", height: "30px" }}
+                className="mr-1 pt-1 text-center rounded bg-gray-500 text-black"
+              >
+                X
+              </div>
+              <span>Occupied</span>
+            </div>
+          </div>
         </div>
         <div className="w-1/3">
           <table className="table p-5 border shadow ">

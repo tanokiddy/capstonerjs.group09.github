@@ -2,7 +2,7 @@ import {
   Button,
   Form,
   Input,
-  message,
+  // message,
   // Select
 } from "antd";
 import React from "react";
@@ -22,6 +22,7 @@ import {
   PhoneOutlined,
   IdcardOutlined,
 } from "@ant-design/icons";
+import Swal from "sweetalert2";
 // const { Option } = Select;
 const formItemLayout = {
   labelCol: {
@@ -40,7 +41,13 @@ const formItemLayout = {
 };
 export default function RegisterPage() {
   let onSuccess = () => {
-    message.success("Register successful");
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Register Successful",
+      showConfirmButton: false,
+      timer: 1500,
+    });
     setTimeout(() => {
       navigate("/login");
     }, 1500);
