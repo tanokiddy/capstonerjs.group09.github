@@ -10,6 +10,9 @@ import SecureView from "./HOC/SecureView";
 import LayoutNon from "./HOC/LayoutNon";
 import Layout from "./HOC/Layout";
 import AdminPage from "./pages/Admin/AdminPage";
+import Users from "./pages/Admin/Users";
+import Films from "./pages/Admin/Films";
+import UserTickets from "./pages/HomePage/UserTickets";
 
 function App() {
   return (
@@ -45,6 +48,30 @@ function App() {
           element={
             <SecureView>
               <LayoutNon Component={AdminPage} />
+            </SecureView>
+          }
+        ></Route>
+        <Route
+          path="/admin/userManagement"
+          element={
+            <SecureView>
+              <LayoutNon Component={Users} />
+            </SecureView>
+          }
+        ></Route>
+        <Route
+          path="/admin/films/filmManagement"
+          element={
+            <SecureView>
+              <LayoutNon Component={Films} />
+            </SecureView>
+          }
+        ></Route>
+        <Route
+          path="/userTickets"
+          element={
+            <SecureView>
+              <LayoutNon Component={UserTickets} />
             </SecureView>
           }
         ></Route>

@@ -1,56 +1,11 @@
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
-import React, { useState, useEffect } from "react";
-import Films from "./Films";
-import { movieServ } from "../../services/movieService";
-import { userServ } from "../../services/userService";
-import Users from "./Users";
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const { Header, Content, Sider } = Layout;
 
 export default function AdminPage() {
-  const [resDataFilm, setResDataFilm] = useState([]);
-  const [resDataUser, setResDataUser] = useState([]);
-  const [dataFilm, setDataFilm] = useState([]);
-  const [dataUser, setDataUser] = useState([]);
-
-  const handleShowUserList = () => {
-    setDataUser(resDataUser);
-    if (dataFilm) {
-      setDataFilm([]);
-    }
-  };
-
-  const handleShowFilm = () => {
-    setDataFilm(resDataFilm);
-    if (dataUser) {
-      setDataUser([]);
-    }
-  };
-  //get data film from api
-  useEffect(() => {
-    movieServ
-      .getListMovie()
-      .then((res) => {
-        console.log(res);
-        setResDataFilm(res.data.content);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-  //get data user from api
-  useEffect(() => {
-    userServ
-      .userList()
-      .then((res) => {
-        console.log(res);
-        setResDataUser(res.data.content);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout
@@ -73,16 +28,16 @@ export default function AdminPage() {
           />
         </div> */}
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-          <Menu.Item
-            key="userList"
-            onClick={handleShowUserList}
-            icon={<UserOutlined />}
-          >
-            User
+          <Menu.Item key="userList" icon={<UserOutlined />}>
+            <NavLink to="/admin/userManagement">User</NavLink>
           </Menu.Item>
           <Menu.SubMenu key="films" title="Films" icon={<FileOutlined />}>
-            <Menu.Item onClick={handleShowFilm}>Films</Menu.Item>
-            <Menu.Item>Add new</Menu.Item>
+            <Menu.Item key="filmsItem">
+              <NavLink to="/admin/films/filmManagement">
+                Film Management
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="addFilm">Add new</Menu.Item>
           </Menu.SubMenu>
         </Menu>
       </Sider>
@@ -109,12 +64,7 @@ export default function AdminPage() {
               padding: 24,
               minHeight: 360,
             }}
-          >
-            <div>
-              {dataFilm[0]?.maPhim ? <Films dataFilm={dataFilm} /> : <></>}
-              {dataUser[0]?.taiKhoan ? <Users data={dataUser} /> : <></>}
-            </div>
-          </div>
+          ></div>
         </Content>
       </Layout>
     </Layout>

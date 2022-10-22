@@ -18,15 +18,15 @@ export default function Header() {
         </NavLink>
       </div>
       <div className="space-x-5 flex items-center justify-between">
-        <a href="#schedule" className="text-black font-bold text-xl" to="">
+        <a href="#nowShowing" className="text-black font-bold text-xl" to="">
+          Now Showing
+        </a>
+        <a href="#TabMovie" className="text-black font-bold text-xl">
           Schedule
         </a>
-        <NavLink className="text-black font-bold text-xl" to="/">
-          News & Promotion
-        </NavLink>{" "}
-        <a className="text-black font-bold text-xl" href="#TabMovie">
-          Ticket
-        </a>
+        <NavLink to="/userTickets" className="text-black font-bold text-xl">
+          Your Ticket
+        </NavLink>
       </div>
       <div className="flex items-center justify-end">
         <UserNav />

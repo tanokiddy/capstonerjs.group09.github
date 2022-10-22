@@ -1,6 +1,6 @@
 import axios from "axios";
-import { BASE_URL, TOKEN_CYBERSOFT } from "./configURL";
-
+import { BASE_URL, https, TOKEN_CYBERSOFT } from "./configURL";
+import { localServ } from "../services/localService";
 export const userServ = {
   userLogin: (valuesLogin) => {
     return axios({
@@ -24,10 +24,24 @@ export const userServ = {
   },
   userList: () => {
     return axios({
-      url: `${BASE_URL}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01`,
+      url: `${BASE_URL}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP00`,
       method: "GET",
       headers: {
         TokenCybersoft: TOKEN_CYBERSOFT,
+      },
+    });
+  },
+  userDelete: (taiKhoan) => {
+    let uri = `/api/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${taiKhoan}`;
+    return https.delete(uri);
+  },
+  userTicket: () => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyNguoiDung/ThongTinTaiKhoan`,
+      method: "POST",
+      headers: {
+        TokenCybersoft: TOKEN_CYBERSOFT,
+        Authorization: "Bearer " + localServ.user.getDataUser()?.accessToken,
       },
     });
   },

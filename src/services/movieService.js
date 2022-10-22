@@ -4,7 +4,7 @@ import { localServ } from "./localService";
 
 export const movieServ = {
   getListMovie: () => {
-    let uri = `/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP04`;
+    let uri = `/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP01`;
     return https.get(uri);
   },
   getScheduleMovieByTheatre: () => {
@@ -34,5 +34,9 @@ export const movieServ = {
         Authorization: "Bearer " + localServ.user.getDataUser()?.accessToken,
       },
     });
+  },
+  deleteMovie: (movieId) => {
+    let uri = `/api/QuanLyPhim/XoaPhim?MaPhim=${movieId}`;
+    return https.delete(uri);
   },
 };
