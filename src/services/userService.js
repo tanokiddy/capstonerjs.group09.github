@@ -22,4 +22,13 @@ export const userServ = {
       },
     });
   },
+  userList: () => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01`,
+      method: "GET",
+      headers: {
+        TokenCybersoft: TOKEN_CYBERSOFT,
+      },
+    });
+  },
 };

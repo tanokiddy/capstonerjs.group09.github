@@ -1,21 +1,11 @@
 import { Space, Table } from "antd";
-import React, { useState, useEffect } from "react";
-import { movieServ } from "../../services/movieService";
+import { Input } from "antd";
+import React, { useState } from "react";
 
-export default function Films() {
-  const [dataFilm, setDataFilm] = useState([]);
-  useEffect(() => {
-    movieServ
-      .getListMovie()
-      .then((res) => {
-        console.log(res);
-        setDataFilm(res.data.content);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+const { Search } = Input;
+const onSearch = (value) => console.log(value);
 
+export default function Films({ dataFilm }) {
   const [sortedInfo, setSortedInfo] = useState({});
   const handleChange = (pagination, filters, sorter) => {
     console.log("Various parameters", pagination, filters, sorter);
@@ -67,6 +57,16 @@ export default function Films() {
   return (
     <div>
       {" "}
+      <div className="text-2xl bold">Quản lý phim</div>
+      <button className="border text-blue-500 border-blue-500 p-1 my-1">
+        Thêm phim
+      </button>
+      <Search
+        placeholder="input search text"
+        onSearch={onSearch}
+        enterButton
+        className="my-2"
+      />
       <Space
         style={{
           marginBottom: 16,

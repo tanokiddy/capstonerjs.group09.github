@@ -44,7 +44,7 @@ function App() {
           path="/admin"
           element={
             <SecureView>
-              <AdminPage />
+              <LayoutNon Component={AdminPage} />
             </SecureView>
           }
         ></Route>

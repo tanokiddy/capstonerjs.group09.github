@@ -1,55 +1,90 @@
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
-import React, { useState } from "react";
-import { Input } from "antd";
+import React, { useState, useEffect } from "react";
 import Films from "./Films";
+import { movieServ } from "../../services/movieService";
+import { userServ } from "../../services/userService";
+import Users from "./Users";
 
-const { Search } = Input;
-const onSearch = (value) => console.log(value);
-const { Header, Content, Footer, Sider } = Layout;
-function getItem(label, key, icon, children) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-}
-const items = [
-  getItem("User", "sub1", <UserOutlined />),
-  getItem("Films", "9", <FileOutlined />, [
-    getItem("Films", "3"),
-    getItem("Add new", "4"),
-  ]),
-];
+const { Header, Content, Sider } = Layout;
 
 export default function AdminPage() {
+  const [resDataFilm, setResDataFilm] = useState([]);
+  const [resDataUser, setResDataUser] = useState([]);
+  const [dataFilm, setDataFilm] = useState([]);
+  const [dataUser, setDataUser] = useState([]);
+
+  const handleShowUserList = () => {
+    setDataUser(resDataUser);
+    if (dataFilm) {
+      setDataFilm([]);
+    }
+  };
+
+  const handleShowFilm = () => {
+    setDataFilm(resDataFilm);
+    if (dataUser) {
+      setDataUser([]);
+    }
+  };
+  //get data film from api
+  useEffect(() => {
+    movieServ
+      .getListMovie()
+      .then((res) => {
+        console.log(res);
+        setResDataFilm(res.data.content);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  //get data user from api
+  useEffect(() => {
+    userServ
+      .userList()
+      .then((res) => {
+        console.log(res);
+        setResDataUser(res.data.content);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout
       style={{
         minHeight: "100vh",
       }}
+      className="pt-20"
     >
       <Sider
         collapsible
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
       >
-        <div className="logo container my-3">
+        {/* <div className="logo container my-3">
           <img
             // style={{ width: "100%", height: "100%" }}
             src="http://demo1.cybersoft.edu.vn/logo.png"
             alt="logoCybersoft"
             className="object-fit"
           />
-        </div>
-        <Menu
-          theme="dark"
-          defaultSelectedKeys={["1"]}
-          mode="inline"
-          items={items}
-        />
+        </div> */}
+        <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+          <Menu.Item
+            key="userList"
+            onClick={handleShowUserList}
+            icon={<UserOutlined />}
+          >
+            User
+          </Menu.Item>
+          <Menu.SubMenu key="films" title="Films" icon={<FileOutlined />}>
+            <Menu.Item onClick={handleShowFilm}>Films</Menu.Item>
+            <Menu.Item>Add new</Menu.Item>
+          </Menu.SubMenu>
+        </Menu>
       </Sider>
       <Layout className="site-layout">
         <Header
@@ -75,28 +110,12 @@ export default function AdminPage() {
               minHeight: 360,
             }}
           >
-            <div className="text-2xl bold">Quản lý phim</div>
-            <button className="border text-blue-500 border-blue-500 p-1 my-1">
-              Thêm phim
-            </button>
-            <Search
-              placeholder="input search text"
-              onSearch={onSearch}
-              enterButton
-              className="my-2"
-            />
             <div>
-              <Films />
+              {dataFilm[0]?.maPhim ? <Films dataFilm={dataFilm} /> : <></>}
+              {dataUser[0]?.taiKhoan ? <Users data={dataUser} /> : <></>}
             </div>
           </div>
         </Content>
-        <Footer
-          style={{
-            textAlign: "center",
-          }}
-        >
-          Ant Design ©2018 Created by Ant UED
-        </Footer>
       </Layout>
     </Layout>
   );
