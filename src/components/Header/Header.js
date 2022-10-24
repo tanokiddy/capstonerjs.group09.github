@@ -25,7 +25,7 @@ export default function Header() {
           Schedule
         </a>
         <NavLink to="/userTickets" className="text-black font-bold text-xl">
-          Your Ticket
+          My Tickets
         </NavLink>
       </div>
       <div className="flex items-center justify-end">

@@ -4,11 +4,11 @@ import { localServ } from "./localService";
 
 export const movieServ = {
   getListMovie: () => {
-    let uri = `/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP01`;
+    let uri = `/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP03`;
     return https.get(uri);
   },
   getScheduleMovieByTheatre: () => {
-    let uri = `/api/QuanLyRap/LayThongTinLichChieuHeThongRap
+    let uri = `/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP03
     `;
     return https.get(uri);
   },

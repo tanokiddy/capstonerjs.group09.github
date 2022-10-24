@@ -1,5 +1,5 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input } from "antd";
 import bg_login from "../../assets/bg.login.json";
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -89,8 +89,8 @@ export default function LoginPage() {
             placeholder="Password"
           />
         </Form.Item>
-        <Form.Item className="flex justify-end">
-          <NavLink className="login-form-forgot" href="">
+        <Form.Item className="flex justify-end ">
+          <NavLink className="login-form-forgot text-red-500" href="">
             Forgot password?
           </NavLink>
         </Form.Item>
@@ -98,8 +98,10 @@ export default function LoginPage() {
         <Form.Item>
           <Button
             type="primary"
+            danger
             htmlType="submit"
-            className="login-form-button w-full"
+            className="login-form-button w-full text-white font-bold text-3xl"
+            size="large"
           >
             Log in
           </Button>

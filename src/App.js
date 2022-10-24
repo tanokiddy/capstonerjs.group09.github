@@ -13,6 +13,10 @@ import AdminPage from "./pages/Admin/AdminPage";
 import Users from "./pages/Admin/Users";
 import Films from "./pages/Admin/Films";
 import UserTickets from "./pages/HomePage/UserTickets";
+import AddUser from "./pages/Admin/AddUser";
+import UserProfile from "./pages/HomePage/UserProfile";
+import Error403 from "./pages/Admin/Error403";
+import SecureViewAdmin from "./HOC/SecureViewAdmin";
 
 function App() {
   return (
@@ -46,24 +50,40 @@ function App() {
         <Route
           path="/admin"
           element={
-            <SecureView>
+            <SecureViewAdmin>
               <LayoutNon Component={AdminPage} />
-            </SecureView>
+            </SecureViewAdmin>
           }
         ></Route>
         <Route
           path="/admin/userManagement"
           element={
-            <SecureView>
+            <SecureViewAdmin>
               <LayoutNon Component={Users} />
-            </SecureView>
+            </SecureViewAdmin>
           }
         ></Route>
         <Route
           path="/admin/films/filmManagement"
           element={
-            <SecureView>
+            <SecureViewAdmin>
               <LayoutNon Component={Films} />
+            </SecureViewAdmin>
+          }
+        ></Route>
+        <Route
+          path="/admin/userManagement/addUser"
+          element={
+            <SecureView>
+              <LayoutNon Component={AddUser} />
+            </SecureView>
+          }
+        ></Route>
+        <Route
+          path="/profile"
+          element={
+            <SecureView>
+              <LayoutNon Component={UserProfile} />
             </SecureView>
           }
         ></Route>
@@ -75,6 +95,7 @@ function App() {
             </SecureView>
           }
         ></Route>
+        <Route path="/Error403" element={<Error403 />}></Route>
       </Routes>
       <Spinner />
     </BrowserRouter>

@@ -24,7 +24,7 @@ export const userServ = {
   },
   userList: () => {
     return axios({
-      url: `${BASE_URL}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP00`,
+      url: `${BASE_URL}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP03`,
       method: "GET",
       headers: {
         TokenCybersoft: TOKEN_CYBERSOFT,
@@ -39,6 +39,42 @@ export const userServ = {
     return axios({
       url: `${BASE_URL}/api/QuanLyNguoiDung/ThongTinTaiKhoan`,
       method: "POST",
+      headers: {
+        TokenCybersoft: TOKEN_CYBERSOFT,
+        Authorization: "Bearer " + localServ.user.getDataUser()?.accessToken,
+      },
+    });
+  },
+  userSearch: (keyWord) => {
+    let uri = `/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP03&tuKhoa=${keyWord}`;
+    return https.get(uri);
+  },
+  addUser: (dataUser) => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyNguoiDung/ThemNguoiDung`,
+      method: "POST",
+      data: dataUser,
+      headers: {
+        TokenCybersoft: TOKEN_CYBERSOFT,
+        Authorization: "Bearer " + localServ.user.getDataUser()?.accessToken,
+      },
+    });
+  },
+  getUserProfile: () => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyNguoiDung/ThongTinTaiKhoan`,
+      method: "POST",
+      headers: {
+        TokenCybersoft: TOKEN_CYBERSOFT,
+        Authorization: "Bearer " + localServ.user.getDataUser()?.accessToken,
+      },
+    });
+  },
+  updateUserProfile: (inputValues) => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
+      method: "PUT",
+      data: inputValues,
       headers: {
         TokenCybersoft: TOKEN_CYBERSOFT,
         Authorization: "Bearer " + localServ.user.getDataUser()?.accessToken,

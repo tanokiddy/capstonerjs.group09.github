@@ -3,27 +3,26 @@ import {
   Form,
   Input,
   // message,
-  // Select
+  Select,
 } from "antd";
-import React from "react";
-import bg_login from "../../assets/bg.login.json";
-import Lottie from "lottie-react";
 import { userServ } from "../../services/userService";
 import { useDispatch } from "react-redux";
 import {
   loadingOffAction,
   loadingOnAction,
 } from "../../redux/actions/loadingAction";
-import { useNavigate } from "react-router-dom";
 import {
   LockOutlined,
   UserOutlined,
   MailOutlined,
   PhoneOutlined,
   IdcardOutlined,
+  FileOutlined,
 } from "@ant-design/icons";
 import Swal from "sweetalert2";
-// const { Option } = Select;
+
+import React, { useState, useEffect } from "react";
+
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -39,12 +38,12 @@ const formItemLayout = {
     },
   },
 };
-export default function RegisterPage() {
+export default function UserProfile() {
   let onFail = () => {
     Swal.fire({
       position: "center",
       icon: "error",
-      title: "Username existed!",
+      title: "Update Failed",
       showConfirmButton: false,
       timer: 1500,
     });
@@ -53,22 +52,46 @@ export default function RegisterPage() {
     Swal.fire({
       position: "center",
       icon: "success",
-      title: "Register Successful",
+      title: "Update Profile Successful",
       showConfirmButton: false,
       timer: 1500,
     });
     setTimeout(() => {
-      navigate("/login");
+      window.location.reload();
     }, 1500);
   };
   const [form] = Form.useForm();
   let dispatch = useDispatch();
-  let navigate = useNavigate();
+  const [userProfile, setUserProfile] = useState({});
+  useEffect(() => {
+    userServ
+      .getUserProfile()
+      .then((res) => {
+        console.log(res);
+        setUserProfile(res.data.content);
+        form.setFieldsValue({
+          matKhau: res.data.content.matKhau,
+          email: res.data.content.email,
+          soDT: res.data.content.soDT,
+          hoTen: res.data.content.hoTen,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const onFinish = (values) => {
-    // console.log("Received values of form: ", values);
+    values = {
+      ...values,
+      taiKhoan: userProfile.taiKhoan,
+      maNhom: userProfile.maNhom,
+      maLoaiNguoiDung: userProfile.maLoaiNguoiDung,
+    };
+    console.log("values: ", values);
     dispatch(loadingOnAction());
     userServ
-      .userRegister(values)
+      .updateUserProfile(values)
       .then((res) => {
         console.log(res);
         dispatch(loadingOffAction());
@@ -80,19 +103,17 @@ export default function RegisterPage() {
         onFail();
       });
   };
-
   return (
-    <div className="flex items-center container pt-20">
-      <Lottie className="w-2/3 h-96" animationData={bg_login} />
+    <div className="pt-40 container flex justify-center">
       <Form
-        className="w-1/3 text-right"
+        className="gap-3 w-1/2 grid grid-cols-2 text-right"
         {...formItemLayout}
         form={form}
-        name="register"
+        name=""
         onFinish={onFinish}
         scrollToFirstError
       >
-        <Form.Item
+        {/* <Form.Item
           name="taiKhoan"
           tooltip="What do you want others to call you?"
           rules={[
@@ -104,10 +125,11 @@ export default function RegisterPage() {
           ]}
         >
           <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="Username"
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            disabled
           />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item
           name="matKhau"
           rules={[
@@ -142,7 +164,7 @@ export default function RegisterPage() {
           />
         </Form.Item>
         <Form.Item
-          name="soDt"
+          name="soDT"
           rules={[
             {
               required: true,
@@ -155,26 +177,6 @@ export default function RegisterPage() {
             placeholder="Phone Number"
           />
         </Form.Item>
-        {/* <Form.Item
-            name="maNhom"
-            rules={[
-              {
-                required: true,
-                message: "Please select group code!",
-              },
-            ]}
-          >
-            <Select placeholder="select your group code">
-              <Option value="GP00">GP00</Option>
-              <Option value="GP01">GP01</Option>
-              <Option value="GP02">GP02</Option>
-              <Option value="GP03">GP03</Option>
-              <Option value="GP04">GP04</Option>
-              <Option value="GP05">GP05</Option>
-              <Option value="GP06">GP06</Option>
-              <Option value="GP07">GP07</Option>
-            </Select>
-          </Form.Item> */}
         <Form.Item
           name="hoTen"
           tooltip="What do you want others to call you?"
@@ -191,30 +193,9 @@ export default function RegisterPage() {
             placeholder="Full Name"
           />
         </Form.Item>
-        {/* <Form.Item
-            name="agreement"
-            valuePropName="checked"
-            rules={[
-              {
-                validator: (_, value) =>
-                  value
-                    ? Promise.resolve()
-                    : Promise.reject(new Error("You must accept agreement")),
-              },
-            ]}
-          >
-            <Checkbox>
-              I have read the <a href="">agreement</a>
-            </Checkbox>
-          </Form.Item> */}
-        <Form.Item>
-          <Button
-            size="large"
-            className="w-full "
-            type="primary"
-            htmlType="submit"
-          >
-            Sign Up
+        <Form.Item className="text-left">
+          <Button type="primary" htmlType="submit">
+            Update
           </Button>
         </Form.Item>
       </Form>

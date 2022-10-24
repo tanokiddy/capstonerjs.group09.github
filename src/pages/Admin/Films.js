@@ -1,5 +1,4 @@
 import { Space, Table } from "antd";
-import { Input } from "antd";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import React, { useState, useEffect } from "react";
@@ -13,9 +12,6 @@ import {
   loadingOnAction,
 } from "../../redux/actions/loadingAction";
 import Swal from "sweetalert2";
-
-const { Search } = Input;
-const onSearch = (value) => console.log(value);
 const { Header, Content, Sider } = Layout;
 
 export default function Films() {
@@ -181,16 +177,7 @@ export default function Films() {
             }}
           >
             <div>
-              <div className="text-2xl bold">Quản lý phim</div>
-              <button className="border text-blue-500 border-blue-500 p-1 my-1">
-                Thêm phim
-              </button>
-              <Search
-                placeholder="input search text"
-                onSearch={onSearch}
-                enterButton
-                className="my-2"
-              />
+              <div className="text-2xl bold mb-4">Quản lý phim</div>
               <Space
                 style={{
                   marginBottom: 16,

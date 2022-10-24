@@ -98,3 +98,26 @@
 * {
   scroll-behavior: smooth;
 }
+
+.card .truncate {
+  text-overflow: ellipsis;
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card .truncate:hover {
+  text-overflow: clip;
+  width: auto;
+  white-space: normal;
+}
+
+.ant-menu:after,
+.ant-menu:before {
+  display: none !important;
+  content: "";
+}
+
+.ant-menu-horizontal {
+  border: none !important;
+}

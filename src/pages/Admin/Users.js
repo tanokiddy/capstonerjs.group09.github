@@ -14,7 +14,6 @@ import {
   loadingOnAction,
 } from "../../redux/actions/loadingAction";
 const { Search } = Input;
-const onSearch = (value) => console.log(value);
 const { Header, Content, Sider } = Layout;
 
 const columns = [
@@ -97,9 +96,24 @@ const handleUserDelete = (taiKhoan) => {
       console.log(err);
     });
 };
+
 export default function Users() {
   const [dataUser, setDataUser] = useState([]);
   const [collapsed, setCollapsed] = useState(false);
+  const onSearch = (value) => {
+    handleSearch(value);
+  };
+  const handleSearch = (keyWord) => {
+    userServ
+      .userSearch(keyWord)
+      .then((res) => {
+        console.log(res);
+        setDataUser(res.data.content);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   let dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadingOnAction());
@@ -145,7 +159,7 @@ export default function Users() {
                 Film Management
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="addFilm">Add new</Menu.Item>
+            <Menu.Item key="addFilm">Add New</Menu.Item>
           </Menu.SubMenu>
         </Menu>
       </Sider>
@@ -175,9 +189,11 @@ export default function Users() {
           >
             <div>
               <div className="text-2xl bold">Quản lý người dùng</div>
-              <button className="border text-blue-500 border-blue-500 p-1 my-1">
-                Thêm người dùng
-              </button>
+              <NavLink to="/admin/userManagement/addUser">
+                <button className="border text-white font-bold bg-blue-500 rounded p-2 my-1">
+                  + Thêm người dùng
+                </button>
+              </NavLink>
               <Search
                 placeholder="input search text"
                 onSearch={onSearch}
