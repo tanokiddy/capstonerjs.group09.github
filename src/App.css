@@ -115,7 +115,7 @@
 .ant-menu:after,
 .ant-menu:before {
   display: none !important;
-  content: "";
+  /* content: ""; */
 }
 
 .ant-menu-horizontal {

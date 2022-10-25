@@ -54,14 +54,14 @@ export default function ContactHome() {
       </div>
       <div className="grid grid-cols-2">
         <div className="text-left">
-          <div className="mb-3">MOBILE APP</div>
+          <div className="mb-3 text-center">MOBILE APP</div>
           <div className="space-x-2 flex justify-center">
             <GrAndroid type="button" style={{ fontSize: 35 }} />
             <GrApple type="button" style={{ fontSize: 35 }} />
           </div>
         </div>
         <div className="text-left">
-          <div className="mb-3">SOCIAL</div>
+          <div className="mb-3 text-center">SOCIAL</div>
           <div className="flex justify-center space-x-3">
             <img
               type="button"

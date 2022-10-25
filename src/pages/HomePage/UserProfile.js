@@ -64,6 +64,7 @@ export default function UserProfile() {
   let dispatch = useDispatch();
   const [userProfile, setUserProfile] = useState({});
   useEffect(() => {
+    dispatch(loadingOnAction());
     userServ
       .getUserProfile()
       .then((res) => {
@@ -75,9 +76,11 @@ export default function UserProfile() {
           soDT: res.data.content.soDT,
           hoTen: res.data.content.hoTen,
         });
+        dispatch(loadingOffAction());
       })
       .catch((err) => {
         console.log(err);
+        dispatch(loadingOffAction());
       });
   }, []);
 
