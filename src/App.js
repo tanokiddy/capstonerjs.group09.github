@@ -17,11 +17,13 @@ import AddUser from "./pages/Admin/AddUser";
 import UserProfile from "./pages/HomePage/UserProfile";
 import Error403 from "./pages/Admin/Error403";
 import SecureViewAdmin from "./HOC/SecureViewAdmin";
+import FindingUser from "./pages/Admin/FindingUser";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* ----------NORMAL USER ACTION-------- */}
         <Route path="/" element={<Layout Component={HomePage} />}></Route>
         <Route
           path="/detail/:id"
@@ -47,6 +49,23 @@ function App() {
           path="/register"
           element={<LayoutNon Component={RegisterPage} />}
         ></Route>
+        <Route
+          path="/profile"
+          element={
+            <SecureView>
+              <LayoutNon Component={UserProfile} />
+            </SecureView>
+          }
+        ></Route>
+        <Route
+          path="/userTickets"
+          element={
+            <SecureView>
+              <LayoutNon Component={UserTickets} />
+            </SecureView>
+          }
+        ></Route>
+        {/* -------------ADMIN ACTION------------- */}
         <Route
           path="/admin"
           element={
@@ -74,27 +93,20 @@ function App() {
         <Route
           path="/admin/userManagement/addUser"
           element={
-            <SecureView>
+            <SecureViewAdmin>
               <LayoutNon Component={AddUser} />
-            </SecureView>
+            </SecureViewAdmin>
           }
         ></Route>
         <Route
-          path="/profile"
+          path="/admin/userManagement/search/:id"
           element={
-            <SecureView>
-              <LayoutNon Component={UserProfile} />
-            </SecureView>
+            <SecureViewAdmin>
+              <LayoutNon Component={FindingUser} />
+            </SecureViewAdmin>
           }
         ></Route>
-        <Route
-          path="/userTickets"
-          element={
-            <SecureView>
-              <LayoutNon Component={UserTickets} />
-            </SecureView>
-          }
-        ></Route>
+        {/* -------------ERROR PAGE---------------- */}
         <Route path="/Error403" element={<Error403 />}></Route>
       </Routes>
       <Spinner />

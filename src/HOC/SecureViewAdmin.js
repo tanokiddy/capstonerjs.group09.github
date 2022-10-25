@@ -1,11 +1,24 @@
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  loadingOffAction,
+  loadingOnAction,
+} from "../redux/actions/loadingAction";
 import { localServ } from "../services/localService";
 
-export default function SecureView({ children }) {
+export default function SecureViewAdmin({ children }) {
+  let navigate = useNavigate();
+  let dispatch = useDispatch();
   useEffect(() => {
+    dispatch(loadingOnAction());
     let userLocal = localServ.user.getDataUser();
-    if (userLocal?.maLoaiNguoiDung.toUpperCase() !== "QUANTRI") {
-      window.location.href = "/Error403";
+    if (userLocal.maLoaiNguoiDung.toUpperCase() !== "QUANTRI") {
+      dispatch(loadingOffAction());
+      navigate("/Error403");
+    } else {
+      dispatch(loadingOffAction());
+      return;
     }
   }, []);
 

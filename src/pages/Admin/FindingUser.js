@@ -1,6 +1,6 @@
 import { Space, Table, Tag } from "antd";
 import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { Input } from "antd";
@@ -97,7 +97,7 @@ const handleUserDelete = (taiKhoan) => {
     });
 };
 
-export default function Users() {
+export default function FindingUser() {
   const [dataUser, setDataUser] = useState([]);
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
@@ -105,11 +105,11 @@ export default function Users() {
   const onSearch = (value) => {
     navigate(`/admin/userManagement/search/${value}`);
   };
-
+  let { id } = useParams();
   useEffect(() => {
     dispatch(loadingOnAction());
     userServ
-      .userList()
+      .userSearch(id)
       .then((res) => {
         console.log(res);
         setDataUser(res.data.content);
@@ -117,8 +117,9 @@ export default function Users() {
       })
       .catch((err) => {
         console.log(err);
+        dispatch(loadingOffAction());
       });
-  }, []);
+  }, [id]);
 
   return (
     <Layout
@@ -133,13 +134,13 @@ export default function Users() {
         onCollapse={(value) => setCollapsed(value)}
       >
         {/* <div className="logo container my-3">
-        <img
-          // style={{ width: "100%", height: "100%" }}
-          src="http://demo1.cybersoft.edu.vn/logo.png"
-          alt="logoCybersoft"
-          className="object-fit"
-        />
-      </div> */}
+          <img
+            // style={{ width: "100%", height: "100%" }}
+            src="http://demo1.cybersoft.edu.vn/logo.png"
+            alt="logoCybersoft"
+            className="object-fit"
+          />
+        </div> */}
         <Menu theme="dark" defaultSelectedKeys="userList" mode="inline">
           <Menu.Item key="userList" icon={<UserOutlined />}>
             <NavLink to="/admin/userManagement">User</NavLink>

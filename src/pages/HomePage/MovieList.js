@@ -19,7 +19,7 @@ export default function MovieList() {
     maxIndex: 0,
   });
   let dispatch = useDispatch();
-  console.log("page", page);
+  // console.log("page", page);
   useEffect(() => {
     dispatch(loadingOnAction());
     movieServ

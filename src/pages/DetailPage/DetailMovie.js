@@ -26,7 +26,7 @@ export default function DetailMovie() {
       });
   }, []);
   return (
-    <div className="text-center grid grid-cols-4 container">
+    <div className="text-center grid grid-cols-4 container pt-20">
       <div className="flex">
         <img className="w-full h-full" src={detailMovie?.hinhAnh} alt="" />
       </div>

@@ -3,7 +3,7 @@ import {
   Form,
   Input,
   // message,
-  Select,
+  // Select,
 } from "antd";
 import { userServ } from "../../services/userService";
 import { useDispatch } from "react-redux";
@@ -13,11 +13,11 @@ import {
 } from "../../redux/actions/loadingAction";
 import {
   LockOutlined,
-  UserOutlined,
+  // UserOutlined,
   MailOutlined,
   PhoneOutlined,
   IdcardOutlined,
-  FileOutlined,
+  // FileOutlined,
 } from "@ant-design/icons";
 import Swal from "sweetalert2";
 
@@ -197,7 +197,7 @@ export default function UserProfile() {
           />
         </Form.Item>
         <Form.Item className="text-left">
-          <Button type="primary" htmlType="submit">
+          <Button className="rounded" type="primary" htmlType="submit">
             Update
           </Button>
         </Form.Item>
