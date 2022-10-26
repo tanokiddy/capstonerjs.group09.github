@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import { localServ } from "../../services/localService";
 import { Dropdown, Menu, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+
 export default function UserNav() {
   let user = useSelector((state) => {
     return state.userReducer.userInfo;
@@ -12,10 +14,8 @@ export default function UserNav() {
     localServ.user.removeDataUser();
     window.location.href = "/";
   };
-  const onClick = ({ key }) => {};
   const menu = (
     <Menu
-      onClick={onClick}
       items={[
         {
           label: (
@@ -34,11 +34,18 @@ export default function UserNav() {
           key: "tickets",
         },
         {
-          label: (
-            <NavLink className="font-bold text-md" to="/admin">
-              Administrator
-            </NavLink>
-          ),
+          label:
+            user?.maLoaiNguoiDung.toUpperCase() === "QUANTRI" ? (
+              <NavLink className="font-bold text-md" to="/admin">
+                Administrator
+              </NavLink>
+            ) : (
+              <NavLink to="/admin">
+                <button className="font-bold text-md text-gray-300">
+                  Administrator
+                </button>
+              </NavLink>
+            ),
           key: "admin",
         },
       ]}
@@ -50,35 +57,20 @@ export default function UserNav() {
       return (
         <div className="space-x-5 flex items-center">
           <Dropdown overlay={menu} className="text-2xl font-bold">
-            {/* <a onClick={(e) => e.preventDefault()}> */}
             <Space type="button">
               <UserOutlined className="mb-2" />
               {user.hoTen}
+              <ChevronDownIcon
+                className="h-7 w-7 text-gray-700"
+                aria-hidden="true"
+              />
             </Space>
-            {/* </a> */}
           </Dropdown>
-          {/* <Menu mode="horizontal">
-            <Menu.SubMenu
-              className="text-xl font-bold my-auto"
-              key="SubMenu"
-              title={user.hoTen}
-            >
-              <Menu.Item key="profile">
-                <NavLink to="/profile">My Profile</NavLink>
-              </Menu.Item>
-              <Menu.Item key="ticket">
-                <NavLink to="/userTickets">My Tickets</NavLink>
-              </Menu.Item>
-              <Menu.Item key="admin">
-                <NavLink to="/admin">Administrator</NavLink>
-              </Menu.Item>
-            </Menu.SubMenu>
-          </Menu> */}
           <button
             onClick={() => {
               handleLogOut();
             }}
-            className="bg-gray-500 duration-200 hover:bg-blue-700 px-4 py-2 rounded font-bold text-white"
+            className="bg-gray-500 duration-200 hover:bg-gray-700 px-4 py-2 rounded font-bold text-white"
           >
             Sign Out
           </button>

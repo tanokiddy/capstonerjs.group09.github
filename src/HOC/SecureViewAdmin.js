@@ -15,7 +15,7 @@ export default function SecureViewAdmin({ children }) {
     let userLocal = localServ.user.getDataUser();
     if (userLocal.maLoaiNguoiDung.toUpperCase() !== "QUANTRI") {
       dispatch(loadingOffAction());
-      navigate("/Error403");
+      navigate("/Error");
     } else {
       dispatch(loadingOffAction());
       return;

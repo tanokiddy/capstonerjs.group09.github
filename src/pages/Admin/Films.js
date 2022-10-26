@@ -168,7 +168,17 @@ export default function Films() {
             style={{
               margin: "16px 0",
             }}
-          ></Breadcrumb>
+          >
+            <Breadcrumb.Item>Films</Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <NavLink to="/admin/films/filmManagement">
+                Films Management
+              </NavLink>
+            </Breadcrumb.Item>
+            {/* <Breadcrumb.Item>
+              <NavLink to="/admin/films/addFilm"> Add New Film</NavLink>
+            </Breadcrumb.Item> */}
+          </Breadcrumb>
           <div
             className="site-layout-background"
             style={{

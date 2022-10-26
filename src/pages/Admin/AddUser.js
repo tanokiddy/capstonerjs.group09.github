@@ -130,7 +130,12 @@ export default function AddUser() {
             style={{
               margin: "16px 0",
             }}
-          ></Breadcrumb>
+          >
+            {" "}
+            <Breadcrumb.Item>
+              <NavLink to="/admin/userManagement">User Management</NavLink>
+            </Breadcrumb.Item>
+          </Breadcrumb>
           <div
             className="site-layout-background"
             style={{

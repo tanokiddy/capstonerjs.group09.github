@@ -107,7 +107,7 @@ function App() {
           }
         ></Route>
         {/* -------------ERROR PAGE---------------- */}
-        <Route path="/Error403" element={<Error403 />}></Route>
+        <Route path="/Error" element={<Error403 />}></Route>
       </Routes>
       <Spinner />
     </BrowserRouter>
