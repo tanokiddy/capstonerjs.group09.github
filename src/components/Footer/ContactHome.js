@@ -50,7 +50,9 @@ export default function ContactHome() {
       </div>
       <div className="text-left">
         <div className="mb-3">PARTNERS</div>
-        <div className="flex">{renderMovieLogo()}</div>
+        <div className="grid md:grid-cols-3 md:gap-4 grid-cols-2 gap-1">
+          {renderMovieLogo()}
+        </div>
       </div>
       <div className="grid grid-cols-2">
         <div className="text-left">

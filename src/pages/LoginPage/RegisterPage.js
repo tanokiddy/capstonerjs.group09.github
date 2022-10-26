@@ -82,7 +82,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex items-center container pt-20">
+    <div className="flex items-center container pt-32">
       <Lottie className="w-2/3 h-96" animationData={bg_login} />
       <Form
         className="w-1/3 text-right"

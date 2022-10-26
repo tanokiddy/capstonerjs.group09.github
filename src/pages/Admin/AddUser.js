@@ -93,7 +93,6 @@ export default function AddUser() {
       style={{
         minHeight: "100vh",
       }}
-      className="pt-20"
     >
       <Sider
         collapsible

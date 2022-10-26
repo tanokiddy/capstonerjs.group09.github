@@ -4,16 +4,13 @@ import UserNav from "./UserNav";
 
 export default function Header() {
   return (
-    <div
-      style={{ padding: "12px" }}
-      className="z-50 grid grid-cols-2 w-full bg-white opacity-90 fixed border-b shadow"
-    >
+    <div className="p-[12px] grid w-full grid-cols-2 bg-white opacity-90 border-b shadow z-50">
       <div className="flex items-center">
         <NavLink to="/">
           <img
-            style={{ width: "25%", height: "25%" }}
             src="http://demo1.cybersoft.edu.vn/logo.png"
             alt="logoCybersoft"
+            className="w-5/12 h-5/12"
           />
         </NavLink>
       </div>

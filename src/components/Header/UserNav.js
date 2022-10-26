@@ -70,7 +70,7 @@ export default function UserNav() {
             onClick={() => {
               handleLogOut();
             }}
-            className="bg-gray-500 duration-200 hover:bg-gray-700 px-4 py-2 rounded font-bold text-white"
+            className="bg-gray-500 duration-200 hover:bg-gray-700 px-2 py-1 md:!px-4 md:!py-2 rounded font-bold text-white"
           >
             Sign Out
           </button>
@@ -78,15 +78,15 @@ export default function UserNav() {
       );
     } else {
       return (
-        <div className="space-x-5 flex items-center">
+        <div className="space-x-3 flex items-center">
           <NavLink to="/login">
-            <button className="bg-red-500 duration-200 hover:bg-red-700 px-4 py-2 rounded font-bold text-white">
+            <button className="bg-red-500 duration-200 hover:bg-red-700 px-2 py-1 md:!px-4 md:!py-2 rounded font-bold text-white">
               Sign In
             </button>
           </NavLink>
 
           <NavLink to="/register">
-            <button className="bg-blue-500 duration-200 hover:bg-blue-700 px-4 py-2 rounded font-bold text-white">
+            <button className="bg-blue-500 duration-200 hover:bg-blue-700 px-2 py-1 md:!px-4 md:!py-2 rounded font-bold text-white">
               Sign Up
             </button>
           </NavLink>

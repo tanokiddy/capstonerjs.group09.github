@@ -59,13 +59,13 @@ export default function BookingPage() {
     let { thongTinPhim, danhSachGhe } = movieBooking;
     return (
       <div className="flex">
-        <div className="w-2/3 ">
+        <div className="w-3/5 ">
           <div className="px-5">
             <div className=" py-3 text-2xl bg-gray-500 text-white mb-3 text-center">
               SCREEN
             </div>
           </div>
-          <div className="px-5 grid grid-cols-10 gap-5">
+          <div className="md:px-5 px-2 grid grid-cols-10 lg:gap-5 gap-1">
             {danhSachGhe?.map((seat, index) => {
               let statusSeat = seat?.daDat;
               let typeOfSeat = seat?.loaiGhe;
@@ -80,7 +80,7 @@ export default function BookingPage() {
                     }}
                     key={index}
                     style={index1 !== -1 ? { backgroundColor: "green" } : {}}
-                    className="rounded py-1 bg-gray-300 hover:bg-gray-200 duration-200 text-black"
+                    className="rounded py-1 bg-gray-300 hover:bg-gray-200 duration-200 text-black md:text-base text-[9px]"
                   >
                     {seat?.tenGhe}
                   </button>
@@ -92,8 +92,14 @@ export default function BookingPage() {
                       dispatch(bookTicketAction(seat, thongTinPhim));
                     }}
                     key={index}
-                    style={index1 !== -1 ? { backgroundColor: "green" } : {}}
-                    className="rounded py-1 bg-orange-400 hover:bg-gray-200 duration-200 text-black"
+                    style={
+                      index1 !== -1
+                        ? {
+                            backgroundColor: "green",
+                          }
+                        : {}
+                    }
+                    className="rounded py-1 bg-orange-400 hover:bg-gray-200 duration-200 text-black md:text-base text-[9px]"
                   >
                     {seat?.tenGhe}
                   </button>
@@ -103,7 +109,7 @@ export default function BookingPage() {
                   <button
                     key={index}
                     disabled
-                    className="rounded py-1 bg-gray-500 text-black"
+                    className="rounded py-1 bg-gray-500 text-black md:text-base text-[9px]"
                   >
                     <span>X</span>
                   </button>
@@ -111,32 +117,32 @@ export default function BookingPage() {
               }
             })}
           </div>
-          <div className="grid grid-cols-4 my-3 px-5">
-            <div className="flex justify-center items-center">
+          <div className="grid lg:grid-cols-4 grid-cols-1 my-3 px-5 space-y-2">
+            <div className="flex justify-start items-center">
               <div
                 style={{ width: "30px", height: "30px" }}
-                className="mr-1 rounded bg-gray-300 text-black"
+                className="mr-1 rounded bg-gray-300 text-black md:text-base text-[9px]"
               ></div>
               <span>Standard</span>
             </div>
-            <div className="flex justify-center items-center">
+            <div className="flex justify-start items-center">
               <div
                 style={{ width: "30px", height: "30px" }}
-                className="mr-1 rounded bg-orange-500 text-black"
+                className="mr-1 rounded bg-orange-500 text-black md:text-base text-[9px]"
               ></div>
               <span>VIP</span>
             </div>
-            <div className="flex justify-center items-center">
+            <div className="flex justify-start items-center">
               <div
                 style={{ width: "30px", height: "30px" }}
-                className="mr-1 rounded bg-green-700 text-black"
+                className="mr-1 rounded bg-green-700 text-black md:text-base text-[9px]"
               ></div>
               <span>Checked</span>
             </div>
-            <div className="flex justify-center items-center">
+            <div className="flex justify-start items-center">
               <div
                 style={{ width: "30px", height: "30px" }}
-                className="mr-1 pt-1 text-center rounded bg-gray-500 text-black"
+                className="mr-1 pt-1 text-center rounded bg-gray-500 text-black md:text-base text-[9px]"
               >
                 X
               </div>
@@ -144,8 +150,8 @@ export default function BookingPage() {
             </div>
           </div>
         </div>
-        <div className="w-1/3">
-          <table className="table p-5 border shadow ">
+        <div className="w-2/5">
+          <table className="table p-5 border shadow md:text-sm text-[9px]">
             <thead>
               <tr>
                 <th

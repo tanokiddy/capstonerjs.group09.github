@@ -118,21 +118,12 @@ export default function Films() {
       style={{
         minHeight: "100vh",
       }}
-      className="pt-20"
     >
       <Sider
         collapsible
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
       >
-        {/* <div className="logo container my-3">
-        <img
-          // style={{ width: "100%", height: "100%" }}
-          src="http://demo1.cybersoft.edu.vn/logo.png"
-          alt="logoCybersoft"
-          className="object-fit"
-        />
-      </div> */}
         <Menu
           theme="dark"
           defaultOpenKeys="films"

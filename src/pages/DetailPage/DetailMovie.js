@@ -26,21 +26,25 @@ export default function DetailMovie() {
       });
   }, []);
   return (
-    <div className="text-center grid grid-cols-4 container pt-20">
-      <div className="flex">
-        <img className="w-full h-full" src={detailMovie?.hinhAnh} alt="" />
+    <div className="text-center flex justify-start container pt-28">
+      <div className="w-1/5">
+        <img className="object-contain" src={detailMovie?.hinhAnh} alt="" />
       </div>
-      <div className="text-left ml-5 my-auto">
-        <h6>
+      <div className="ml-5 w-4/5 space-y-3 text-justify">
+        <div className="text-xl pb-2 font-bold border-b border-gray-500 lg:w-1/2">
+          {detailMovie?.tenPhim?.toUpperCase()}
+        </div>
+        <div className="lg:w-1/2">
+          <span className="font-bold">Showtimes: </span>
           {moment(detailMovie?.ngayKhoiChieu).format("DD//MM/YYYY - hh:mm")}
-        </h6>
-        <h4>{detailMovie?.tenPhim}</h4>
-        <h6>120 phút</h6>
-        <button className="rounded px-4 py-2 bg-red-500 text-white">
-          Booking
-        </button>
+        </div>
+        <div>
+          <span className="font-bold">Running time:</span> 120 phút
+        </div>
+        <div className="lg:w-1/2">
+          <span className="font-bold">Description:</span> {detailMovie?.moTa}
+        </div>
       </div>
-      <div className=""></div>
     </div>
   );
 }

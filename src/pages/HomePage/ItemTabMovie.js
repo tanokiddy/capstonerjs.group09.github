@@ -6,15 +6,15 @@ import { useSelector } from "react-redux";
 export default function ItemTabMovie({ movie }) {
   let user = useSelector((state) => state.userReducer.userInfo);
   return (
-    <div className="flex space-x-5 border-b border-red-500 p-3">
+    <div className="flex  border-b border-red-500 p-3">
       <img
         src={movie.hinhAnh}
         alt="hinhAnh"
-        className="w-28 h-36 object-cover mr-3"
+        className="sm:w-10 sm:h-16 md:w-28 md:h-36 mr-3 sm:object-cover w-0 h-0"
       />
       <div className="flex-grow">
         <p>{movie.tenPhim}</p>
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid lg:grid-cols-3 grid-cols-1 gap-1 lg:gap-2">
           {movie.lstLichChieuTheoPhim.slice(0, 6).map((gioChieu, index) => {
             return user ? (
               <NavLink key={index} to={`/purchase/${gioChieu.maLichChieu}`}>

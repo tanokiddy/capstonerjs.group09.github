@@ -65,7 +65,7 @@ export default function UserTickets() {
     });
   };
   return (
-    <div className="container py-28 site-card-border-less-wrapper grid grid-cols-4 gap-2">
+    <div className="container py-28 site-card-border-less-wrapper grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 md:gap-2 gap-1">
       {listUserTickets()}
     </div>
   );

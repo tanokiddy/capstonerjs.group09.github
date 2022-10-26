@@ -99,7 +99,7 @@ const handleUserDelete = (taiKhoan) => {
 
 export default function Users() {
   const [dataUser, setDataUser] = useState([]);
-  const [collapsed, setCollapsed] = useState(false);
+  // const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   let dispatch = useDispatch();
   const onSearch = (value) => {
@@ -125,21 +125,20 @@ export default function Users() {
       style={{
         minHeight: "100vh",
       }}
-      className="pt-20"
     >
       <Sider
-        collapsible
-        collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
+        breakpoint="lg"
+        collapsedWidth="0"
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+        onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}
+        // collapsible
+        // collapsed={collapsed}
+        // onCollapse={(value) => setCollapsed(value)}
       >
-        {/* <div className="logo container my-3">
-        <img
-          // style={{ width: "100%", height: "100%" }}
-          src="http://demo1.cybersoft.edu.vn/logo.png"
-          alt="logoCybersoft"
-          className="object-fit"
-        />
-      </div> */}
         <Menu theme="dark" defaultSelectedKeys="userList" mode="inline">
           <Menu.Item key="userList" icon={<UserOutlined />}>
             <NavLink to="/admin/userManagement">User</NavLink>
@@ -196,6 +195,7 @@ export default function Users() {
                 className="my-2"
               />
               <Table
+                className="overflow-hidden"
                 rowKey="taiKhoan"
                 columns={columns}
                 dataSource={dataUser}

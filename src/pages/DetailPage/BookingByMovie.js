@@ -32,11 +32,12 @@ export default function BookingByMovie() {
     return booking.map((heThongRapChieu, index) => {
       return (
         <Tabs.TabPane
+          className="!pl-0"
           tab={
             <img
               alt="logo"
               src={heThongRapChieu.logo}
-              className="w-16 h-16"
+              className="sm:h-16 sm:w-16 h-7 w-7"
             ></img>
           }
           key={index}
@@ -47,13 +48,13 @@ export default function BookingByMovie() {
                 <Tabs.TabPane
                   key={index}
                   tab={
-                    <div className="text-left w-48">
+                    <div className="text-left md:w-48 w-32">
                       <p className="truncate">{cumRapChieu.tenCumRap}</p>
                       <p className="truncate">{cumRapChieu.diaChi}</p>
                     </div>
                   }
                 >
-                  <div className="grid grid-cols-3 gap-5">
+                  <div className="grid md:grid-cols-3 md:gap-2 grid-cols-1 gap-1">
                     {cumRapChieu.lichChieuPhim
                       .slice(0, 6)
                       .map((movie, index) => {
@@ -83,8 +84,12 @@ export default function BookingByMovie() {
     });
   };
   return (
-    <div className="container my-5">
-      <Tabs tabPosition="left" defaultActiveKey="1">
+    <div className="container w-full mx-auto my-5">
+      <Tabs
+        tabPosition="left"
+
+        // defaultActiveKey="1"
+      >
         {renderBookingByMovie()}
       </Tabs>
     </div>

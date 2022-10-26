@@ -23,7 +23,11 @@ export default function CarouselHome() {
     return carousel.map((carousel, index) => {
       return (
         <SwiperSlide className="relative" key={index}>
-          <img src={carousel.hinhAnh} className="h-full" alt="" />
+          <img
+            src={carousel.hinhAnh}
+            className="object-contain pb-[50px] pt-[82px]"
+            alt=""
+          />
           <BsPlayFill
             id="playBannerButton"
             type="button"
@@ -34,15 +38,15 @@ export default function CarouselHome() {
               border: "4px solid white",
               borderRadius: "50%",
               opacity: 0.5,
+              fontSize: "100px",
             }}
-            fontSize="100px"
           />
         </SwiperSlide>
       );
     });
   };
   return (
-    <div className="mx-auto pt-20">
+    <div className="mx-auto container ">
       <Swiper
         cssMode={true}
         navigation={true}
@@ -53,6 +57,7 @@ export default function CarouselHome() {
         keyboard={true}
         modules={[Navigation, Pagination, Mousewheel, Keyboard]}
         className="mySwiper"
+        style={{ paddingTop: "" }}
       >
         {renderCarousel()}
       </Swiper>

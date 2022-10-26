@@ -126,7 +126,6 @@ export default function FindingUser() {
       style={{
         minHeight: "100vh",
       }}
-      className="pt-20"
     >
       <Sider
         collapsible

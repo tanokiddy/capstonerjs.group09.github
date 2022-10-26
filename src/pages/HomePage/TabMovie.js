@@ -28,11 +28,12 @@ export default function TabMovie() {
     return tabMovie.map((theatreSystem, index) => {
       return (
         <Tabs.TabPane
+          className="!pl-0"
           key={index}
           tab={
             <img
               alt="theatreSystem"
-              className="h-16 w-16"
+              className="sm:h-16 sm:w-16 h-3 w-3"
               src={theatreSystem.logo}
             ></img>
           }
@@ -42,7 +43,7 @@ export default function TabMovie() {
               return (
                 <Tabs.TabPane
                   tab={
-                    <div className="text-left w-48">
+                    <div className="text-left md:w-48 w-24 ">
                       <p className="truncate">{theatre.tenCumRap}</p>
                       <p className="truncate">{theatre.diaChi}</p>
                     </div>

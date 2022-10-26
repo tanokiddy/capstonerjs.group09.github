@@ -65,7 +65,7 @@ function App() {
             </SecureView>
           }
         ></Route>
-        {/* -------------ADMIN ACTION------------- */}
+        {/* -------------ADMIN ACTION------------ */}
         <Route
           path="/admin"
           element={
@@ -106,7 +106,7 @@ function App() {
             </SecureViewAdmin>
           }
         ></Route>
-        {/* -------------ERROR PAGE---------------- */}
+        {/* -------------ERROR PAGE-------------- */}
         <Route path="/Error" element={<Error403 />}></Route>
       </Routes>
       <Spinner />
