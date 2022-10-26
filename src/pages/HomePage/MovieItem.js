@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
