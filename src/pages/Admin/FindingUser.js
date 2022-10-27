@@ -99,7 +99,6 @@ const handleUserDelete = (taiKhoan) => {
 
 export default function FindingUser() {
   const [dataUser, setDataUser] = useState([]);
-  const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   let dispatch = useDispatch();
   const onSearch = (value) => {
@@ -128,9 +127,14 @@ export default function FindingUser() {
       }}
     >
       <Sider
-        collapsible
-        collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
+        breakpoint="lg"
+        collapsedWidth="0"
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+        onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}
       >
         {/* <div className="logo container my-3">
           <img
@@ -197,6 +201,7 @@ export default function FindingUser() {
                 className="my-2"
               />
               <Table
+                className="overflow-auto"
                 rowKey="taiKhoan"
                 columns={columns}
                 dataSource={dataUser}

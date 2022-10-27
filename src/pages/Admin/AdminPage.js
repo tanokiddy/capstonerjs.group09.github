@@ -6,7 +6,6 @@ import { NavLink } from "react-router-dom";
 const { Header, Content, Sider } = Layout;
 
 export default function AdminPage() {
-  const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout
       style={{
@@ -14,9 +13,14 @@ export default function AdminPage() {
       }}
     >
       <Sider
-        collapsible
-        collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
+        breakpoint="lg"
+        collapsedWidth="0"
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+        onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}
       >
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="userList" icon={<UserOutlined />}>

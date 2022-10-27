@@ -47,7 +47,6 @@ const formItemLayout = {
   },
 };
 export default function AddUser() {
-  const [collapsed, setCollapsed] = useState(false);
   let onFail = () => {
     Swal.fire({
       position: "center",
@@ -95,9 +94,14 @@ export default function AddUser() {
       }}
     >
       <Sider
-        collapsible
-        collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
+        breakpoint="lg"
+        collapsedWidth="0"
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+        onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}
       >
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="userList" icon={<UserOutlined />}>
@@ -143,13 +147,12 @@ export default function AddUser() {
             }}
           >
             <Form
-              className="w-1/3 text-right"
+              className="lg:w-1/3 w-2/3 text-right !ml-[5%] !mt-[5%]"
               {...formItemLayout}
               form={form}
               name="register"
               onFinish={onFinish}
               scrollToFirstError
-              style={{ marginLeft: "5%", marginTop: "5%" }}
             >
               <Form.Item
                 name="taiKhoan"

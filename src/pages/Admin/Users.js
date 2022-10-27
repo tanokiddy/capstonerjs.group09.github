@@ -16,91 +16,10 @@ import {
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
 
-const columns = [
-  {
-    title: "Username",
-    dataIndex: "taiKhoan",
-    key: "taiKhoan",
-  },
-  {
-    title: "Fullname",
-    dataIndex: "hoTen",
-    key: "hoTen",
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-    key: "email",
-  },
-  {
-    title: "Phone Number",
-    dataIndex: "soDT",
-    key: "soDT",
-  },
-  {
-    title: "User Type",
-    dataIndex: "maLoaiNguoiDung",
-    key: "maLoaiNguoiDung",
-    render: (maLoaiNguoiDung) => {
-      let color;
-      if (maLoaiNguoiDung.toUpperCase() === "KHACHHANG") {
-        color = "green";
-      }
-      if (maLoaiNguoiDung.toUpperCase() === "QUANTRI") {
-        color = "volcano";
-      }
-      return (
-        <Tag color={color} key={maLoaiNguoiDung}>
-          {maLoaiNguoiDung.toUpperCase()}
-        </Tag>
-      );
-    },
-  },
-  {
-    title: "Action",
-    dataIndex: "taiKhoan",
-    key: "action",
-    render: (taiKhoan) => (
-      <Space size="middle">
-        <button>
-          <BiEdit style={{ width: "20px", height: "20px" }} />
-        </button>
-        <button
-          onClick={() => {
-            handleUserDelete(taiKhoan);
-          }}
-        >
-          <MdDelete style={{ width: "25px", height: "25px" }} />
-        </button>
-      </Space>
-    ),
-  },
-];
-const handleUserDelete = (taiKhoan) => {
-  userServ
-    .userDelete(taiKhoan)
-    .then((res) => {
-      console.log(res);
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Delete successful",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
 export default function Users() {
   const [dataUser, setDataUser] = useState([]);
-  // const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
+
   let dispatch = useDispatch();
   const onSearch = (value) => {
     navigate(`/admin/userManagement/search/${value}`);
@@ -120,6 +39,94 @@ export default function Users() {
       });
   }, []);
 
+  const handleUserDelete = (taiKhoan) => {
+    userServ
+      .userDelete(taiKhoan)
+      .then((res) => {
+        console.log(res);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Delete successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const [sortedInfo, setSortedInfo] = useState({});
+  const handleChange = (pagination, filters, sorter) => {
+    console.log("Various parameters", pagination, filters, sorter);
+    setSortedInfo(sorter);
+  };
+
+  const columns = [
+    {
+      title: "Username",
+      dataIndex: "taiKhoan",
+      key: "taiKhoan",
+      sorter: (a, b) => a.taiKhoan - b.taiKhoan,
+      sortOrder: sortedInfo.columnKey === "taiKhoan" ? sortedInfo.order : null,
+      className: "xl:text-base text-[9px]",
+    },
+    {
+      title: "Full name",
+      dataIndex: "hoTen",
+      key: "hoTen",
+      className: "xl:text-base text-[9px]",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      className: "xl:text-base text-[9px] ",
+    },
+
+    {
+      title: "Phone Number",
+      dataIndex: "soDT",
+      key: "soDT",
+      className: "xl:text-base text-[9px] ",
+    },
+    {
+      title: "User Type",
+      dataIndex: "maLoaiNguoiDung",
+      key: "maLoaiNguoiDung",
+      className: "xl:text-base text-[9px] ",
+    },
+
+    {
+      title: "Action",
+      dataIndex: "taiKhoan",
+      render: (taiKhoan) => {
+        return (
+          <div className="text-center flex justify-center ">
+            <button className="sm:mr-3 mr-1">
+              <BiEdit className="sm:w-[25px] sm:h-[25px] w-[10px] h-[10px]" />
+            </button>
+            <button>
+              <MdDelete
+                onClick={() => {
+                  handleUserDelete(taiKhoan);
+                }}
+                className="sm:w-[25px] sm:h-[25px] w-[10px] h-[10px]"
+              />
+            </button>
+          </div>
+        );
+      },
+      key: "hanhDong",
+      align: "center",
+      className: "w-2/12 xl:text-base text-[9px]",
+    },
+  ];
+
   return (
     <Layout
       style={{
@@ -135,9 +142,6 @@ export default function Users() {
         onCollapse={(collapsed, type) => {
           console.log(collapsed, type);
         }}
-        // collapsible
-        // collapsed={collapsed}
-        // onCollapse={(value) => setCollapsed(value)}
       >
         <Menu theme="dark" defaultSelectedKeys="userList" mode="inline">
           <Menu.Item key="userList" icon={<UserOutlined />}>
@@ -161,6 +165,7 @@ export default function Users() {
           }}
         />
         <Content
+          className=""
           style={{
             margin: "0 16px",
           }}
@@ -195,10 +200,11 @@ export default function Users() {
                 className="my-2"
               />
               <Table
-                className="overflow-hidden"
+                className="overflow-auto"
                 rowKey="taiKhoan"
                 columns={columns}
                 dataSource={dataUser}
+                onChange={handleChange}
               />
             </div>
           </div>

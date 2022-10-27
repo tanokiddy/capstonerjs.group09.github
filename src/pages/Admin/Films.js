@@ -1,4 +1,4 @@
-import { Space, Table } from "antd";
+import { Space, Table, Tooltip } from "antd";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import React, { useState, useEffect } from "react";
@@ -15,12 +15,6 @@ import Swal from "sweetalert2";
 const { Header, Content, Sider } = Layout;
 
 export default function Films() {
-  const [collapsed, setCollapsed] = useState(false);
-  const [sortedInfo, setSortedInfo] = useState({});
-  const handleChange = (pagination, filters, sorter) => {
-    console.log("Various parameters", pagination, filters, sorter);
-    setSortedInfo(sorter);
-  };
   const [dataFilm, setDataFilm] = useState([]);
   let dispatch = useDispatch();
   useEffect(() => {
@@ -58,6 +52,12 @@ export default function Films() {
       });
   };
 
+  const [sortedInfo, setSortedInfo] = useState({});
+  const handleChange = (pagination, filters, sorter) => {
+    console.log("Various parameters", pagination, filters, sorter);
+    setSortedInfo(sorter);
+  };
+
   const columns = [
     {
       title: "Mã Phim",
@@ -65,7 +65,7 @@ export default function Films() {
       key: "maPhim",
       sorter: (a, b) => a.maPhim - b.maPhim,
       sortOrder: sortedInfo.columnKey === "maPhim" ? sortedInfo.order : null,
-      ellipsis: true,
+      className: "sm:w-[110px] w-[80px] sm:text-base text-[9px]",
     },
     {
       title: "Hình ảnh",
@@ -73,6 +73,7 @@ export default function Films() {
       render: (t, r) => <img alt="" src={`${r.hinhAnh}`} />,
       key: "hinhAnh",
       align: "center",
+      className: "sm:table-cell hidden",
     },
     {
       title: "Tên Phim",
@@ -80,30 +81,40 @@ export default function Films() {
       key: "tenPhim",
       sorter: (a, b) => a.tenPhim.localeCompare(b.tenPhim),
       sortOrder: sortedInfo.columnKey === "tenPhim" ? sortedInfo.order : null,
-      ellipsis: true,
       align: "center",
+      className: "sm:w-2/12 sm:text-base text-[9px]",
     },
 
     {
       title: "Mô tả",
       dataIndex: "moTa",
       key: "moTa",
+      align: "justify",
+      ellipsis: {
+        showTitle: false,
+      },
+      className: "w-4/12 sm:text-base text-[9px] ",
+      render: (moTa) => (
+        <Tooltip placement="topLeft" title={moTa}>
+          {moTa}
+        </Tooltip>
+      ),
     },
     {
       title: "Hành động",
       dataIndex: "maPhim",
       render: (maPhim) => {
         return (
-          <div className="text-center">
-            <button className="mr-3">
-              <BiEdit style={{ width: "25px", height: "25px" }} />
+          <div className="text-center flex justify-center ">
+            <button className="sm:mr-3 mr-1">
+              <BiEdit className="sm:w-[25px] sm:h-[25px] w-[10px] h-[10px]" />
             </button>
             <button>
               <MdDelete
                 onClick={() => {
                   handleDeleteMovie(maPhim);
                 }}
-                style={{ width: "25px", height: "25px" }}
+                className="sm:w-[25px] sm:h-[25px] w-[10px] h-[10px]"
               />
             </button>
           </div>
@@ -111,6 +122,7 @@ export default function Films() {
       },
       key: "hanhDong",
       align: "center",
+      className: "w-2/12 sm:text-base text-[9px]",
     },
   ];
   return (
@@ -120,9 +132,14 @@ export default function Films() {
       }}
     >
       <Sider
-        collapsible
-        collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
+        breakpoint="lg"
+        collapsedWidth="0"
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+        onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}
       >
         <Menu
           theme="dark"
@@ -166,9 +183,6 @@ export default function Films() {
                 Films Management
               </NavLink>
             </Breadcrumb.Item>
-            {/* <Breadcrumb.Item>
-              <NavLink to="/admin/films/addFilm"> Add New Film</NavLink>
-            </Breadcrumb.Item> */}
           </Breadcrumb>
           <div
             className="site-layout-background"
