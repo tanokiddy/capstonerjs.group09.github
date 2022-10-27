@@ -107,9 +107,9 @@ export default function UserProfile() {
       });
   };
   return (
-    <div className="pt-40 container flex justify-center">
+    <div className="lg:pt-28 pt-14 container flex justify-center">
       <Form
-        className="gap-3 w-1/2 grid grid-cols-2 text-right"
+        className="lg:gap-3 lg:w-1/2 w-5/6 gap-2 grid grid-cols-2 text-right"
         {...formItemLayout}
         form={form}
         name=""
