@@ -120,6 +120,10 @@
 .ant-layout-sider-zero-width-trigger {
   top: 12px !important;
 }
-.modal {
-  left: -50px;
+
+@media screen and (min-width: 640px) {
+  #modalTrailer {
+    width: 640px !important;
+    height: 360px !important;
+  }
 }

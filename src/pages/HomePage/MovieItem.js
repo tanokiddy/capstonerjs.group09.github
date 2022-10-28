@@ -33,7 +33,7 @@ export default function MovieItem({ movie }) {
         ></i>
       </div>
       <div
-        className="modal fade"
+        className="modal fade sm:left-[-50px] left-[15px]"
         id={"model" + movie.maPhim}
         tabIndex="-1"
         role="dialog"
@@ -41,8 +41,14 @@ export default function MovieItem({ movie }) {
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content">
-            <ReactPlayer height="500px" controls={true} url={movie.trailer} />
+          <div className="modal-content sm:w-full sm:h-full w-[330px]">
+            <ReactPlayer
+              id="modalTrailer"
+              height="180px"
+              width="330px"
+              controls={true}
+              url={movie.trailer}
+            />
           </div>
         </div>
       </div>
