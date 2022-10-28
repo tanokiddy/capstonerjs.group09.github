@@ -37,7 +37,7 @@ export default function BookingByMovie() {
             <img
               alt="logo"
               src={heThongRapChieu.logo}
-              className="sm:h-16 sm:w-16 h-7 w-7"
+              className="sm:h-16 sm:w-16 h-5 w-5"
             ></img>
           }
           key={index}
@@ -48,7 +48,7 @@ export default function BookingByMovie() {
                 <Tabs.TabPane
                   key={index}
                   tab={
-                    <div className="text-left md:w-48 w-32">
+                    <div className="text-left md:w-48 w-28">
                       <p className="truncate">{cumRapChieu.tenCumRap}</p>
                       <p className="truncate">{cumRapChieu.diaChi}</p>
                     </div>

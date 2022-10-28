@@ -58,8 +58,8 @@ export default function BookingPage() {
     // console.log("movieBooking", movieBooking);
     let { thongTinPhim, danhSachGhe } = movieBooking;
     return (
-      <div className="flex">
-        <div className="w-3/5 ">
+      <div className="flex max-w-full">
+        <div className="w-3/5">
           <div className="px-5">
             <div className=" py-3 text-2xl bg-gray-500 text-white mb-3 text-center">
               SCREEN
@@ -154,10 +154,7 @@ export default function BookingPage() {
           <table className="table p-5 border shadow md:text-sm text-[9px]">
             <thead>
               <tr>
-                <th
-                  style={{ borderBottom: 0 }}
-                  className="text-center text-2xl"
-                >
+                <th className="text-center md:text-2xl text-base w-full !border-b-0">
                   <span>
                     {seatState
                       .reduce(

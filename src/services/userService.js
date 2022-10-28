@@ -81,4 +81,15 @@ export const userServ = {
       },
     });
   },
+  userEditinginAdmin: (values) => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
+      method: "POST",
+      data: values,
+      headers: {
+        TokenCybersoft: TOKEN_CYBERSOFT,
+        Authorization: "Bearer " + localServ.user.getDataUser()?.accessToken,
+      },
+    });
+  },
 };

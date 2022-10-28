@@ -1,9 +1,8 @@
-import { Space, Table, Tag } from "antd";
+import { Table, Tag, Modal, Input } from "antd";
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-import { Input } from "antd";
 import { userServ } from "../../services/userService";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
@@ -13,18 +12,19 @@ import {
   loadingOffAction,
   loadingOnAction,
 } from "../../redux/actions/loadingAction";
+import UserEditing from "./UserEditing";
+
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
-
 export default function Users() {
   const [dataUser, setDataUser] = useState([]);
   const navigate = useNavigate();
-
   let dispatch = useDispatch();
+  //SEARCH INPUT
   const onSearch = (value) => {
     navigate(`/admin/userManagement/search/${value}`);
   };
-
+  //CALL API TO GET USERLIST
   useEffect(() => {
     dispatch(loadingOnAction());
     userServ
@@ -38,7 +38,19 @@ export default function Users() {
         console.log(err);
       });
   }, []);
+  //HANDLE MODAL USER EDITING
+  const [modal2Open, setModal2Open] = useState(false);
+  const [userEditing, setUserEditing] = useState({});
+  const handleUserEditing = (id) => {
+    setModal2Open(true);
+    let index = dataUser.findIndex((item) => {
+      return item.taiKhoan === id;
+    });
+    setUserEditing(dataUser[index]);
+    console.log("userEditing: ", userEditing);
+  };
 
+  //SET DELETE USER FOR USER LIST BENEATH
   const handleUserDelete = (taiKhoan) => {
     userServ
       .userDelete(taiKhoan)
@@ -57,15 +69,24 @@ export default function Users() {
       })
       .catch((err) => {
         console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Cannot delete, this user booked tickets",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
   };
 
   const [sortedInfo, setSortedInfo] = useState({});
+  //SET PAGINATION OF USERLIST
   const handleChange = (pagination, filters, sorter) => {
     console.log("Various parameters", pagination, filters, sorter);
     setSortedInfo(sorter);
   };
 
+  //SET COLUMNS FOR USERLIST
   const columns = [
     {
       title: "Username",
@@ -99,6 +120,19 @@ export default function Users() {
       dataIndex: "maLoaiNguoiDung",
       key: "maLoaiNguoiDung",
       className: "xl:text-base text-[9px] ",
+      render: (maLoaiNguoiDung) => {
+        var color;
+        if (maLoaiNguoiDung.toUpperCase() === "QUANTRI") {
+          color = "volcano";
+        } else {
+          color = "green";
+        }
+        return (
+          <Tag color={color} key={maLoaiNguoiDung}>
+            {maLoaiNguoiDung.toUpperCase()}
+          </Tag>
+        );
+      },
     },
 
     {
@@ -108,7 +142,10 @@ export default function Users() {
         return (
           <div className="text-center flex justify-center ">
             <button className="sm:mr-3 mr-1">
-              <BiEdit className="sm:w-[25px] sm:h-[25px] w-[10px] h-[10px]" />
+              <BiEdit
+                onClick={() => handleUserEditing(taiKhoan)}
+                className="sm:w-[25px] sm:h-[25px] w-[10px] h-[10px]"
+              />
             </button>
             <button>
               <MdDelete
@@ -206,6 +243,16 @@ export default function Users() {
                 dataSource={dataUser}
                 onChange={handleChange}
               />
+              <Modal
+                title="User Editing"
+                centered
+                visible={modal2Open}
+                onOk={() => setModal2Open(false)}
+                onCancel={() => setModal2Open(false)}
+                footer={null}
+              >
+                <UserEditing userEditing={userEditing} />
+              </Modal>
             </div>
           </div>
         </Content>
