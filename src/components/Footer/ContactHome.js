@@ -37,7 +37,7 @@ export default function ContactHome() {
     <div className="container grid grid-cols-3 text-center py-3">
       <div className="text-left">
         <div className="mb-3">TIX</div>
-        <div className="flex sm:text-base text-xs">
+        <div className="flex sm:text-base text-xs xl:space-x-5 sm:space-x-3 space-x-0">
           <div>
             <p>FAQ</p>
             <p>Brands Guidelines</p>

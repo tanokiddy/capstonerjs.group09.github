@@ -33,7 +33,7 @@ export default function TabMovie() {
           tab={
             <img
               alt="theatreSystem"
-              className="sm:h-16 sm:w-16 h-3 w-3"
+              className="sm:h-16 sm:w-16 h-6 w-6"
               src={theatreSystem.logo}
             ></img>
           }
@@ -43,7 +43,7 @@ export default function TabMovie() {
               return (
                 <Tabs.TabPane
                   tab={
-                    <div className="text-left md:w-48 w-24 ">
+                    <div className="text-left md:w-48 w-24">
                       <p className="truncate">{theatre.tenCumRap}</p>
                       <p className="truncate">{theatre.diaChi}</p>
                     </div>
@@ -51,7 +51,7 @@ export default function TabMovie() {
                   key={index}
                 >
                   <div
-                    className="scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300 h-32 overflow-y-scroll "
+                    className="scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300 h-32 overflow-y-scroll"
                     style={{ height: 500, overflowY: "scroll" }}
                   >
                     {theatre.danhSachPhim.map((movie, index) => {

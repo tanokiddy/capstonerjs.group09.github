@@ -120,6 +120,12 @@
 .ant-layout-sider-zero-width-trigger {
   top: 12px !important;
 }
+.ant-tabs-left
+  > .ant-tabs-content-holder
+  > .ant-tabs-content
+  > .ant-tabs-tabpane {
+  padding-left: 0 !important;
+}
 
 @media screen and (min-width: 640px) {
   #modalTrailer {
