@@ -8,12 +8,16 @@ import Spinner from "./components/Spinner/Spinner";
 import RegisterPage from "./pages/User/LoginPage/RegisterPage";
 import UserTickets from "./pages/User/HomePage/UserTickets";
 import UserProfile from "./pages/User/HomePage/UserProfile";
+//ADMIN - USER MANAGEMENT
+import Users from "./pages/Admin/UserManagement/Users";
+import FindingUser from "./pages/Admin/UserManagement/FindingUser";
+import AddUser from "./pages/Admin/UserManagement/AddUser";
+//ADMIN - FILM MANAGEMENT
+import Films from "./pages/Admin/FilmManagement/Films";
+//GENERAL ADMIN PAGES
 import AdminPage from "./pages/Admin/AdminPage";
-import Users from "./pages/Admin/Users";
-import Films from "./pages/Admin/Films";
-import AddUser from "./pages/Admin/AddUser";
-import FindingUser from "./pages/Admin/FindingUser";
-import Error403 from "./pages/Admin/Error403";
+import Error403 from "./pages/Admin/ErrorLandingPage";
+//HOC
 import SecureViewAdmin from "./HOC/SecureViewAdmin";
 import SecureView from "./HOC/SecureView";
 import LayoutNon from "./HOC/LayoutNon";

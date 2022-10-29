@@ -7,8 +7,8 @@ import {
   LockOutlined,
 } from "@ant-design/icons";
 import { Button, Form, Input, Select } from "antd";
-import { userServ } from "../../services/userService";
 import Swal from "sweetalert2";
+import { userServ } from "../../../services/userService";
 
 const { Option } = Select;
 const formItemLayout = {

@@ -2,16 +2,16 @@ import { Space, Table, Tooltip } from "antd";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import React, { useState, useEffect } from "react";
-import { movieServ } from "../../services/movieService";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
+import { movieServ } from "../../../services/movieService";
 import {
   loadingOffAction,
   loadingOnAction,
-} from "../../redux/actions/loadingAction";
-import Swal from "sweetalert2";
+} from "../../../redux/actions/loadingAction";
 const { Header, Content, Sider } = Layout;
 
 export default function Films() {

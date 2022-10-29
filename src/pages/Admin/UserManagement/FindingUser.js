@@ -4,15 +4,16 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { Input } from "antd";
-import { userServ } from "../../services/userService";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
+import { userServ } from "../../../services/userService";
 import {
   loadingOffAction,
   loadingOnAction,
-} from "../../redux/actions/loadingAction";
+} from "../../../redux/actions/loadingAction";
+
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
 
@@ -130,20 +131,12 @@ export default function FindingUser() {
         breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={(broken) => {
-          console.log(broken);
+          // console.log(broken);
         }}
         onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
+          // console.log(collapsed, type);
         }}
       >
-        {/* <div className="logo container my-3">
-          <img
-            // style={{ width: "100%", height: "100%" }}
-            src="http://demo1.cybersoft.edu.vn/logo.png"
-            alt="logoCybersoft"
-            className="object-fit"
-          />
-        </div> */}
         <Menu theme="dark" defaultSelectedKeys="userList" mode="inline">
           <Menu.Item key="userList" icon={<UserOutlined />}>
             <NavLink to="/admin/userManagement">User</NavLink>

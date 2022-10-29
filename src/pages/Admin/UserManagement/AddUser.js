@@ -5,12 +5,7 @@ import {
   // message,
   Select,
 } from "antd";
-import { userServ } from "../../services/userService";
 import { useDispatch } from "react-redux";
-import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../../redux/actions/loadingAction";
 import { useNavigate } from "react-router-dom";
 import {
   LockOutlined,
@@ -25,7 +20,12 @@ import { Breadcrumb, Layout, Menu } from "antd";
 import Swal from "sweetalert2";
 
 import { NavLink } from "react-router-dom";
-import React, { useState } from "react";
+import React from "react";
+import {
+  loadingOffAction,
+  loadingOnAction,
+} from "../../../redux/actions/loadingAction";
+import { userServ } from "../../../services/userService";
 
 const { Option } = Select;
 

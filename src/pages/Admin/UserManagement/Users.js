@@ -3,16 +3,16 @@ import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-import { userServ } from "../../services/userService";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
+import UserEditing from "./UserEditing";
+import { userServ } from "../../../services/userService";
 import {
   loadingOffAction,
   loadingOnAction,
-} from "../../redux/actions/loadingAction";
-import UserEditing from "./UserEditing";
+} from "../../../redux/actions/loadingAction";
 
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
@@ -174,10 +174,10 @@ export default function Users() {
         breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={(broken) => {
-          console.log(broken);
+          // console.log(broken);
         }}
         onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
+          // console.log(collapsed, type);
         }}
       >
         <Menu theme="dark" defaultSelectedKeys="userList" mode="inline">
