@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   UserOutlined,
   MailOutlined,
@@ -26,7 +26,7 @@ const formItemLayout = {
     },
   },
 };
-export default function UserEditing({ userEditing }) {
+export default function UserEditing({ userEditing, setModal2Open }) {
   //SET FORM
   const [form] = Form.useForm();
   form.setFieldsValue({
@@ -40,6 +40,7 @@ export default function UserEditing({ userEditing }) {
   });
   //SET HANDLE SUBMIT
   const onFinish = (values) => {
+    console.log(values);
     userServ
       .userEditinginAdmin(values)
       .then((res) => {
@@ -52,7 +53,7 @@ export default function UserEditing({ userEditing }) {
           timer: 1500,
         });
         setTimeout(() => {
-          window.location.reload();
+          setModal2Open(false);
         }, 1500);
       })
       .catch((err) => {
@@ -66,6 +67,19 @@ export default function UserEditing({ userEditing }) {
         });
       });
   };
+  //CALL API TO GET USERLIST
+  const [dataUser, setDataUser] = useState([]);
+  useEffect(() => {
+    userServ
+      .userList()
+      .then((res) => {
+        console.log(res);
+        setDataUser(res.data.content);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userEditing]);
   return (
     <Form
       className="w-full text-right"
@@ -87,6 +101,7 @@ export default function UserEditing({ userEditing }) {
         ]}
       >
         <Input
+          disabled
           prefix={<UserOutlined className="site-form-item-icon" />}
           placeholder="Username"
         />
@@ -148,7 +163,7 @@ export default function UserEditing({ userEditing }) {
         ]}
         className="text-left"
       >
-        <Select initialValue="GP03" placeholder="select your group code">
+        <Select placeholder="select your group code">
           <Option value="GP00">GP00</Option>
           <Option value="GP01">GP01</Option>
           <Option value="GP02">GP02</Option>

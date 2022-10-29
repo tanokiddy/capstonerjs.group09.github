@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { movieServ } from "../../services/movieService";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { BsPlayFill } from "react-icons/bs";
 // import required modules
 import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper";
+import { movieServ } from "../../../services/movieService";
 
 export default function CarouselHome() {
   const [carousel, setCarousel] = useState([]);

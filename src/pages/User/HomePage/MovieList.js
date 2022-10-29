@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import MovieItem from "./MovieItem";
+import { Pagination } from "antd";
+import { movieServ } from "../../../services/movieService";
 import {
   loadingOffAction,
   loadingOnAction,
-} from "../../redux/actions/loadingAction";
-import { movieServ } from "../../services/movieService";
-import MovieItem from "./MovieItem";
-import { Pagination } from "antd";
+} from "../../../redux/actions/loadingAction";
 
 const pageSize = 10;
 export default function MovieList() {

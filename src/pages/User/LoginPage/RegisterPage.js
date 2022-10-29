@@ -3,26 +3,27 @@ import {
   Form,
   Input,
   // message,
-  // Select,
+  // Select
 } from "antd";
-import { userServ } from "../../services/userService";
+import React from "react";
+import Lottie from "lottie-react";
 import { useDispatch } from "react-redux";
-import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../../redux/actions/loadingAction";
+import { useNavigate } from "react-router-dom";
 import {
   LockOutlined,
-  // UserOutlined,
+  UserOutlined,
   MailOutlined,
   PhoneOutlined,
   IdcardOutlined,
-  // FileOutlined,
 } from "@ant-design/icons";
 import Swal from "sweetalert2";
-
-import React, { useState, useEffect } from "react";
-
+import { userServ } from "../../../services/userService";
+import {
+  loadingOffAction,
+  loadingOnAction,
+} from "../../../redux/actions/loadingAction";
+import bg_login from "../../../assets/bg.login.json";
+// const { Option } = Select;
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -38,12 +39,12 @@ const formItemLayout = {
     },
   },
 };
-export default function UserProfile() {
+export default function RegisterPage() {
   let onFail = () => {
     Swal.fire({
       position: "center",
       icon: "error",
-      title: "Update Failed",
+      title: "Username existed!",
       showConfirmButton: false,
       timer: 1500,
     });
@@ -52,49 +53,22 @@ export default function UserProfile() {
     Swal.fire({
       position: "center",
       icon: "success",
-      title: "Update Profile Successful",
+      title: "Register Successful",
       showConfirmButton: false,
       timer: 1500,
     });
     setTimeout(() => {
-      window.location.reload();
+      navigate("/login");
     }, 1500);
   };
   const [form] = Form.useForm();
   let dispatch = useDispatch();
-  const [userProfile, setUserProfile] = useState({});
-  useEffect(() => {
-    dispatch(loadingOnAction());
-    userServ
-      .getUserProfile()
-      .then((res) => {
-        console.log(res);
-        setUserProfile(res.data.content);
-        form.setFieldsValue({
-          matKhau: res.data.content.matKhau,
-          email: res.data.content.email,
-          soDT: res.data.content.soDT,
-          hoTen: res.data.content.hoTen,
-        });
-        dispatch(loadingOffAction());
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch(loadingOffAction());
-      });
-  }, []);
-
+  let navigate = useNavigate();
   const onFinish = (values) => {
-    values = {
-      ...values,
-      taiKhoan: userProfile.taiKhoan,
-      maNhom: userProfile.maNhom,
-      maLoaiNguoiDung: userProfile.maLoaiNguoiDung,
-    };
-    console.log("values: ", values);
+    // console.log("Received values of form: ", values);
     dispatch(loadingOnAction());
     userServ
-      .updateUserProfile(values)
+      .userRegister(values)
       .then((res) => {
         console.log(res);
         dispatch(loadingOffAction());
@@ -106,17 +80,19 @@ export default function UserProfile() {
         onFail();
       });
   };
+
   return (
-    <div className="lg:pt-28 pt-14 container flex justify-center">
+    <div className="flex items-center container pt-32">
+      <Lottie className="w-2/3 h-96" animationData={bg_login} />
       <Form
-        className="lg:gap-3 lg:w-1/2 w-5/6 gap-2 grid grid-cols-2 text-right"
+        className="w-1/3 text-right"
         {...formItemLayout}
         form={form}
-        name=""
+        name="register"
         onFinish={onFinish}
         scrollToFirstError
       >
-        {/* <Form.Item
+        <Form.Item
           name="taiKhoan"
           tooltip="What do you want others to call you?"
           rules={[
@@ -128,11 +104,10 @@ export default function UserProfile() {
           ]}
         >
           <Input
-            placeholder="Username"
             prefix={<UserOutlined className="site-form-item-icon" />}
-            disabled
+            placeholder="Username"
           />
-        </Form.Item> */}
+        </Form.Item>
         <Form.Item
           name="matKhau"
           rules={[
@@ -167,7 +142,7 @@ export default function UserProfile() {
           />
         </Form.Item>
         <Form.Item
-          name="soDT"
+          name="soDt"
           rules={[
             {
               required: true,
@@ -180,6 +155,26 @@ export default function UserProfile() {
             placeholder="Phone Number"
           />
         </Form.Item>
+        {/* <Form.Item
+            name="maNhom"
+            rules={[
+              {
+                required: true,
+                message: "Please select group code!",
+              },
+            ]}
+          >
+            <Select placeholder="select your group code">
+              <Option value="GP00">GP00</Option>
+              <Option value="GP01">GP01</Option>
+              <Option value="GP02">GP02</Option>
+              <Option value="GP03">GP03</Option>
+              <Option value="GP04">GP04</Option>
+              <Option value="GP05">GP05</Option>
+              <Option value="GP06">GP06</Option>
+              <Option value="GP07">GP07</Option>
+            </Select>
+          </Form.Item> */}
         <Form.Item
           name="hoTen"
           tooltip="What do you want others to call you?"
@@ -196,9 +191,30 @@ export default function UserProfile() {
             placeholder="Full Name"
           />
         </Form.Item>
-        <Form.Item className="text-left">
-          <Button className="rounded" type="primary" htmlType="submit">
-            Update
+        {/* <Form.Item
+            name="agreement"
+            valuePropName="checked"
+            rules={[
+              {
+                validator: (_, value) =>
+                  value
+                    ? Promise.resolve()
+                    : Promise.reject(new Error("You must accept agreement")),
+              },
+            ]}
+          >
+            <Checkbox>
+              I have read the <a href="">agreement</a>
+            </Checkbox>
+          </Form.Item> */}
+        <Form.Item>
+          <Button
+            size="large"
+            className="w-full "
+            type="primary"
+            htmlType="submit"
+          >
+            Sign Up
           </Button>
         </Form.Item>
       </Form>

@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 import {
   loadingOffAction,
   loadingOnAction,
-} from "../../redux/actions/loadingAction";
-import { movieServ } from "../../services/movieService";
+} from "../../../redux/actions/loadingAction";
+import { movieServ } from "../../../services/movieService";
 
 export default function DetailMovie() {
   let [detailMovie, setDetailMovie] = useState({});

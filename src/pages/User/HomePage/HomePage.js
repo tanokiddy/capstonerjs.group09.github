@@ -2,8 +2,8 @@ import React from "react";
 import "antd/dist/antd.min.css";
 import TabMovie from "./TabMovie";
 import MovieList from "./MovieList";
-import Footer from "../../components/Footer/Footer";
 import CarouselHome from "./CarouselHome";
+import Footer from "../../../components/Footer/Footer";
 
 export default function HomePage() {
   return (

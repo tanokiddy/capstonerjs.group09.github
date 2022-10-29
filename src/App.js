@@ -1,23 +1,23 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import BookingPage from "./pages/BookingPage/BookingPage";
-import DetailPage from "./pages/DetailPage/DetailPage";
-import HomePage from "./pages/HomePage/HomePage";
-import LoginPage from "./pages/LoginPage/LoginPage";
+import BookingPage from "./pages/User/BookingPage/BookingPage";
+import DetailPage from "./pages/User/DetailPage/DetailPage";
+import HomePage from "./pages/User/HomePage/HomePage";
+import LoginPage from "./pages/User/LoginPage/LoginPage";
 import Spinner from "./components/Spinner/Spinner";
-import RegisterPage from "./pages/LoginPage/RegisterPage";
-import SecureView from "./HOC/SecureView";
-import LayoutNon from "./HOC/LayoutNon";
-import Layout from "./HOC/Layout";
+import RegisterPage from "./pages/User/LoginPage/RegisterPage";
+import UserTickets from "./pages/User/HomePage/UserTickets";
+import UserProfile from "./pages/User/HomePage/UserProfile";
 import AdminPage from "./pages/Admin/AdminPage";
 import Users from "./pages/Admin/Users";
 import Films from "./pages/Admin/Films";
-import UserTickets from "./pages/HomePage/UserTickets";
 import AddUser from "./pages/Admin/AddUser";
-import UserProfile from "./pages/HomePage/UserProfile";
+import FindingUser from "./pages/Admin/FindingUser";
 import Error403 from "./pages/Admin/Error403";
 import SecureViewAdmin from "./HOC/SecureViewAdmin";
-import FindingUser from "./pages/Admin/FindingUser";
+import SecureView from "./HOC/SecureView";
+import LayoutNon from "./HOC/LayoutNon";
+import Layout from "./HOC/Layout";
 
 function App() {
   return (

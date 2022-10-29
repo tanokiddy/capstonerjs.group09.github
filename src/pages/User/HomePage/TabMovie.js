@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Tabs } from "antd";
 import ItemTabMovie from "./ItemTabMovie";
-import { movieServ } from "../../services/movieService";
 import { useDispatch } from "react-redux";
+import { movieServ } from "../../../services/movieService";
 import {
   loadingOffAction,
   loadingOnAction,
-} from "../../redux/actions/loadingAction";
+} from "../../../redux/actions/loadingAction";
 
 export default function TabMovie() {
   const [tabMovie, setTabMovie] = useState([]);

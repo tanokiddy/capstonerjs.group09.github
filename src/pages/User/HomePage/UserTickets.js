@@ -1,12 +1,12 @@
 import moment from "moment";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Card } from "antd";
+import { userServ } from "../../../services/userService";
 import {
   loadingOffAction,
   loadingOnAction,
-} from "../../redux/actions/loadingAction";
-import { userServ } from "../../services/userService";
-import { Card } from "antd";
+} from "../../../redux/actions/loadingAction";
 
 export default function UserTickets() {
   const [userTicket, setUserTicket] = useState({});

@@ -24,6 +24,17 @@ export default function Users() {
   const onSearch = (value) => {
     navigate(`/admin/userManagement/search/${value}`);
   };
+
+  //HANDLE MODAL USER EDITING
+  const [modal2Open, setModal2Open] = useState(false);
+  const [userEditing, setUserEditing] = useState({});
+  const handleUserEditing = (id) => {
+    setModal2Open(true);
+    let index = dataUser.findIndex((item) => {
+      return item.taiKhoan === id;
+    });
+    setUserEditing(dataUser[index]);
+  };
   //CALL API TO GET USERLIST
   useEffect(() => {
     dispatch(loadingOnAction());
@@ -38,17 +49,6 @@ export default function Users() {
         console.log(err);
       });
   }, []);
-  //HANDLE MODAL USER EDITING
-  const [modal2Open, setModal2Open] = useState(false);
-  const [userEditing, setUserEditing] = useState({});
-  const handleUserEditing = (id) => {
-    setModal2Open(true);
-    let index = dataUser.findIndex((item) => {
-      return item.taiKhoan === id;
-    });
-    setUserEditing(dataUser[index]);
-    console.log("userEditing: ", userEditing);
-  };
 
   //SET DELETE USER FOR USER LIST BENEATH
   const handleUserDelete = (taiKhoan) => {
@@ -251,7 +251,10 @@ export default function Users() {
                 onCancel={() => setModal2Open(false)}
                 footer={null}
               >
-                <UserEditing userEditing={userEditing} />
+                <UserEditing
+                  userEditing={userEditing}
+                  setModal2Open={setModal2Open}
+                />
               </Modal>
             </div>
           </div>

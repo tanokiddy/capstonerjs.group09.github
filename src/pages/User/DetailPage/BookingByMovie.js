@@ -2,12 +2,12 @@ import { Tabs } from "antd";
 import React, { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import moment from "moment";
-import { movieServ } from "../../services/movieService";
 import { useDispatch } from "react-redux";
 import {
   loadingOffAction,
   loadingOnAction,
-} from "../../redux/actions/loadingAction";
+} from "../../../redux/actions/loadingAction";
+import { movieServ } from "../../../services/movieService";
 
 export default function BookingByMovie() {
   const [booking, setBooking] = useState([]);

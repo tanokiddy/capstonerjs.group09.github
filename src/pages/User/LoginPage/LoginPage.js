@@ -1,14 +1,14 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
-import bg_login from "../../assets/bg.login.json";
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
-import { userServ } from "../../services/userService";
-import { localServ } from "../../services/localService";
 import { useDispatch } from "react-redux";
-import { userLoginAction } from "../../redux/actions/userAction";
 import Swal from "sweetalert2";
+import { userServ } from "../../../services/userService";
+import { localServ } from "../../../services/localService";
+import { userLoginAction } from "../../../redux/actions/userAction";
+import bg_login from "../../../assets/bg.login.json";
 export default function LoginPage() {
   let navigate = useNavigate();
   let dispatch = useDispatch();

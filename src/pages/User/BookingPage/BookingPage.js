@@ -5,9 +5,9 @@ import Swal from "sweetalert2";
 import {
   loadingOffAction,
   loadingOnAction,
-} from "../../redux/actions/loadingAction";
-import { bookTicketAction } from "../../redux/actions/movieAction";
-import { movieServ } from "../../services/movieService";
+} from "../../../redux/actions/loadingAction";
+import { bookTicketAction } from "../../../redux/actions/movieAction";
+import { movieServ } from "../../../services/movieService";
 
 export default function BookingPage() {
   let { id } = useParams();
