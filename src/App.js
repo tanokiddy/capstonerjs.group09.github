@@ -13,7 +13,7 @@ import Users from "./pages/Admin/UserManagement/Users";
 import FindingUser from "./pages/Admin/UserManagement/FindingUser";
 import AddUser from "./pages/Admin/UserManagement/AddUser";
 //ADMIN - FILM MANAGEMENT
-import Films from "./pages/Admin/FilmManagement/Films";
+import ListFilmAdmin from "./pages/Admin/FilmManagement/ListFilmAdmin";
 //GENERAL ADMIN PAGES
 import AdminPage from "./pages/Admin/AdminPage";
 import Error403 from "./pages/Admin/ErrorLandingPage";
@@ -22,6 +22,7 @@ import SecureViewAdmin from "./HOC/SecureViewAdmin";
 import SecureView from "./HOC/SecureView";
 import LayoutNon from "./HOC/LayoutNon";
 import Layout from "./HOC/Layout";
+import AddNewFilm from "./pages/Admin/FilmManagement/AddNewFilm";
 
 function App() {
   return (
@@ -87,14 +88,6 @@ function App() {
           }
         ></Route>
         <Route
-          path="/admin/films/filmManagement"
-          element={
-            <SecureViewAdmin>
-              <LayoutNon Component={Films} />
-            </SecureViewAdmin>
-          }
-        ></Route>
-        <Route
           path="/admin/userManagement/addUser"
           element={
             <SecureViewAdmin>
@@ -107,6 +100,22 @@ function App() {
           element={
             <SecureViewAdmin>
               <LayoutNon Component={FindingUser} />
+            </SecureViewAdmin>
+          }
+        ></Route>
+        <Route
+          path="/admin/films/filmManagement"
+          element={
+            <SecureViewAdmin>
+              <LayoutNon Component={ListFilmAdmin} />
+            </SecureViewAdmin>
+          }
+        ></Route>
+        <Route
+          path="/admin/films/addNewFilm"
+          element={
+            <SecureViewAdmin>
+              <LayoutNon Component={AddNewFilm} />
             </SecureViewAdmin>
           }
         ></Route>

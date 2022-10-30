@@ -58,10 +58,11 @@ export default function UserEditing({ userEditing, setModal2Open }) {
       })
       .catch((err) => {
         console.log(err);
+        let errMessage = err.response.data.content;
         Swal.fire({
           position: "center",
           icon: "error",
-          title: "Cannot update,please check input value again",
+          title: errMessage,
           showConfirmButton: false,
           timer: 1500,
         });

@@ -1,12 +1,12 @@
+import React, { useState, useEffect } from "react";
 import { Space, Table, Tooltip } from "antd";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-import React, { useState, useEffect } from "react";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
 import { movieServ } from "../../../services/movieService";
 import {
   loadingOffAction,
@@ -14,7 +14,7 @@ import {
 } from "../../../redux/actions/loadingAction";
 const { Header, Content, Sider } = Layout;
 
-export default function Films() {
+export default function ListFilmAdmin() {
   const [dataFilm, setDataFilm] = useState([]);
   let dispatch = useDispatch();
   useEffect(() => {
@@ -135,10 +135,10 @@ export default function Films() {
         breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={(broken) => {
-          console.log(broken);
+          // console.log(broken);
         }}
         onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
+          // console.log(collapsed, type);
         }}
       >
         <Menu
@@ -156,7 +156,9 @@ export default function Films() {
                 Film Management
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="addFilm">Add new</Menu.Item>
+            <Menu.Item key="addFilm">
+              <NavLink to="/admin/films/addNewFilm">Add New</NavLink>
+            </Menu.Item>
           </Menu.SubMenu>
         </Menu>
       </Sider>
@@ -176,14 +178,7 @@ export default function Films() {
             style={{
               margin: "16px 0",
             }}
-          >
-            <Breadcrumb.Item>Films</Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <NavLink to="/admin/films/filmManagement">
-                Films Management
-              </NavLink>
-            </Breadcrumb.Item>
-          </Breadcrumb>
+          ></Breadcrumb>
           <div
             className="site-layout-background"
             style={{
@@ -192,7 +187,7 @@ export default function Films() {
             }}
           >
             <div>
-              <div className="text-2xl bold mb-4">Quản lý phim</div>
+              <div className="text-2xl bold mb-4">Film Management</div>
               <Space
                 style={{
                   marginBottom: 16,

@@ -32,7 +32,9 @@ export default function AdminPage() {
                 Film Management
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="addFilm">Add new</Menu.Item>
+            <Menu.Item key="addFilm">
+              <NavLink to="/admin/films/addNewFilm">Add New</NavLink>
+            </Menu.Item>
           </Menu.SubMenu>
         </Menu>
       </Sider>

@@ -47,15 +47,6 @@ const formItemLayout = {
   },
 };
 export default function AddUser() {
-  let onFail = () => {
-    Swal.fire({
-      position: "center",
-      icon: "error",
-      title: "Username existed",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  };
   let onSuccess = () => {
     Swal.fire({
       position: "center",
@@ -84,7 +75,14 @@ export default function AddUser() {
       .catch((err) => {
         console.log(err);
         dispatch(loadingOffAction());
-        onFail();
+        let errMessage = err.response.data.content;
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: errMessage,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
   };
   return (
@@ -113,7 +111,9 @@ export default function AddUser() {
                 Film Management
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="addFilm">Add New</Menu.Item>
+            <Menu.Item key="addFilm">
+              <NavLink to="/admin/films/addNewFilm">Add New</NavLink>
+            </Menu.Item>
           </Menu.SubMenu>
         </Menu>
       </Sider>

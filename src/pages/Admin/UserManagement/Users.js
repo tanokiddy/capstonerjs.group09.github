@@ -190,7 +190,9 @@ export default function Users() {
                 Film Management
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="addFilm">Add New</Menu.Item>
+            <Menu.Item key="addFilm">
+              <NavLink to="/admin/films/addNewFilm">Add New</NavLink>
+            </Menu.Item>
           </Menu.SubMenu>
         </Menu>
       </Sider>
@@ -212,9 +214,9 @@ export default function Users() {
               margin: "16px 0",
             }}
           >
-            <Breadcrumb.Item>
+            {/* <Breadcrumb.Item>
               <NavLink to="/admin/userManagement">User Management</NavLink>
-            </Breadcrumb.Item>
+            </Breadcrumb.Item> */}
           </Breadcrumb>
           <div
             className="site-layout-background"
@@ -224,10 +226,10 @@ export default function Users() {
             }}
           >
             <div>
-              <div className="text-2xl bold">Quản lý người dùng</div>
+              <div className="text-2xl bold">User Management</div>
               <NavLink to="/admin/userManagement/addUser">
                 <button className="border text-white font-bold bg-blue-500 rounded p-2 my-1">
-                  + Thêm người dùng
+                  + Add New User
                 </button>
               </NavLink>
               <Search

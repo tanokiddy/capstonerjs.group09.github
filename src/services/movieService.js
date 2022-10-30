@@ -39,4 +39,27 @@ export const movieServ = {
     let uri = `/api/QuanLyPhim/XoaPhim?MaPhim=${movieId}`;
     return https.delete(uri);
   },
+  uploadMovie: (formData) => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyPhim/ThemPhimUploadHinh
+      `,
+      data: formData,
+      method: "POST",
+      headers: {
+        TokenCybersoft: TOKEN_CYBERSOFT,
+      },
+    });
+  },
+  updateMovieUpload: (formData) => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyPhim/CapNhatPhimUpload
+      `,
+      data: formData,
+      method: "POST",
+      headers: {
+        TokenCybersoft: TOKEN_CYBERSOFT,
+        Authorization: "Bearer " + localServ.user.getDataUser()?.accessToken,
+      },
+    });
+  },
 };

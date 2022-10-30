@@ -11,6 +11,7 @@
     "antd": "^4.23.4",
     "axios": "^1.1.2",
     "bootstrap": "^4.6.0",
+    "formik": "^2.2.9",
     "hooks": "^0.3.2",
     "lottie-react": "^2.3.1",
     "moment": "^2.29.4",

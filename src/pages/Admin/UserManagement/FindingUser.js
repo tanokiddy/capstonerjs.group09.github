@@ -147,7 +147,9 @@ export default function FindingUser() {
                 Film Management
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="addFilm">Add New</Menu.Item>
+            <Menu.Item key="addFilm">
+              <NavLink to="/admin/films/addNewFilm">Add New</NavLink>
+            </Menu.Item>
           </Menu.SubMenu>
         </Menu>
       </Sider>
