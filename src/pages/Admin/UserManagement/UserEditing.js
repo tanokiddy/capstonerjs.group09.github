@@ -54,6 +54,7 @@ export default function UserEditing({ userEditing, setModal2Open }) {
         });
         setTimeout(() => {
           setModal2Open(false);
+          window.location.reload();
         }, 1500);
       })
       .catch((err) => {
@@ -68,19 +69,7 @@ export default function UserEditing({ userEditing, setModal2Open }) {
         });
       });
   };
-  //CALL API TO GET USERLIST
-  const [dataUser, setDataUser] = useState([]);
-  useEffect(() => {
-    userServ
-      .userList()
-      .then((res) => {
-        console.log(res);
-        setDataUser(res.data.content);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [userEditing]);
+
   return (
     <Form
       className="w-full text-right"

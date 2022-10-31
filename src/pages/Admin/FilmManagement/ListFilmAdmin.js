@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Space, Table, Tooltip } from "antd";
+import { Space, Table, Tooltip, Modal } from "antd";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
@@ -12,9 +12,23 @@ import {
   loadingOffAction,
   loadingOnAction,
 } from "../../../redux/actions/loadingAction";
+import FilmEditing from "./FilmEditing";
 const { Header, Content, Sider } = Layout;
 
 export default function ListFilmAdmin() {
+  //HANDLE MODAL USER EDITING
+  const [modal2Open, setModal2Open] = useState(false);
+  const [filmEditing, setFilmEditing] = useState({});
+  console.log("filmEditing: ", filmEditing);
+  const handleFilmEditing = (id) => {
+    setModal2Open(true);
+    let index = dataFilm.findIndex((item) => {
+      return item.maPhim === id;
+    });
+    console.log("index: ", index);
+    setFilmEditing(dataFilm[index]);
+  };
+
   const [dataFilm, setDataFilm] = useState([]);
   let dispatch = useDispatch();
   useEffect(() => {
@@ -30,7 +44,7 @@ export default function ListFilmAdmin() {
         console.log(err);
       });
   }, []);
-
+  //HANDLE DELETE MOVIE
   const handleDeleteMovie = (movieId) => {
     movieServ
       .deleteMovie(movieId)
@@ -54,7 +68,7 @@ export default function ListFilmAdmin() {
 
   const [sortedInfo, setSortedInfo] = useState({});
   const handleChange = (pagination, filters, sorter) => {
-    console.log("Various parameters", pagination, filters, sorter);
+    // console.log("Various parameters", pagination, filters, sorter);
     setSortedInfo(sorter);
   };
 
@@ -107,7 +121,12 @@ export default function ListFilmAdmin() {
         return (
           <div className="text-center flex justify-center ">
             <button className="sm:mr-3 mr-1">
-              <BiEdit className="sm:w-[25px] sm:h-[25px] w-[10px] h-[10px]" />
+              <BiEdit
+                onClick={() => {
+                  handleFilmEditing(maPhim);
+                }}
+                className="sm:w-[25px] sm:h-[25px] w-[10px] h-[10px]"
+              />
             </button>
             <button>
               <MdDelete
@@ -199,6 +218,19 @@ export default function ListFilmAdmin() {
                 dataSource={dataFilm}
                 onChange={handleChange}
               />
+              <Modal
+                title="Film Editing"
+                centered
+                visible={modal2Open}
+                onOk={() => setModal2Open(false)}
+                onCancel={() => setModal2Open(false)}
+                footer={null}
+              >
+                <FilmEditing
+                  filmEditing={filmEditing}
+                  setModal2Open={setModal2Open}
+                />
+              </Modal>
             </div>
           </div>
         </Content>

@@ -25,7 +25,7 @@ export default function CarouselHome() {
         <SwiperSlide className="relative" key={index}>
           <img
             src={carousel.hinhAnh}
-            className="object-contain pb-[50px] pt-[82px]"
+            className="sm:w-[] object-contain pb-[50px] pt-[82px]"
             alt=""
           />
           <BsPlayFill
