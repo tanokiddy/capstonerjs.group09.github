@@ -136,7 +136,7 @@ export default function FilmEditing({ filmEditing, setModal2Open }) {
       labelAlign="left"
     >
       <Form.Item
-        label="Film code:"
+        label="Group code:"
         rules={[
           {
             required: true,
@@ -147,7 +147,7 @@ export default function FilmEditing({ filmEditing, setModal2Open }) {
       >
         <Input
           disabled
-          name="maPhim"
+          name="maNhom"
           onChange={formik.handleChange}
           prefix={<VideoCameraAddOutlined className="site-form-item-icon" />}
           placeholder="GP03"

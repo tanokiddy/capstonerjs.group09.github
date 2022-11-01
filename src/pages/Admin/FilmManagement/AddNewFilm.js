@@ -117,11 +117,10 @@ export default function AddNewFilm() {
         })
         .catch((err) => {
           console.log(err.response.data.content);
-          let errMessage = err.response.data.content;
           Swal.fire({
             position: "center",
             icon: "error",
-            title: errMessage,
+            title: err.response.data.content,
             showConfirmButton: false,
             timer: 1500,
           });

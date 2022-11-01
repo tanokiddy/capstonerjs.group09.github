@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Space, Table, Tooltip, Modal } from "antd";
-import { BiEdit } from "react-icons/bi";
+import { BiEdit, BiAlarm } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { movieServ } from "../../../services/movieService";
@@ -18,6 +18,7 @@ const { Header, Content, Sider } = Layout;
 export default function ListFilmAdmin() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   let dispatch = useDispatch();
+  let navigate = useNavigate();
   const [dataFilm, setDataFilm] = useState([]);
 
   useEffect(() => {
@@ -62,6 +63,9 @@ export default function ListFilmAdmin() {
         });
       });
   };
+  const handleAddShowTimes = (maPhim) => {
+    navigate(`/admin/films/filmManagement/addShowTimes/${maPhim}`);
+  };
 
   //SET UP MODAL
   const [modal2Open, setModal2Open] = useState(false);
@@ -88,7 +92,7 @@ export default function ListFilmAdmin() {
       key: "maPhim",
       sorter: (a, b) => a.maPhim - b.maPhim,
       sortOrder: sortedInfo.columnKey === "maPhim" ? sortedInfo.order : null,
-      className: "sm:w-[110px] w-[80px] sm:text-base text-[9px]",
+      className: "sm:w-[110px] w-[62px] sm:text-base text-[9px]",
     },
     {
       title: "Hình ảnh",
@@ -105,7 +109,7 @@ export default function ListFilmAdmin() {
       sorter: (a, b) => a.tenPhim.localeCompare(b.tenPhim),
       sortOrder: sortedInfo.columnKey === "tenPhim" ? sortedInfo.order : null,
       align: "center",
-      className: "sm:w-2/12 sm:text-base text-[9px]",
+      className: "sm:w-2/12 w-[80px] sm:text-base text-[9px]",
     },
 
     {
@@ -129,10 +133,18 @@ export default function ListFilmAdmin() {
       render: (maPhim) => {
         return (
           <div className="text-center flex justify-center ">
-            <button className="sm:mr-3 mr-1">
+            <button className="">
               <BiEdit
                 onClick={() => {
                   handleFilmEditing(maPhim);
+                }}
+                className="sm:w-[25px] sm:h-[25px] w-[10px] h-[10px]"
+              />
+            </button>
+            <button className="sm:mx-1 mx-2">
+              <BiAlarm
+                onClick={() => {
+                  handleAddShowTimes(maPhim);
                 }}
                 className="sm:w-[25px] sm:h-[25px] w-[10px] h-[10px]"
               />
@@ -150,7 +162,7 @@ export default function ListFilmAdmin() {
       },
       key: "hanhDong",
       align: "center",
-      className: "w-2/12 sm:text-base text-[9px]",
+      className: "sm:w-2/12 w-[60px] sm:text-base text-[9px]",
     },
   ];
 

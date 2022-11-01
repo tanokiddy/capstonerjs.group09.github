@@ -23,6 +23,7 @@ import SecureView from "./HOC/SecureView";
 import LayoutNon from "./HOC/LayoutNon";
 import Layout from "./HOC/Layout";
 import AddNewFilm from "./pages/Admin/FilmManagement/AddNewFilm";
+import AddShowTimes from "./pages/Admin/FilmManagement/AddShowTimes";
 
 function App() {
   return (
@@ -116,6 +117,14 @@ function App() {
           element={
             <SecureViewAdmin>
               <LayoutNon Component={AddNewFilm} />
+            </SecureViewAdmin>
+          }
+        ></Route>
+        <Route
+          path="/admin/films/filmManagement/addShowTimes/:id"
+          element={
+            <SecureViewAdmin>
+              <LayoutNon Component={AddShowTimes} />
             </SecureViewAdmin>
           }
         ></Route>

@@ -62,4 +62,24 @@ export const movieServ = {
       },
     });
   },
+  getTheatreSystem: () => {
+    let uri = `/api/QuanLyRap/LayThongTinHeThongRap`;
+    return https.get(uri);
+  },
+  getTheatre: (theatre) => {
+    let uri = `api/QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=${theatre}`;
+    return https.get(uri);
+  },
+  addShowtimes: (formData) => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyDatVe/TaoLichChieu
+      `,
+      data: formData,
+      method: "POST",
+      headers: {
+        TokenCybersoft: TOKEN_CYBERSOFT,
+        Authorization: "Bearer " + localServ.user.getDataUser()?.accessToken,
+      },
+    });
+  },
 };
