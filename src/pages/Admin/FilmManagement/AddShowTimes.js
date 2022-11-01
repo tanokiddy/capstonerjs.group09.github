@@ -41,8 +41,7 @@ export default function AddShowTimes() {
   let dispatch = useDispatch();
   let { id } = useParams();
   const [theatreSystem, setTheatreSystem] = useState([]);
-  const [theatre, setTheatre] = useState([]);
-  const [theatreCode, setTheatreCode] = useState();
+  const [theatre, setTheatre] = useState();
 
   useEffect(() => {
     movieServ
@@ -56,17 +55,9 @@ export default function AddShowTimes() {
       });
   }, []);
 
-  useEffect(() => {
-    movieServ
-      .getTheatre(theatre)
-      .then((res) => {
-        console.log(res);
-        setTheatreCode(res.data.content);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [theatre]);
+  // useEffect(() => {
+
+  // }, [theatre]);
 
   //SETUP FORMIK TO FORM
   //-Set Form
@@ -76,16 +67,26 @@ export default function AddShowTimes() {
     let ngayChieuGioChieu = moment(value).format("DD/MM/YYYY HH:mm:ss");
     formik.setFieldValue("ngayChieuGioChieu", ngayChieuGioChieu);
   };
+  //-Set FieldValue for Inputnumber
   const handleChangeInputNumber = (name) => {
     return (value) => {
       formik.setFieldValue(name, value);
     };
   };
-  const handleOnchangeTheatreSystem = (value) => {
-    setTheatre(value);
-  };
+  //-Set FieldValue for Select
   const handleOnchangeTheatre = (value) => {
     formik.setFieldValue("maRap", value);
+  };
+  const handleOnchangeTheatreSystem = (value) => {
+    movieServ
+      .getTheatre(value)
+      .then((res) => {
+        console.log(res);
+        setTheatre(res.data.content);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   //-Set up Formik and submit
   const formik = useFormik({
@@ -97,13 +98,6 @@ export default function AddShowTimes() {
       giaVe: 0,
     },
     onSubmit: (values) => {
-      console.log("values: ", values);
-      let formData = new FormData();
-      formData.maPhim = id;
-      for (let key in values) {
-        formData.append(key, values[key]);
-      }
-      console.log(values);
       dispatch(loadingOnAction());
       movieServ
         .addShowtimes(values)
@@ -145,7 +139,7 @@ export default function AddShowTimes() {
     });
   };
   const renderTheatre = () => {
-    return theatreCode?.map((theatre, index) => {
+    return theatre?.map((theatre, index) => {
       return (
         <Option
           key={index}
@@ -258,7 +252,6 @@ export default function AddShowTimes() {
                 </Form.Item>
                 <Form.Item
                   label="Theatre system:"
-                  name="theatreSystem"
                   rules={[
                     {
                       required: false,
@@ -276,7 +269,6 @@ export default function AddShowTimes() {
                 </Form.Item>
                 <Form.Item
                   label="Theatre:"
-                  name="maRap"
                   rules={[
                     {
                       required: false,
@@ -311,8 +303,8 @@ export default function AddShowTimes() {
                 >
                   <InputNumber
                     className="!w-[200px]"
-                    min={75000}
-                    max={200000}
+                    // min={75000}
+                    // max={200000}
                     onChange={handleChangeInputNumber("giaVe")}
                     prefix={
                       <VideoCameraAddOutlined className="site-form-item-icon" />

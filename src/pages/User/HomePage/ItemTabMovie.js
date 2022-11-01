@@ -27,7 +27,7 @@ export default function ItemTabMovie({ movie }) {
   };
 
   return (
-    <div className="flex border-b border-red-500 sm:p-3 py-2 px-0">
+    <div className="flex border-b border-red-500 sm:!px-3 sm:!py-3 py-2 px-0">
       <img
         src={movie.hinhAnh}
         alt="hinhAnh"
