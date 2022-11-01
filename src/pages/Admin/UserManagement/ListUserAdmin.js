@@ -16,26 +16,13 @@ import {
 
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
-export default function Users() {
-  const [dataUser, setDataUser] = useState([]);
+
+export default function ListUserAdmin() {
+  //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   const navigate = useNavigate();
   let dispatch = useDispatch();
-  //SEARCH INPUT
-  const onSearch = (value) => {
-    navigate(`/admin/userManagement/search/${value}`);
-  };
+  const [dataUser, setDataUser] = useState([]);
 
-  //HANDLE MODAL USER EDITING
-  const [modal2Open, setModal2Open] = useState(false);
-  const [userEditing, setUserEditing] = useState({});
-  const handleUserEditing = (id) => {
-    setModal2Open(true);
-    let index = dataUser.findIndex((item) => {
-      return item.taiKhoan === id;
-    });
-    setUserEditing(dataUser[index]);
-  };
-  //CALL API TO GET USERLIST
   useEffect(() => {
     dispatch(loadingOnAction());
     userServ
@@ -50,12 +37,35 @@ export default function Users() {
       });
   }, []);
 
-  //SET DELETE USER FOR USER LIST BENEATH
+  //SET UP MODAL USER EDITING
+  const [modal2Open, setModal2Open] = useState(false);
+  const [userEditing, setUserEditing] = useState({});
+  const handleUserEditing = (id) => {
+    setModal2Open(true);
+    let index = dataUser.findIndex((item) => {
+      return item.taiKhoan === id;
+    });
+    setUserEditing(dataUser[index]);
+  };
+
+  //SET UP FORM COLUMNS, SEARCH INPUT, PAGINATION
+  //-Declare search input
+  const onSearch = (value) => {
+    navigate(`/admin/userManagement/search/${value}`);
+  };
+  //-Set up pagination
+  const [sortedInfo, setSortedInfo] = useState({});
+  const handleChange = (pagination, filters, sorter) => {
+    setSortedInfo(sorter);
+  };
+  //-Declare handle function in COLUMNS
   const handleUserDelete = (taiKhoan) => {
+    dispatch(loadingOnAction());
     userServ
       .userDelete(taiKhoan)
       .then((res) => {
         console.log(res);
+        dispatch(loadingOffAction());
         Swal.fire({
           position: "center",
           icon: "success",
@@ -69,24 +79,17 @@ export default function Users() {
       })
       .catch((err) => {
         console.log(err);
+        dispatch(loadingOffAction());
         Swal.fire({
           position: "center",
           icon: "error",
-          title: "Cannot delete, this user booked tickets",
+          title: err.response.data.content,
           showConfirmButton: false,
           timer: 1500,
         });
       });
   };
-
-  const [sortedInfo, setSortedInfo] = useState({});
-  //SET PAGINATION OF USERLIST
-  const handleChange = (pagination, filters, sorter) => {
-    console.log("Various parameters", pagination, filters, sorter);
-    setSortedInfo(sorter);
-  };
-
-  //SET COLUMNS FOR USERLIST
+  //-COLUMNS
   const columns = [
     {
       title: "Username",

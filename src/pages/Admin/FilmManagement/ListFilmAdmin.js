@@ -16,21 +16,10 @@ import FilmEditing from "./FilmEditing";
 const { Header, Content, Sider } = Layout;
 
 export default function ListFilmAdmin() {
-  //HANDLE MODAL USER EDITING
-  const [modal2Open, setModal2Open] = useState(false);
-  const [filmEditing, setFilmEditing] = useState({});
-  console.log("filmEditing: ", filmEditing);
-  const handleFilmEditing = (id) => {
-    setModal2Open(true);
-    let index = dataFilm.findIndex((item) => {
-      return item.maPhim === id;
-    });
-    console.log("index: ", index);
-    setFilmEditing(dataFilm[index]);
-  };
-
-  const [dataFilm, setDataFilm] = useState([]);
+  //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   let dispatch = useDispatch();
+  const [dataFilm, setDataFilm] = useState([]);
+
   useEffect(() => {
     dispatch(loadingOnAction());
     movieServ
@@ -44,7 +33,8 @@ export default function ListFilmAdmin() {
         console.log(err);
       });
   }, []);
-  //HANDLE DELETE MOVIE
+
+  //DECLARE HANDLE FUNCTION
   const handleDeleteMovie = (movieId) => {
     movieServ
       .deleteMovie(movieId)
@@ -63,15 +53,34 @@ export default function ListFilmAdmin() {
       })
       .catch((err) => {
         console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: err.response.data.content,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
   };
 
-  const [sortedInfo, setSortedInfo] = useState({});
-  const handleChange = (pagination, filters, sorter) => {
-    // console.log("Various parameters", pagination, filters, sorter);
-    setSortedInfo(sorter);
+  //SET UP MODAL
+  const [modal2Open, setModal2Open] = useState(false);
+  const [filmEditing, setFilmEditing] = useState({});
+  const handleFilmEditing = (id) => {
+    setModal2Open(true);
+    let index = dataFilm.findIndex((item) => {
+      return item.maPhim === id;
+    });
+    setFilmEditing(dataFilm[index]);
   };
 
+  //SET UP FORM COLUMNS
+  //-Set up pagination
+  const [sortedInfo, setSortedInfo] = useState({});
+  const handleChange = (pagination, filters, sorter) => {
+    setSortedInfo(sorter);
+  };
+  //-COLUMNS
   const columns = [
     {
       title: "Mã Phim",
@@ -144,6 +153,7 @@ export default function ListFilmAdmin() {
       className: "w-2/12 sm:text-base text-[9px]",
     },
   ];
+
   return (
     <Layout
       style={{

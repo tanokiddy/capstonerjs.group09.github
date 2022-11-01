@@ -9,45 +9,43 @@ import { userServ } from "../../../services/userService";
 import { localServ } from "../../../services/localService";
 import { userLoginAction } from "../../../redux/actions/userAction";
 import bg_login from "../../../assets/bg.login.json";
+
 export default function LoginPage() {
+  //SET UP REACT HOOK - METHOD
   let navigate = useNavigate();
   let dispatch = useDispatch();
+
+  //SET UP SUBMIT FORM
   const onFinish = (values) => {
-    let onSuccess = () => {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Login Successful",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setTimeout(() => {
-        navigate("/");
-      }, 1500);
-    };
-    let onFail = () => {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Login Failed",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    };
-    // console.log("Received values of form: ", values);
     userServ
       .userLogin(values)
       .then((res) => {
         console.log(res);
         localServ.user.setDataUser(res.data.content);
         dispatch(userLoginAction(res.data.content));
-        onSuccess();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Login Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
       })
       .catch((err) => {
         console.log(err);
-        onFail();
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: err.response.data.content,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
   };
+
   return (
     <div className="flex justify-center container items-center pt-32">
       <Lottie className="w-2/3 h-96" animationData={bg_login} />

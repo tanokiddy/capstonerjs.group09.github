@@ -7,7 +7,9 @@ import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper";
 import { movieServ } from "../../../services/movieService";
 
 export default function CarouselHome() {
+  //SET UP STATE AND CALL API TO GET DATA
   const [carousel, setCarousel] = useState([]);
+
   useEffect(() => {
     movieServ
       .getMovieBanner()
@@ -19,6 +21,8 @@ export default function CarouselHome() {
         console.log(err);
       });
   }, []);
+
+  //DECLEAR FUNCTION TO RENDER TO LAYOUT
   const renderCarousel = () => {
     return carousel.map((carousel, index) => {
       return (
@@ -45,6 +49,7 @@ export default function CarouselHome() {
       );
     });
   };
+
   return (
     <div className="mx-auto container ">
       <Swiper

@@ -9,7 +9,10 @@ import {
 } from "../../../redux/actions/loadingAction";
 
 const pageSize = 10;
+
 export default function MovieList() {
+  //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
+  let dispatch = useDispatch();
   const [movie, setMovie] = useState([]);
   const [page, setPage] = useState({
     data: [],
@@ -18,8 +21,7 @@ export default function MovieList() {
     minIndex: 0,
     maxIndex: 0,
   });
-  let dispatch = useDispatch();
-  // console.log("page", page);
+
   useEffect(() => {
     dispatch(loadingOnAction());
     movieServ
@@ -38,8 +40,11 @@ export default function MovieList() {
       })
       .catch((err) => {
         console.log(err);
+        dispatch(loadingOffAction());
       });
   }, []);
+
+  //BUILD METHOD
   const handleOnChange = (page1) => {
     setPage({
       ...page,
@@ -48,6 +53,8 @@ export default function MovieList() {
       maxIndex: page1 * pageSize,
     });
   };
+
+  //DECLARE FUNCTION TO RENDER TO LAYOUT
   const renderMovie = () => {
     return movie?.map((movie, index) => {
       return (
@@ -56,6 +63,7 @@ export default function MovieList() {
       );
     });
   };
+
   return (
     <div id="nowShowing" className="container pt-[82px] pb-2 mb-5 ">
       <div className="grid xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-4 mb-3 relative ">

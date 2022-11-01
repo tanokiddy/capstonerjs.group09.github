@@ -1,18 +1,10 @@
-import {
-  Button,
-  Form,
-  Input,
-  // message,
-  // Select,
-} from "antd";
+import { Button, Form, Input } from "antd";
 import { useDispatch } from "react-redux";
 import {
   LockOutlined,
-  // UserOutlined,
   MailOutlined,
   PhoneOutlined,
   IdcardOutlined,
-  // FileOutlined,
 } from "@ant-design/icons";
 import Swal from "sweetalert2";
 
@@ -38,31 +30,12 @@ const formItemLayout = {
     },
   },
 };
+
 export default function UserProfile() {
-  let onFail = () => {
-    Swal.fire({
-      position: "center",
-      icon: "error",
-      title: "Update Failed",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  };
-  let onSuccess = () => {
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Update Profile Successful",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-    setTimeout(() => {
-      window.location.reload();
-    }, 1500);
-  };
-  const [form] = Form.useForm();
+  //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET USERPROFILE-DATA
   let dispatch = useDispatch();
   const [userProfile, setUserProfile] = useState({});
+
   useEffect(() => {
     dispatch(loadingOnAction());
     userServ
@@ -70,13 +43,13 @@ export default function UserProfile() {
       .then((res) => {
         console.log(res);
         setUserProfile(res.data.content);
+        dispatch(loadingOffAction());
         form.setFieldsValue({
           matKhau: res.data.content.matKhau,
           email: res.data.content.email,
           soDT: res.data.content.soDT,
           hoTen: res.data.content.hoTen,
         });
-        dispatch(loadingOffAction());
       })
       .catch((err) => {
         console.log(err);
@@ -84,28 +57,46 @@ export default function UserProfile() {
       });
   }, []);
 
+  //SET UP FORM AND SUBMIT
+  const [form] = Form.useForm();
+
   const onFinish = (values) => {
+    dispatch(loadingOnAction());
     values = {
       ...values,
       taiKhoan: userProfile.taiKhoan,
       maNhom: userProfile.maNhom,
       maLoaiNguoiDung: userProfile.maLoaiNguoiDung,
     };
-    console.log("values: ", values);
-    dispatch(loadingOnAction());
     userServ
       .updateUserProfile(values)
       .then((res) => {
         console.log(res);
         dispatch(loadingOffAction());
-        onSuccess();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Update Profile Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       })
       .catch((err) => {
         console.log(err);
         dispatch(loadingOffAction());
-        onFail();
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: err.response.data.content,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
   };
+
   return (
     <div className="lg:pt-28 pt-14 container flex justify-center">
       <Form
@@ -116,23 +107,6 @@ export default function UserProfile() {
         onFinish={onFinish}
         scrollToFirstError
       >
-        {/* <Form.Item
-          name="taiKhoan"
-          tooltip="What do you want others to call you?"
-          rules={[
-            {
-              required: true,
-              message: "Please input your username!",
-              whitespace: true,
-            },
-          ]}
-        >
-          <Input
-            placeholder="Username"
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            disabled
-          />
-        </Form.Item> */}
         <Form.Item
           name="matKhau"
           rules={[
@@ -197,7 +171,7 @@ export default function UserProfile() {
           />
         </Form.Item>
         <Form.Item className="text-left">
-          <Button className="rounded" type="primary" htmlType="submit">
+          <Button className="" type="primary" htmlType="submit">
             Update
           </Button>
         </Form.Item>

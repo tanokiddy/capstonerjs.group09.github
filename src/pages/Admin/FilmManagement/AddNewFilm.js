@@ -7,7 +7,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, Space, Switch, DatePicker } from "antd";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import moment from "moment";
 import React, { useState } from "react";
@@ -38,9 +38,16 @@ const formItemLayout = {
 };
 
 export default function AddNewFilm() {
+  //SET UP STATE, REACT-HOOK METHOD
+  let navigate = useNavigate();
   let dispatch = useDispatch();
-  //CREATE IMGSRC AND HANDLE
-  const [imgSrc, setImgSrc] = useState({});
+
+  //SETUP FORMIK TO FORM
+  //-Set Form
+  const [form] = Form.useForm();
+  //-Set FieldValue for Image
+  const [imgSrc, setImgSrc] = useState("");
+  console.log("imgSrc: ", imgSrc);
   const handleChangeFileUpload = (e) => {
     let file = e.target.files[0];
     let reader = new FileReader();
@@ -50,9 +57,24 @@ export default function AddNewFilm() {
     };
     formik.setFieldValue("hinhAnh", file);
   };
-  //SETUP FORM
-  const [form] = Form.useForm();
-  //SETUP FORMIK
+  //-Set FieldValue for Datepicker
+  const handleChangeDatepicker = (value) => {
+    let ngayKhoiChieu = moment(value).format("DD/MM/YYYY");
+    formik.setFieldValue("ngayKhoiChieu", ngayKhoiChieu);
+  };
+  //-Set FieldValue for Switch
+  const handleChangeSwitch = (name) => {
+    return (value) => {
+      formik.setFieldValue(name, value);
+    };
+  };
+  //-Set FieldValue for Inputnumber
+  const handleChangeInputNumber = (name) => {
+    return (value) => {
+      formik.setFieldValue(name, value);
+    };
+  };
+  //-Set up Formik and submit
   const formik = useFormik({
     initialValues: {
       tenPhim: "",
@@ -63,7 +85,7 @@ export default function AddNewFilm() {
       sapChieu: false,
       dangChieu: false,
       hot: false,
-      hinhAnh: {},
+      hinhAnh: null,
     },
     onSubmit: (values) => {
       let formData = new FormData();
@@ -71,7 +93,9 @@ export default function AddNewFilm() {
         if (key !== "hinhAnh") {
           formData.append(key, values[key]);
         } else {
-          formData.append("File", values.hinhAnh, values.hinhAnh.name);
+          if (values.hinhAnh !== null) {
+            formData.append("File", values.hinhAnh, values.hinhAnh.name);
+          }
         }
       }
       dispatch(loadingOnAction());
@@ -79,6 +103,7 @@ export default function AddNewFilm() {
         .uploadMovie(formData)
         .then((res) => {
           console.log(res);
+          dispatch(loadingOffAction());
           Swal.fire({
             position: "center",
             icon: "success",
@@ -86,7 +111,9 @@ export default function AddNewFilm() {
             showConfirmButton: false,
             timer: 1500,
           });
-          dispatch(loadingOffAction());
+          setTimeout(() => {
+            navigate(`/admin/films/filmManagement`);
+          }, 1500);
         })
         .catch((err) => {
           console.log(err.response.data.content);
@@ -102,23 +129,7 @@ export default function AddNewFilm() {
         });
     },
   });
-  //SETFIELDVALUE FOR DATEPICKER
-  const handleChangeDatepicker = (value) => {
-    let ngayKhoiChieu = moment(value).format("DD/MM/YYYY");
-    formik.setFieldValue("ngayKhoiChieu", ngayKhoiChieu);
-  };
-  //SET FIELDVALUE FOR SWITCH
-  const handleChangeSwitch = (name) => {
-    return (value) => {
-      formik.setFieldValue(name, value);
-    };
-  };
-  //SET FIELDVALUE FOR INPUTNUMBER
-  const handleChangeInputNumber = (name) => {
-    return (value) => {
-      formik.setFieldValue(name, value);
-    };
-  };
+
   return (
     <Layout
       style={{
@@ -263,14 +274,14 @@ export default function AddNewFilm() {
                   className="text-left"
                 >
                   <Select placeholder="select your group code">
-                    <Option value="GP00">GP00</Option>
+                    {/* <Option value="GP00">GP00</Option>
                     <Option value="GP01">GP01</Option>
-                    <Option value="GP02">GP02</Option>
+                    <Option value="GP02">GP02</Option> */}
                     <Option value="GP03">GP03</Option>
-                    <Option value="GP04">GP04</Option>
+                    {/* <Option value="GP04">GP04</Option>
                     <Option value="GP05">GP05</Option>
                     <Option value="GP06">GP06</Option>
-                    <Option value="GP07">GP07</Option>
+                    <Option value="GP07">GP07</Option> */}
                   </Select>
                 </Form.Item>
                 <Form.Item name="ngayChieu" label="Release date:">
@@ -295,13 +306,17 @@ export default function AddNewFilm() {
                     max={10}
                   />
                 </Form.Item>
-                <Form.Item label="Poster:">
+                <Form.Item name="hinhAnh" label="Poster:">
                   <Input type="file" onChange={handleChangeFileUpload} />
-                  <img
-                    className="w-[150px] h-[250px] mt-4"
-                    src={imgSrc}
-                    alt="..."
-                  />
+                  {imgSrc !== "" ? (
+                    <img
+                      className="mt-4 w-[150px] h-[250px]"
+                      src={imgSrc}
+                      alt="..."
+                    />
+                  ) : (
+                    <img className="mt-4" src={imgSrc} alt="..." />
+                  )}
                 </Form.Item>
                 <Form.Item>
                   <Button

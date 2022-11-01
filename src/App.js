@@ -9,7 +9,7 @@ import RegisterPage from "./pages/User/LoginPage/RegisterPage";
 import UserTickets from "./pages/User/HomePage/UserTickets";
 import UserProfile from "./pages/User/HomePage/UserProfile";
 //ADMIN - USER MANAGEMENT
-import Users from "./pages/Admin/UserManagement/Users";
+import ListUserAdmin from "./pages/Admin/UserManagement/ListUserAdmin";
 import FindingUser from "./pages/Admin/UserManagement/FindingUser";
 import AddUser from "./pages/Admin/UserManagement/AddUser";
 //ADMIN - FILM MANAGEMENT
@@ -83,7 +83,7 @@ function App() {
           path="/admin/userManagement"
           element={
             <SecureViewAdmin>
-              <LayoutNon Component={Users} />
+              <LayoutNon Component={ListUserAdmin} />
             </SecureViewAdmin>
           }
         ></Route>

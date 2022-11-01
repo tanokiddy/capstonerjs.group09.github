@@ -9,8 +9,10 @@ import {
 } from "../../../redux/actions/loadingAction";
 
 export default function TabMovie() {
-  const [tabMovie, setTabMovie] = useState([]);
+  //SET UP STATE, REACT-HOOK HETHOD AND CALL API TO GET TABMOVIE-DATA
   let dispatch = useDispatch();
+  const [tabMovie, setTabMovie] = useState([]);
+
   useEffect(() => {
     dispatch(loadingOnAction());
     movieServ
@@ -22,8 +24,11 @@ export default function TabMovie() {
       })
       .catch((err) => {
         console.log(err);
+        dispatch(loadingOffAction());
       });
   }, []);
+
+  //DECLARE FUNCTION TO RENDER TO LAYOUT
   const renderTabMovie = () => {
     return tabMovie.map((theatreSystem, index) => {
       return (

@@ -31,11 +31,43 @@ const formItemLayout = {
     },
   },
 };
+
 export default function FilmEditing({ filmEditing, setModal2Open }) {
+  //SET UP REACT-HOOK METHOD
   let dispatch = useDispatch();
-  //SETUP FORM
+
+  //SET UP FORMIK TO FORM
+  //-Set up Form
   const [form] = Form.useForm();
-  //SETUP FORMIK
+  //-Set fieldvalue for Image
+  const [imgSrc, setImgSrc] = useState("");
+  const handleChangeFileUpload = (e) => {
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (e) => {
+      setImgSrc(e.target.result);
+    };
+    formik.setFieldValue("hinhAnh", file);
+  };
+  //-Set fieldvalue for Datepicker
+  const handleChangeDatepicker = (value) => {
+    let ngayKhoiChieu = moment(value).format("DD/MM/YYYY");
+    formik.setFieldValue("ngayKhoiChieu", ngayKhoiChieu);
+  };
+  //-Set fieldvalue for Switch
+  const handleChangeSwitch = (name) => {
+    return (value) => {
+      formik.setFieldValue(name, value);
+    };
+  };
+  //-Set fieldvalue for Inputnumber
+  const handleChangeInputNumber = (name) => {
+    return (value) => {
+      formik.setFieldValue(name, value);
+    };
+  };
+  //-Set up Formik
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -62,12 +94,12 @@ export default function FilmEditing({ filmEditing, setModal2Open }) {
           }
         }
       }
-      console.log(formData.get("maPhim"));
       dispatch(loadingOnAction());
       movieServ
         .updateMovieUpload(formData)
         .then((res) => {
           console.log(res);
+          dispatch(loadingOffAction());
           Swal.fire({
             position: "center",
             icon: "success",
@@ -79,58 +111,24 @@ export default function FilmEditing({ filmEditing, setModal2Open }) {
           setTimeout(() => {
             window.location.reload();
           }, 1500);
-          dispatch(loadingOffAction());
         })
         .catch((err) => {
           console.log(err);
-          let errMessage = err.response.data.content;
+          dispatch(loadingOffAction());
           Swal.fire({
             position: "center",
             icon: "error",
-            title: errMessage,
+            title: err.response.data.content,
             showConfirmButton: false,
             timer: 1500,
           });
-          dispatch(loadingOffAction());
         });
     },
   });
-  console.log("formik: ", formik);
-
-  //CREATE IMGSRC AND HANDLE
-  const [imgSrc, setImgSrc] = useState("");
-  const handleChangeFileUpload = (e) => {
-    let file = e.target.files[0];
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (e) => {
-      setImgSrc(e.target.result);
-    };
-    formik.setFieldValue("hinhAnh", file);
-  };
-
-  //SETFIELDVALUE FOR DATEPICKER
-  const handleChangeDatepicker = (value) => {
-    let ngayKhoiChieu = moment(value).format("DD/MM/YYYY");
-    formik.setFieldValue("ngayKhoiChieu", ngayKhoiChieu);
-  };
-  //SET FIELDVALUE FOR SWITCH
-  const handleChangeSwitch = (name) => {
-    return (value) => {
-      formik.setFieldValue(name, value);
-    };
-  };
-  //SET FIELDVALUE FOR INPUTNUMBER
-  const handleChangeInputNumber = (name) => {
-    return (value) => {
-      formik.setFieldValue(name, value);
-    };
-  };
-  //SET FORM
 
   return (
     <Form
-      className=" w-2/3"
+      className="sm:w-5/6 w-3/4"
       {...formItemLayout}
       form={form}
       name="addNewFilm"
@@ -244,11 +242,11 @@ export default function FilmEditing({ filmEditing, setModal2Open }) {
       </Form.Item>
       <Form.Item name="hinhAnh" label="Poster:">
         <Input type="file" onChange={handleChangeFileUpload} />
-        <img
-          className="w-[150px] h-[250px] mt-4"
-          src={imgSrc === "" ? filmEditing.hinhAnh : imgSrc}
-          alt="..."
-        />
+        {imgSrc !== "" ? (
+          <img className="mt-4 w-[150px] h-[250px]" src={imgSrc} alt="..." />
+        ) : (
+          <img className="mt-4" src={imgSrc} alt="..." />
+        )}
       </Form.Item>
       <Form.Item>
         <Button size="large" className="" type="primary" htmlType="submit">

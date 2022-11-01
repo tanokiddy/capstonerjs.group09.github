@@ -17,6 +17,29 @@ import {
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
 
+//SET UP FORM COLUMNS
+//-Declare handle function in COLUMNS
+const handleUserDelete = (taiKhoan) => {
+  userServ
+    .userDelete(taiKhoan)
+    .then((res) => {
+      console.log(res);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Delete successful",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+//-COLUMNS
 const columns = [
   {
     title: "Username",
@@ -77,35 +100,14 @@ const columns = [
     ),
   },
 ];
-const handleUserDelete = (taiKhoan) => {
-  userServ
-    .userDelete(taiKhoan)
-    .then((res) => {
-      console.log(res);
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Delete successful",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
 
 export default function FindingUser() {
-  const [dataUser, setDataUser] = useState([]);
+  //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   const navigate = useNavigate();
   let dispatch = useDispatch();
-  const onSearch = (value) => {
-    navigate(`/admin/userManagement/search/${value}`);
-  };
   let { id } = useParams();
+  const [dataUser, setDataUser] = useState([]);
+
   useEffect(() => {
     dispatch(loadingOnAction());
     userServ
@@ -120,6 +122,11 @@ export default function FindingUser() {
         dispatch(loadingOffAction());
       });
   }, [id]);
+
+  //-Setup search in put
+  const onSearch = (value) => {
+    navigate(`/admin/userManagement/search/${value}`);
+  };
 
   return (
     <Layout

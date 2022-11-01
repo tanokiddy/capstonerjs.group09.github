@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   UserOutlined,
   MailOutlined,
@@ -26,8 +26,9 @@ const formItemLayout = {
     },
   },
 };
+
 export default function UserEditing({ userEditing, setModal2Open }) {
-  //SET FORM
+  //SET UP FORM AND SUBMIT FORM
   const [form] = Form.useForm();
   form.setFieldsValue({
     taiKhoan: userEditing.taiKhoan,
@@ -38,9 +39,8 @@ export default function UserEditing({ userEditing, setModal2Open }) {
     maLoaiNguoiDung: userEditing.maLoaiNguoiDung,
     maNhom: "GP03",
   });
-  //SET HANDLE SUBMIT
+  //-Setup submit form
   const onFinish = (values) => {
-    console.log(values);
     userServ
       .userEditinginAdmin(values)
       .then((res) => {
@@ -59,11 +59,10 @@ export default function UserEditing({ userEditing, setModal2Open }) {
       })
       .catch((err) => {
         console.log(err);
-        let errMessage = err.response.data.content;
         Swal.fire({
           position: "center",
           icon: "error",
-          title: errMessage,
+          title: err.response.data.content,
           showConfirmButton: false,
           timer: 1500,
         });

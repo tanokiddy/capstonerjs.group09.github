@@ -4,7 +4,28 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function ItemTabMovie({ movie }) {
+  //GET STATE FROM STORE-REDUX
   let user = useSelector((state) => state.userReducer.userInfo);
+
+  //DECLARE FUNCTION TO RENDER TO LAYOUT
+  const renderItemTabMovie = () => {
+    return movie.lstLichChieuTheoPhim.slice(0, 6).map((gioChieu, index) => {
+      return user ? (
+        <NavLink key={index} to={`/purchase/${gioChieu.maLichChieu}`}>
+          <div type="button" className="p-3 rounded bg-red-600 text-white">
+            {moment(gioChieu.ngayChieuGioChieu).format("DD/MM/YYYY - hh:mm")}
+          </div>
+        </NavLink>
+      ) : (
+        <NavLink key={index} to="/login">
+          <div type="button" className="p-3 rounded bg-red-600 text-white">
+            {moment(gioChieu.ngayChieuGioChieu).format("DD/MM/YYYY - hh:mm")}
+          </div>
+        </NavLink>
+      );
+    });
+  };
+
   return (
     <div className="flex border-b border-red-500 sm:p-3 py-2 px-0">
       <img
@@ -15,31 +36,7 @@ export default function ItemTabMovie({ movie }) {
       <div className="flex-grow">
         <p className="text-center">{movie.tenPhim}</p>
         <div className="grid lg:grid-cols-3 grid-cols-1 gap-1 lg:gap-2">
-          {movie.lstLichChieuTheoPhim.slice(0, 6).map((gioChieu, index) => {
-            return user ? (
-              <NavLink key={index} to={`/purchase/${gioChieu.maLichChieu}`}>
-                <div
-                  type="button"
-                  className="p-3 rounded bg-red-600 text-white"
-                >
-                  {moment(gioChieu.ngayChieuGioChieu).format(
-                    "DD/MM/YYYY - hh:mm"
-                  )}
-                </div>
-              </NavLink>
-            ) : (
-              <NavLink key={index} to="/login">
-                <div
-                  type="button"
-                  className="p-3 rounded bg-red-600 text-white"
-                >
-                  {moment(gioChieu.ngayChieuGioChieu).format(
-                    "DD/MM/YYYY - hh:mm"
-                  )}
-                </div>
-              </NavLink>
-            );
-          })}
+          {renderItemTabMovie()}
         </div>
       </div>
     </div>

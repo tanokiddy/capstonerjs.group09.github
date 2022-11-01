@@ -1,10 +1,4 @@
-import {
-  Button,
-  Form,
-  Input,
-  // message,
-  Select,
-} from "antd";
+import { Button, Form, Input, Select } from "antd";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -28,9 +22,7 @@ import {
 import { userServ } from "../../../services/userService";
 
 const { Option } = Select;
-
 const { Header, Content, Sider } = Layout;
-
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -46,45 +38,46 @@ const formItemLayout = {
     },
   },
 };
+
 export default function AddUser() {
-  let onSuccess = () => {
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Adding User Successful",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-    setTimeout(() => {
-      navigate("/admin/userManagement");
-    }, 1500);
-  };
-  const [form] = Form.useForm();
+  //SET UP REACT-HOOK METHOD
   let dispatch = useDispatch();
   let navigate = useNavigate();
+
+  //SET UP FORM AND SUBMIT FORM
+  const [form] = Form.useForm();
+
   const onFinish = (values) => {
-    console.log(values);
     dispatch(loadingOnAction());
     userServ
       .addUser(values)
       .then((res) => {
         console.log(res);
         dispatch(loadingOffAction());
-        onSuccess();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Adding User Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(() => {
+          navigate("/admin/userManagement");
+        }, 1500);
       })
       .catch((err) => {
         console.log(err);
         dispatch(loadingOffAction());
-        let errMessage = err.response.data.content;
         Swal.fire({
           position: "center",
           icon: "error",
-          title: errMessage,
+          title: err.response.data.content,
           showConfirmButton: false,
           timer: 1500,
         });
       });
   };
+
   return (
     <Layout
       style={{

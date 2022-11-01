@@ -1,6 +1,6 @@
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 
 const { Header, Content, Sider } = Layout;
@@ -16,10 +16,10 @@ export default function AdminPage() {
         breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={(broken) => {
-          console.log(broken);
+          // console.log(broken);
         }}
         onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
+          // console.log(collapsed, type);
         }}
       >
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">

@@ -9,9 +9,11 @@ import {
 import { movieServ } from "../../../services/movieService";
 
 export default function DetailMovie() {
-  let [detailMovie, setDetailMovie] = useState({});
+  //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   let { id } = useParams();
   let dispatch = useDispatch();
+  let [detailMovie, setDetailMovie] = useState({});
+
   useEffect(() => {
     dispatch(loadingOnAction());
     movieServ
@@ -23,8 +25,10 @@ export default function DetailMovie() {
       })
       .catch((err) => {
         console.log(err);
+        dispatch(loadingOffAction());
       });
   }, []);
+
   return (
     <div className="text-center flex justify-start container pt-28">
       <div className="w-1/5">

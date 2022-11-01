@@ -1,10 +1,4 @@
-import {
-  Button,
-  Form,
-  Input,
-  // message,
-  // Select
-} from "antd";
+import { Button, Form, Input } from "antd";
 import React from "react";
 import Lottie from "lottie-react";
 import { useDispatch } from "react-redux";
@@ -23,7 +17,7 @@ import {
   loadingOnAction,
 } from "../../../redux/actions/loadingAction";
 import bg_login from "../../../assets/bg.login.json";
-// const { Option } = Select;
+
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -39,45 +33,43 @@ const formItemLayout = {
     },
   },
 };
+
 export default function RegisterPage() {
-  let onFail = () => {
-    Swal.fire({
-      position: "center",
-      icon: "error",
-      title: "Username existed!",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  };
-  let onSuccess = () => {
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Register Successful",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-    setTimeout(() => {
-      navigate("/login");
-    }, 1500);
-  };
-  const [form] = Form.useForm();
+  //SET UP REACT HOOK - METHOD
   let dispatch = useDispatch();
   let navigate = useNavigate();
+
+  //SET UP FORM AND SUBMIT
+  const [form] = Form.useForm();
+
   const onFinish = (values) => {
-    // console.log("Received values of form: ", values);
     dispatch(loadingOnAction());
     userServ
       .userRegister(values)
       .then((res) => {
         console.log(res);
         dispatch(loadingOffAction());
-        onSuccess();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Register Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
       })
       .catch((err) => {
         console.log(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: err.response.data.content,
+          showConfirmButton: false,
+          timer: 1500,
+        });
         dispatch(loadingOffAction());
-        onFail();
       });
   };
 
@@ -155,26 +147,6 @@ export default function RegisterPage() {
             placeholder="Phone Number"
           />
         </Form.Item>
-        {/* <Form.Item
-            name="maNhom"
-            rules={[
-              {
-                required: true,
-                message: "Please select group code!",
-              },
-            ]}
-          >
-            <Select placeholder="select your group code">
-              <Option value="GP00">GP00</Option>
-              <Option value="GP01">GP01</Option>
-              <Option value="GP02">GP02</Option>
-              <Option value="GP03">GP03</Option>
-              <Option value="GP04">GP04</Option>
-              <Option value="GP05">GP05</Option>
-              <Option value="GP06">GP06</Option>
-              <Option value="GP07">GP07</Option>
-            </Select>
-          </Form.Item> */}
         <Form.Item
           name="hoTen"
           tooltip="What do you want others to call you?"

@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 export default function Error403() {
+  //DECLARE HANDLE FUNCTION
   const handleShowId = () => {
     let showId = document.getElementById("testId");
     if (showId.style.display === "none") {
@@ -9,6 +10,7 @@ export default function Error403() {
       showId.style.display = "none";
     }
   };
+
   return (
     <div className="text-center pt-10 h-screen space-y-3">
       <div className="text-4xl font-bold">ACCESS DENIED</div>

@@ -10,9 +10,11 @@ import {
 import { movieServ } from "../../../services/movieService";
 
 export default function BookingByMovie() {
-  const [booking, setBooking] = useState([]);
+  //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   let { id } = useParams();
   let dispatch = useDispatch();
+  const [booking, setBooking] = useState([]);
+
   useEffect(() => {
     dispatch(loadingOnAction());
     movieServ
@@ -27,8 +29,8 @@ export default function BookingByMovie() {
       });
   }, []);
 
+  //DECLARE FUNCTION TO RENDER TO LAYOUT
   const renderBookingByMovie = () => {
-    // console.log("booking", booking.heThongRapChieu);
     return booking.map((heThongRapChieu, index) => {
       return (
         <Tabs.TabPane
@@ -83,15 +85,10 @@ export default function BookingByMovie() {
       );
     });
   };
+
   return (
     <div className="container w-full mx-auto my-5">
-      <Tabs
-        tabPosition="left"
-
-        // defaultActiveKey="1"
-      >
-        {renderBookingByMovie()}
-      </Tabs>
+      <Tabs tabPosition="left">{renderBookingByMovie()}</Tabs>
     </div>
   );
 }

@@ -9,8 +9,10 @@ import {
 } from "../../../redux/actions/loadingAction";
 
 export default function UserTickets() {
-  const [userTicket, setUserTicket] = useState({});
+  //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   let dispatch = useDispatch();
+  const [userTicket, setUserTicket] = useState({});
+
   useEffect(() => {
     dispatch(loadingOnAction());
     userServ
@@ -22,10 +24,14 @@ export default function UserTickets() {
       })
       .catch((err) => {
         console.log(err);
+        dispatch(loadingOffAction());
       });
   }, []);
+
+  //DESTRUCTURING thongTinDatVe in userTicket
   let { thongTinDatVe } = userTicket;
-  console.log("thongTinDatVe: ", thongTinDatVe);
+
+  //DECLARE FUNCTION TO RENDER TO LAYOUT
   const listUserTickets = () => {
     return thongTinDatVe?.map((ticket, index) => {
       return (
@@ -34,7 +40,6 @@ export default function UserTickets() {
           key={index}
           className="text-justify m-2 card"
           title={ticket.tenPhim}
-          // bordered={false}
           bodyStyle={{
             height: "80%",
             backgroundColor: "#434343",
@@ -64,6 +69,7 @@ export default function UserTickets() {
       );
     });
   };
+
   return (
     <div className="container py-28 site-card-border-less-wrapper grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 md:gap-2 gap-1">
       {listUserTickets()}
