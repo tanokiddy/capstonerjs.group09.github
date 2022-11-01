@@ -12,7 +12,7 @@ import {
 import { BiEdit, BiAlarm } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { movieServ } from "../../../services/movieService";
@@ -25,25 +25,26 @@ import FilmEditing from "./FilmEditing";
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
 
-export default function ListFilmAdmin() {
+export default function FindingFilm() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   let dispatch = useDispatch();
   let navigate = useNavigate();
-  const [dataFilm, setDataFilm] = useState([]);
+  let { id } = useParams();
+  const [dataFilmFinding, setDataFilmFinding] = useState([]);
 
   useEffect(() => {
     dispatch(loadingOnAction());
     movieServ
-      .getListMovie()
+      .getListMoviebyId(id)
       .then((res) => {
         console.log(res);
-        setDataFilm(res.data.content);
+        setDataFilmFinding(res.data.content);
         dispatch(loadingOffAction());
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [id]);
 
   //DECLARE HANDLE FUNCTION
   const handleDeleteMovie = (movieId) => {
@@ -82,10 +83,10 @@ export default function ListFilmAdmin() {
   const [filmEditing, setFilmEditing] = useState({});
   const handleFilmEditing = (id) => {
     setModal2Open(true);
-    let index = dataFilm.findIndex((item) => {
+    let index = dataFilmFinding.findIndex((item) => {
       return item.maPhim === id;
     });
-    setFilmEditing(dataFilm[index]);
+    setFilmEditing(dataFilmFinding[index]);
   };
 
   //SET UP FORM COLUMNS
@@ -234,7 +235,9 @@ export default function ListFilmAdmin() {
             style={{
               margin: "16px 0",
             }}
-          ></Breadcrumb>
+          >
+            <NavLink to="/admin/films/filmManagement">Film Management</NavLink>
+          </Breadcrumb>
           <div
             className="site-layout-background"
             style={{
@@ -243,7 +246,7 @@ export default function ListFilmAdmin() {
             }}
           >
             <div>
-              <div className="text-2xl bold mb-4">Film Management</div>
+              <div className="text-2xl bold mb-4">Finding Film</div>
               <Space
                 style={{
                   marginBottom: 16,
@@ -258,7 +261,7 @@ export default function ListFilmAdmin() {
               <Table
                 rowKey="maPhim"
                 columns={columns}
-                dataSource={dataFilm}
+                dataSource={dataFilmFinding}
                 onChange={handleChange}
               />
               <Modal

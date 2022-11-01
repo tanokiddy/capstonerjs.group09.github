@@ -1,11 +1,9 @@
-import { Space, Table, Tag } from "antd";
+import { Space, Table, Tag, Input, Breadcrumb, Layout, Menu } from "antd";
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-import { Input } from "antd";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu } from "antd";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { userServ } from "../../../services/userService";
@@ -190,7 +188,7 @@ export default function FindingUser() {
             }}
           >
             <div>
-              <div className="text-2xl bold">Quản lý người dùng</div>
+              <div className="text-2xl bold">Finding User</div>
               <NavLink to="/admin/userManagement/addUser">
                 <button className="border text-white font-bold bg-blue-500 rounded p-2 my-1">
                   + Thêm người dùng

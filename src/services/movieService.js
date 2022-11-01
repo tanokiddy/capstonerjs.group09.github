@@ -7,6 +7,10 @@ export const movieServ = {
     let uri = `/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP03`;
     return https.get(uri);
   },
+  getListMoviebyId: (id) => {
+    let uri = `/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP03&tenPhim=${id}`;
+    return https.get(uri);
+  },
   getScheduleMovieByTheatre: () => {
     let uri = `/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP03
     `;

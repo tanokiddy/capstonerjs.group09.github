@@ -1,11 +1,11 @@
-import { Button, Form, Input, InputNumber, Select } from "antd";
+import { Button, Form, InputNumber, Select } from "antd";
 import {
   FileOutlined,
   VideoCameraAddOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, Space, DatePicker } from "antd";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import moment from "moment";
 import React, { useState, useEffect } from "react";
@@ -37,7 +37,6 @@ const formItemLayout = {
 
 export default function AddShowTimes() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
-  let navigate = useNavigate();
   let dispatch = useDispatch();
   let { id } = useParams();
   const [theatreSystem, setTheatreSystem] = useState([]);
@@ -55,10 +54,6 @@ export default function AddShowTimes() {
       });
   }, []);
 
-  // useEffect(() => {
-
-  // }, [theatre]);
-
   //SETUP FORMIK TO FORM
   //-Set Form
   const [form] = Form.useForm();
@@ -74,9 +69,6 @@ export default function AddShowTimes() {
     };
   };
   //-Set FieldValue for Select
-  const handleOnchangeTheatre = (value) => {
-    formik.setFieldValue("maRap", value);
-  };
   const handleOnchangeTheatreSystem = (value) => {
     movieServ
       .getTheatre(value)
@@ -87,6 +79,9 @@ export default function AddShowTimes() {
       .catch((err) => {
         console.log(err);
       });
+  };
+  const handleOnchangeTheatre = (value) => {
+    formik.setFieldValue("maRap", value);
   };
   //-Set up Formik and submit
   const formik = useFormik({
@@ -125,6 +120,8 @@ export default function AddShowTimes() {
         });
     },
   });
+
+  //DECLARE FUNCTION TO RENDER TO LAYOUT
   const renderTheatreSystem = () => {
     return theatreSystem.map((theatre, index) => {
       return (
