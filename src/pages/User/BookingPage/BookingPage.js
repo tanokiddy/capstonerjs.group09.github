@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { connection } from "../../../index";
 import {
   loadingOffAction,
   loadingOnAction,
@@ -32,6 +33,7 @@ export default function BookingPage() {
   //GET DATA FROM STORE-REDUX
   let seatState = useSelector((state) => state.movieReducer.seat);
   let bookingState = useSelector((state) => state.movieReducer.booking);
+  let holdingSeat = useSelector((state) => state.movieReducer.holdingSeat);
 
   //DECLARE HANDLE FUNCTION
   const handleBookNow = () => {
@@ -65,18 +67,24 @@ export default function BookingPage() {
   const renderSeatBooking = () => {
     return (
       <div className="w-3/5">
+        {/* SCREEN */}
         <div className="px-5">
           <div className=" py-3 text-2xl bg-gray-500 text-white mb-3 text-center">
             SCREEN
           </div>
         </div>
+        {/* SEAT SYSTEM */}
         <div className="md:px-5 px-2 grid grid-cols-10 lg:gap-5 gap-1">
           {danhSachGhe?.map((seat, index) => {
             let statusSeat = seat?.daDat;
             let typeOfSeat = seat?.loaiGhe;
-            let index1 = seatState.findIndex((item) => {
+            let indexClicking = seatState.findIndex((item) => {
               return item.maGhe === seat.maGhe;
             });
+            let indexOthersClicking = holdingSeat.findIndex((item) => {
+              return item.maGhe === seat.maGhe;
+            });
+            // console.log("indexOthersClicking: ", indexOthersClicking);
             if (statusSeat === false && typeOfSeat === "Thuong") {
               return (
                 <button
@@ -84,7 +92,9 @@ export default function BookingPage() {
                     dispatch(bookTicketAction(seat, thongTinPhim));
                   }}
                   key={index}
-                  style={index1 !== -1 ? { backgroundColor: "green" } : {}}
+                  style={
+                    indexClicking !== -1 ? { backgroundColor: "green" } : {}
+                  }
                   className="rounded py-1 bg-gray-300 hover:bg-gray-200 duration-200 text-black md:text-base text-[9px]"
                 >
                   {seat?.tenGhe}
@@ -98,9 +108,45 @@ export default function BookingPage() {
                   }}
                   key={index}
                   style={
-                    index1 !== -1
+                    indexClicking !== -1
                       ? {
                           backgroundColor: "green",
+                        }
+                      : {}
+                  }
+                  className="rounded py-1 bg-orange-400 hover:bg-gray-200 duration-200 text-black md:text-base text-[9px]"
+                >
+                  {seat?.tenGhe}
+                </button>
+              );
+            } else if (statusSeat === false && typeOfSeat === "Thuong") {
+              return (
+                <button
+                  onClick={() => {
+                    dispatch(bookTicketAction(seat, thongTinPhim));
+                  }}
+                  key={index}
+                  style={
+                    indexOthersClicking !== -1
+                      ? { backgroundColor: "blue" }
+                      : {}
+                  }
+                  className="rounded py-1 bg-gray-300 hover:bg-gray-200 duration-200 text-black md:text-base text-[9px]"
+                >
+                  {seat?.tenGhe}
+                </button>
+              );
+            } else if (statusSeat === false && typeOfSeat === "Vip") {
+              return (
+                <button
+                  onClick={() => {
+                    dispatch(bookTicketAction(seat, thongTinPhim));
+                  }}
+                  key={index}
+                  style={
+                    indexOthersClicking !== -1
+                      ? {
+                          backgroundColor: "blue",
                         }
                       : {}
                   }
@@ -122,6 +168,7 @@ export default function BookingPage() {
             }
           })}
         </div>
+        {/* FOOTER SEAT SYSTEM */}
         <div className="grid lg:grid-cols-4 grid-cols-1 my-3 px-5 space-y-2">
           <div className="flex justify-start items-center">
             <div

@@ -5,6 +5,7 @@ export const initialState = {
   booking: {
     danhSachVe: [],
   },
+  holdingSeat: [],
 };
 
 export default (state = initialState, action) => {

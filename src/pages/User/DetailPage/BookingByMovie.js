@@ -26,6 +26,7 @@ export default function BookingByMovie() {
       })
       .catch((err) => {
         console.log(err);
+        dispatch(loadingOffAction());
       });
   }, []);
 

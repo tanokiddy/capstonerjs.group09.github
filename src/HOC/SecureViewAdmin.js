@@ -13,7 +13,7 @@ export default function SecureViewAdmin({ children }) {
   useEffect(() => {
     dispatch(loadingOnAction());
     let userLocal = localServ.user.getDataUser();
-    if (userLocal.maLoaiNguoiDung.toUpperCase() !== "QUANTRI") {
+    if (userLocal?.maLoaiNguoiDung.toUpperCase() !== "QUANTRI") {
       dispatch(loadingOffAction());
       navigate("/Error");
     } else {

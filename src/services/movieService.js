@@ -71,7 +71,7 @@ export const movieServ = {
     return https.get(uri);
   },
   getTheatre: (theatre) => {
-    let uri = `api/QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=${theatre}`;
+    let uri = `/api/QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=${theatre}`;
     return https.get(uri);
   },
   addShowtimes: (formData) => {
