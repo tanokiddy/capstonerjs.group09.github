@@ -85,7 +85,6 @@ export const handleBookingNowAction = (bookingState) => {
   return async (dispatch) => {
     try {
       let res = await movieServ.postBookingTicket(bookingState);
-      console.log("res: ", res);
       if (res.status === 200) {
         await dispatch({
           type: BOOK_TICKET_NOW,

@@ -24,7 +24,7 @@ export default function UserTickets() {
         <Card
           bordered="true"
           key={index}
-          className="text-justify m-2 card"
+          className="text-justify m-2 card overflow-hidden"
           title={ticket.tenPhim}
           bodyStyle={{
             height: "80%",

@@ -23,13 +23,8 @@ export const userServ = {
     });
   },
   userList: () => {
-    return axios({
-      url: `${BASE_URL}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP03`,
-      method: "GET",
-      headers: {
-        TokenCybersoft: TOKEN_CYBERSOFT,
-      },
-    });
+    let uri = `/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP03`;
+    return https.get(uri);
   },
   userDelete: (taiKhoan) => {
     let uri = `/api/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${taiKhoan}`;

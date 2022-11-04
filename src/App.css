@@ -97,12 +97,11 @@
 
 .card .truncate {
   text-overflow: ellipsis;
-  width: 250px;
   white-space: nowrap;
-  overflow: hidden;
 }
 
 .card .truncate:hover {
+  transition: all;
   text-overflow: clip;
   width: auto;
   white-space: normal;

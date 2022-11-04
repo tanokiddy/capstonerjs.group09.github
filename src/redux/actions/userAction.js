@@ -22,7 +22,7 @@ export const callUserList = () => {
       if (res.status === 200) {
         dispatch({
           type: GET_LIST_USER,
-          listUser: res.data.content,
+          userList: res.data.content,
         });
       }
     } catch (err) {
@@ -55,7 +55,7 @@ export const userDeleteAdmin = (taiKhoan) => {
         icon: "error",
         title: err.response.data.content,
         showConfirmButton: false,
-        timer: 1500,
+        timer: 200,
       });
     }
   };

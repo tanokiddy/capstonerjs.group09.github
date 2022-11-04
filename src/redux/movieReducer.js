@@ -69,10 +69,10 @@ export default (state = initialState, action) => {
         });
       }
       state.seatListInTheatre = cloneSeatListInTheatre;
-      let cloneSeat = state.seat;
-      cloneSeat.splice(0, cloneSeat.length);
-      state.seat = cloneSeat;
-      return { ...state };
+      state.seat = [];
+      return {
+        ...state,
+      };
     }
     //HOMEPAGE
     case GET_BANNER: {

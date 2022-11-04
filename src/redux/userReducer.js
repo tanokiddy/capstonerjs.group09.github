@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     //ADMIN
     case GET_LIST_USER: {
-      return { ...state, userList: action.listUser };
+      return { ...state, userList: action.userList };
     }
     case EDIT_USER: {
       state.userAdmin = action.user;
@@ -40,11 +40,9 @@ export default (state = initialState, action) => {
       return { ...state };
     }
     case USER_DELETE: {
-      let cloneUserList = state.userList;
-      let index = cloneUserList.findIndex((item) => {
-        return item.taiKhoan === action.taiKhoan;
+      let cloneUserList = state.userList.filter((item) => {
+        return item.taiKhoan !== action.taiKhoan;
       });
-      cloneUserList.splice(index, 1);
       state.userList = cloneUserList;
       return { ...state };
     }

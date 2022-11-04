@@ -25,14 +25,14 @@ export default function ListUserAdmin() {
     dispatch(callUserList());
   }, []);
 
-  let userList = useSelector((state) => state.userReducer.userListAdmin);
+  let userList = useSelector((state) => state.userReducer.userList);
 
   //SET UP MODAL USER EDITING
   const [modal2Open, setModal2Open] = useState(false);
-  const handleUserEditing = (id) => {
+  const handleUserEditing = (taiKhoan) => {
     setModal2Open(true);
     let index = userList.findIndex((item) => {
-      return item.taiKhoan === id;
+      return item.taiKhoan === taiKhoan;
     });
     dispatch(userEditingAction(userList[index]));
   };
