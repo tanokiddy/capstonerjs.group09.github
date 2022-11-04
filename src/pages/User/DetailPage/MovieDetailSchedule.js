@@ -2,7 +2,7 @@ import { Tabs } from "antd";
 import React, { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import moment from "moment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   loadingOffAction,
   loadingOnAction,
@@ -11,28 +11,12 @@ import { movieServ } from "../../../services/movieService";
 
 export default function BookingByMovie() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
-  let { id } = useParams();
-  let dispatch = useDispatch();
-  const [booking, setBooking] = useState([]);
-
-  useEffect(() => {
-    dispatch(loadingOnAction());
-    movieServ
-      .getScheduleInfoByIdMovie(id)
-      .then((res) => {
-        console.log(res);
-        setBooking(res.data.content.heThongRapChieu);
-        dispatch(loadingOffAction());
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch(loadingOffAction());
-      });
-  }, []);
-
+  let { heThongRapChieu } = useSelector(
+    (state) => state.movieReducer.movieDetail_Schedule
+  );
   //DECLARE FUNCTION TO RENDER TO LAYOUT
   const renderBookingByMovie = () => {
-    return booking.map((heThongRapChieu, index) => {
+    return heThongRapChieu?.map((heThongRapChieu, index) => {
       return (
         <Tabs.TabPane
           className="!pl-0"

@@ -1,30 +1,35 @@
 import {
   BOOK_TICKET,
+  BOOK_TICKET_NOW,
+  CLICK_SEAT,
   GET_BANNER,
   GET_LIST_SEAT,
   GET_MOVIELIST,
   GET_MOVIETAB,
+  GET_MOVIE_DETAIL,
 } from "./constants/constants";
 
 export const initialState = {
+  //Homepage
   banner: [],
   movieList: [],
   movieTab: [],
-
+  //Booking page
+  movieDetail_Schedule: {},
   seat: [],
   booking: {
     danhSachVe: [],
   },
-  holdingSeat: [],
-  listTheatre: {},
+  seatListInTheatre: {},
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    //BOOKING PAGE
     case GET_LIST_SEAT: {
-      return { ...state, listTheatre: action.listTheatre };
+      return { ...state, seatListInTheatre: action.seatListInTheatre };
     }
-    case BOOK_TICKET: {
+    case CLICK_SEAT: {
       let cloneState = { ...state };
       let index = cloneState.seat.findIndex((item) => {
         return item.maGhe === action.seat.maGhe;
@@ -52,6 +57,24 @@ export default (state = initialState, action) => {
       state = cloneState;
       return { ...state };
     }
+    case BOOK_TICKET_NOW: {
+      let cloneSeatListInTheatre = state.seatListInTheatre;
+      let { thongTinPhim, danhSachGhe } = cloneSeatListInTheatre;
+      if (thongTinPhim.maLichChieu === action.bookingState.maLichChieu) {
+        let indexArray = action.bookingState.danhSachVe.map((itemDSV) =>
+          danhSachGhe.findIndex((itemDSG) => itemDSG.maGhe === itemDSV.maGhe)
+        );
+        indexArray.map((index) => {
+          return (danhSachGhe[index].daDat = true);
+        });
+      }
+      state.seatListInTheatre = cloneSeatListInTheatre;
+      let cloneSeat = state.seat;
+      cloneSeat.splice(0, cloneSeat.length);
+      state.seat = cloneSeat;
+      return { ...state };
+    }
+    //HOMEPAGE
     case GET_BANNER: {
       return { ...state, banner: action.banner };
     }
@@ -60,6 +83,10 @@ export default (state = initialState, action) => {
     }
     case GET_MOVIETAB: {
       return { ...state, movieTab: action.movieTab };
+    }
+    //BOOING PAGE
+    case GET_MOVIE_DETAIL: {
+      return { ...state, movieDetail_Schedule: action.movieDetail_Schedule };
     }
     default:
       return { ...state };

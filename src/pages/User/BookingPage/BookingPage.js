@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import { connection } from "../../../index";
 import {
   loadingOffAction,
   loadingOnAction,
 } from "../../../redux/actions/loadingAction";
 import {
-  bookTicketAction,
-  getListTheatre,
+  ClickToSeatAction,
+  getListSeatInTheatreAction,
+  handleBookingNowAction,
 } from "../../../redux/actions/movieAction";
 import { movieServ } from "../../../services/movieService";
 
@@ -17,51 +17,24 @@ export default function BookingPage() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   let { id } = useParams();
   let dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(loadingOnAction());
-    movieServ
-      .getListTheatre(id)
-      .then((res) => {
-        console.log(res);
-        dispatch(getListTheatre(res.data.content));
-        dispatch(loadingOffAction());
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(getListSeatInTheatreAction(id));
   }, []);
 
   //GET DATA FROM STORE-REDUX
   let seatState = useSelector((state) => state.movieReducer.seat);
   let bookingState = useSelector((state) => state.movieReducer.booking);
-  let holdingSeat = useSelector((state) => state.movieReducer.holdingSeat);
-  let listTheatre = useSelector((state) => state.movieReducer.listTheatre);
+  let seatListInTheatre = useSelector(
+    (state) => state.movieReducer.seatListInTheatre
+  );
 
   //DECLARE HANDLE FUNCTION
   const handleBookNow = () => {
-    dispatch(loadingOnAction());
-    movieServ
-      .postBookingTicket(bookingState)
-      .then((res) => {
-        console.log(res);
-        dispatch(loadingOffAction());
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Booking Successful",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch(loadingOffAction());
-      });
+    dispatch(handleBookingNowAction(bookingState));
   };
 
   //DESTRUCTURING thongTinPhim + danhSachGhe in movieBooking
-  let { thongTinPhim, danhSachGhe } = listTheatre;
+  let { thongTinPhim, danhSachGhe } = seatListInTheatre;
 
   //DECLARE FUNCTION TO RENDER TO LAYOUT
   const renderSeatBooking = () => {
@@ -81,15 +54,11 @@ export default function BookingPage() {
             let indexClicking = seatState.findIndex((item) => {
               return item.maGhe === seat.maGhe;
             });
-            let indexOthersClicking = holdingSeat.findIndex((item) => {
-              return item.maGhe === seat.maGhe;
-            });
-            // console.log("indexOthersClicking: ", indexOthersClicking);
             if (statusSeat === false && typeOfSeat === "Thuong") {
               return (
                 <button
                   onClick={() => {
-                    dispatch(bookTicketAction(seat, thongTinPhim));
+                    dispatch(ClickToSeatAction(seat, thongTinPhim));
                   }}
                   key={index}
                   style={
@@ -104,49 +73,13 @@ export default function BookingPage() {
               return (
                 <button
                   onClick={() => {
-                    dispatch(bookTicketAction(seat, thongTinPhim));
+                    dispatch(ClickToSeatAction(seat, thongTinPhim));
                   }}
                   key={index}
                   style={
                     indexClicking !== -1
                       ? {
                           backgroundColor: "green",
-                        }
-                      : {}
-                  }
-                  className="rounded py-1 bg-orange-400 hover:bg-gray-200 duration-200 text-black md:text-base text-[9px]"
-                >
-                  {seat?.tenGhe}
-                </button>
-              );
-            } else if (statusSeat === false && typeOfSeat === "Thuong") {
-              return (
-                <button
-                  onClick={() => {
-                    dispatch(bookTicketAction(seat, thongTinPhim));
-                  }}
-                  key={index}
-                  style={
-                    indexOthersClicking !== -1
-                      ? { backgroundColor: "blue" }
-                      : {}
-                  }
-                  className="rounded py-1 bg-gray-300 hover:bg-gray-200 duration-200 text-black md:text-base text-[9px]"
-                >
-                  {seat?.tenGhe}
-                </button>
-              );
-            } else if (statusSeat === false && typeOfSeat === "Vip") {
-              return (
-                <button
-                  onClick={() => {
-                    dispatch(bookTicketAction(seat, thongTinPhim));
-                  }}
-                  key={index}
-                  style={
-                    indexOthersClicking !== -1
-                      ? {
-                          backgroundColor: "blue",
                         }
                       : {}
                   }
@@ -260,11 +193,11 @@ export default function BookingPage() {
             <tr>
               <th className="flex justify-between">
                 Selected:{" "}
-                {seatState[0]?.tenGhe ? (
+                {seatState.length !== 0 ? (
                   <span className="text-right">
                     Ghế{" "}
                     {seatState.map((seatStateItem) => {
-                      return `${seatStateItem?.tenGhe}, `;
+                      return `${seatStateItem.tenGhe}, `;
                     })}
                   </span>
                 ) : (

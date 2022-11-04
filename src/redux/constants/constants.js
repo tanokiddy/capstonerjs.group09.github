@@ -1,7 +1,5 @@
 export const LOADING_ON = "LOADING_ON";
 export const LOADING_OFF = "LOADING_OFF";
-export const BOOK_TICKET = "BOOK_TICKET";
-export const GET_LIST_SEAT = "GET_LIST_SEAT";
 export const GET_LIST_USER = "GET_LIST_USER";
 export const EDIT_USER = "EDIT_USER";
 export const UPDATE_USER = "UPDATE_USER";
@@ -18,3 +16,9 @@ export const GET_USER_TICKET = "GET_USER_TICKET";
 //USER LOGIN
 export const USER_LOGIN = "USER_LOGIN";
 export const USER_REGISTER = "USER_REGISTER";
+
+//USER BOOKING PAGE
+export const GET_MOVIE_DETAIL = "GET_MOVIE_DETAIL";
+export const GET_LIST_SEAT = "GET_LIST_SEAT";
+export const CLICK_SEAT = "CLICK_SEAT";
+export const BOOK_TICKET_NOW = "BOOK_TICKET_NOW";
