@@ -2,7 +2,6 @@ import { Button, Form, Input } from "antd";
 import React from "react";
 import Lottie from "lottie-react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import {
   LockOutlined,
   UserOutlined,
@@ -10,13 +9,8 @@ import {
   PhoneOutlined,
   IdcardOutlined,
 } from "@ant-design/icons";
-import Swal from "sweetalert2";
-import { userServ } from "../../../services/userService";
-import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../../../redux/actions/loadingAction";
 import bg_login from "../../../assets/bg.login.json";
+import { userRegisterAction } from "../../../redux/actions/userAction";
 
 const formItemLayout = {
   labelCol: {
@@ -37,40 +31,13 @@ const formItemLayout = {
 export default function RegisterPage() {
   //SET UP REACT HOOK - METHOD
   let dispatch = useDispatch();
-  let navigate = useNavigate();
 
   //SET UP FORM AND SUBMIT
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    dispatch(loadingOnAction());
-    userServ
-      .userRegister(values)
-      .then((res) => {
-        console.log(res);
-        dispatch(loadingOffAction());
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Register Successful",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setTimeout(() => {
-          navigate("/login");
-        }, 1500);
-      })
-      .catch((err) => {
-        console.log(err);
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: err.response.data.content,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        dispatch(loadingOffAction());
-      });
+    values = { ...values, maNhom: "GP03" };
+    dispatch(userRegisterAction(values));
   };
 
   return (

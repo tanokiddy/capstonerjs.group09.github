@@ -15,11 +15,10 @@ export default function Spinner() {
   //   );
   // }
   return (
-    <div
-      id="spinner"
-      className="w-screen h-screen fixed left-0 top-0  bg-black flex justify-center items-center z-40"
-    >
-      <Lottie animationData={loading} />
+    <div id="spinner" style={{ display: "none" }}>
+      <div className="w-screen h-screen fixed left-0 top-0  bg-black flex justify-center items-center z-40">
+        <Lottie animationData={loading} />
+      </div>
     </div>
   );
 }

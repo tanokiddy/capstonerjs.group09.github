@@ -1,10 +1,5 @@
 import axios from "axios";
-import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../redux/actions/loadingAction";
 import { localServ } from "./localService";
-import { store } from "../index";
 
 export const TOKEN_CYBERSOFT =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCBTw6FuZyAwNCIsIkhldEhhblN0cmluZyI6IjA1LzAzLzIwMjMiLCJIZXRIYW5UaW1lIjoiMTY3Nzk3NDQwMDAwMCIsIm5iZiI6MTY1NDEwMjgwMCwiZXhwIjoxNjc4MTIyMDAwfQ.FunqYipkHrCbBATBzuJXyjGpZZxDekx1oY2qxW3_yfw";
@@ -18,31 +13,3 @@ export let https = axios.create({
     Authorization: "Bearer " + localServ.user.getDataUser()?.accessToken,
   },
 });
-// Add a request interceptor
-https.interceptors.request.use(
-  function (config) {
-    // Do something before request is sent
-    store.dispatch(loadingOnAction());
-    return config;
-  },
-  function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-  }
-);
-
-// Add a response interceptor
-https.interceptors.response.use(
-  function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    store.dispatch(loadingOffAction());
-    return response;
-  },
-  function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    store.dispatch(loadingOffAction());
-    return Promise.reject(error);
-  }
-);

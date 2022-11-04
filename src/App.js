@@ -34,6 +34,7 @@ function App() {
       return config;
     },
     function (error) {
+      document.getElementById("spinner").style.display = "flex";
       return Promise.reject(error);
     }
   );
@@ -44,6 +45,7 @@ function App() {
       return response;
     },
     function (error) {
+      document.getElementById("spinner").style.display = "none";
       return Promise.reject(error);
     }
   );

@@ -2,7 +2,7 @@ import moment from "moment";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "antd";
-import { userTicketAction } from "../../../redux/actions/movieAction";
+import { userTicketAction } from "../../../redux/actions/userAction";
 
 export default function UserTickets() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA

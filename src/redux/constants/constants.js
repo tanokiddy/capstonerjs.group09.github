@@ -1,4 +1,3 @@
-export const SET_USER = "SET_USER";
 export const LOADING_ON = "LOADING_ON";
 export const LOADING_OFF = "LOADING_OFF";
 export const BOOK_TICKET = "BOOK_TICKET";
@@ -15,3 +14,7 @@ export const GET_MOVIETAB = "GET_MOVIETAB";
 export const GET_USER_PROFILE = "GET_USER_PROFILE";
 export const UPDATE_USER_PROFILE = "UPDATE_USER_PROFILE";
 export const GET_USER_TICKET = "GET_USER_TICKET";
+
+//USER LOGIN
+export const USER_LOGIN = "USER_LOGIN";
+export const USER_REGISTER = "USER_REGISTER";

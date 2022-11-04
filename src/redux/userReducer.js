@@ -4,52 +4,58 @@ import {
   GET_LIST_USER,
   GET_USER_PROFILE,
   GET_USER_TICKET,
-  SET_USER,
   UPDATE_USER,
   UPDATE_USER_PROFILE,
   USER_DELETE,
+  USER_LOGIN,
+  USER_REGISTER,
 } from "./constants/constants";
 
 export const initialState = {
-  userInfo: localServ.user.getDataUser(),
-  userListAdmin: [],
   userAdmin: {},
 
+  userInfo: localServ.user.getDataUser(),
   userProfile: {},
   userTicket: [],
+  userList: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     //ADMIN
     case GET_LIST_USER: {
-      return { ...state, userListAdmin: action.listUser };
+      return { ...state, userList: action.listUser };
     }
     case EDIT_USER: {
       state.userAdmin = action.user;
       return { ...state };
     }
     case UPDATE_USER: {
-      let cloneUserListAdmin = state.userListAdmin;
-      let index = cloneUserListAdmin.findIndex((item) => {
+      let cloneUserList = state.userList;
+      let index = cloneUserList.findIndex((item) => {
         return item.taiKhoan === action.user.taiKhoan;
       });
-      cloneUserListAdmin[index] = action.user;
-      state.userListAdmin = cloneUserListAdmin;
+      cloneUserList[index] = action.user;
+      state.userList = cloneUserList;
       return { ...state };
     }
     case USER_DELETE: {
-      let cloneUserListAdmin = state.userListAdmin;
-      let index = cloneUserListAdmin.findIndex((item) => {
+      let cloneUserList = state.userList;
+      let index = cloneUserList.findIndex((item) => {
         return item.taiKhoan === action.taiKhoan;
       });
-      cloneUserListAdmin.splice(index, 1);
-      state.userListAdmin = cloneUserListAdmin;
+      cloneUserList.splice(index, 1);
+      state.userList = cloneUserList;
       return { ...state };
     }
     //USER
-    case SET_USER: {
-      return { ...state, userInfo: action.userData };
+    case USER_LOGIN: {
+      return { ...state, userInfo: action.user };
+    }
+    case USER_REGISTER: {
+      console.log(action.userRegister);
+      // state.userList.push(action.userRegister);
+      return { ...state };
     }
     case GET_USER_PROFILE: {
       return { ...state, userProfile: action.userProfile };

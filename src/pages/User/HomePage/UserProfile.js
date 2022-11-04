@@ -11,7 +11,7 @@ import React, { useEffect } from "react";
 import {
   getUserProfileAction,
   updateUserProfileAction,
-} from "../../../redux/actions/movieAction";
+} from "../../../redux/actions/userAction";
 
 const formItemLayout = {
   labelCol: {
@@ -33,13 +33,12 @@ export default function UserProfile() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET USERPROFILE-DATA
   let dispatch = useDispatch();
   const [form] = Form.useForm();
+  //SET UP FORM AND SUBMIT
+  let userProfile = useSelector((state) => state.userReducer.userProfile);
 
   useEffect(() => {
     dispatch(getUserProfileAction(form));
   }, []);
-
-  let userProfile = useSelector((state) => state.userReducer.userProfile);
-  //SET UP FORM AND SUBMIT
 
   const onFinish = (values) => {
     values = {

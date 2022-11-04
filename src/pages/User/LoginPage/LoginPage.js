@@ -1,49 +1,19 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Lottie from "lottie-react";
 import { useDispatch } from "react-redux";
-import Swal from "sweetalert2";
-import { userServ } from "../../../services/userService";
-import { localServ } from "../../../services/localService";
-import { userLoginAction } from "../../../redux/actions/userAction";
 import bg_login from "../../../assets/bg.login.json";
+import { userLoginAction } from "../../../redux/actions/userAction";
 
 export default function LoginPage() {
   //SET UP REACT HOOK - METHOD
-  let navigate = useNavigate();
   let dispatch = useDispatch();
 
   //SET UP SUBMIT FORM
   const onFinish = (values) => {
-    userServ
-      .userLogin(values)
-      .then((res) => {
-        console.log(res);
-        localServ.user.setDataUser(res.data.content);
-        dispatch(userLoginAction(res.data.content));
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Login Successful",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setTimeout(() => {
-          navigate("/");
-        }, 1500);
-      })
-      .catch((err) => {
-        console.log(err);
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: err.response.data.content,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
+    dispatch(userLoginAction(values));
   };
 
   return (
