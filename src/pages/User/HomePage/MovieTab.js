@@ -1,36 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Tabs } from "antd";
-import ItemTabMovie from "./ItemTabMovie";
-import { useDispatch } from "react-redux";
-import { movieServ } from "../../../services/movieService";
-import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../../../redux/actions/loadingAction";
+import ItemTabMovie from "./MovieTabItem";
+import { useDispatch, useSelector } from "react-redux";
+import { getScheduleMovieByTheatreAction } from "../../../redux/actions/movieAction";
 
-export default function TabMovie() {
+export default function MovieTab() {
   //SET UP STATE, REACT-HOOK HETHOD AND CALL API TO GET TABMOVIE-DATA
   let dispatch = useDispatch();
-  const [tabMovie, setTabMovie] = useState([]);
 
   useEffect(() => {
-    dispatch(loadingOnAction());
-    movieServ
-      .getScheduleMovieByTheatre()
-      .then((res) => {
-        console.log(res);
-        setTabMovie(res.data.content);
-        dispatch(loadingOffAction());
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch(loadingOffAction());
-      });
+    dispatch(getScheduleMovieByTheatreAction());
   }, []);
 
+  let movieTab = useSelector((state) => state.movieReducer.movieTab);
   //DECLARE FUNCTION TO RENDER TO LAYOUT
   const renderTabMovie = () => {
-    return tabMovie.map((theatreSystem, index) => {
+    return movieTab.map((theatreSystem, index) => {
       return (
         <Tabs.TabPane
           className="!pl-0"

@@ -1,32 +1,18 @@
 import moment from "moment";
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Card } from "antd";
-import { userServ } from "../../../services/userService";
-import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../../../redux/actions/loadingAction";
+import { userTicketAction } from "../../../redux/actions/movieAction";
 
 export default function UserTickets() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   let dispatch = useDispatch();
-  const [userTicket, setUserTicket] = useState({});
 
   useEffect(() => {
-    dispatch(loadingOnAction());
-    userServ
-      .userTicket()
-      .then((res) => {
-        console.log(res);
-        setUserTicket(res.data.content);
-        dispatch(loadingOffAction());
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch(loadingOffAction());
-      });
+    dispatch(userTicketAction());
   }, []);
+
+  let userTicket = useSelector((state) => state.userReducer.userTicket);
 
   //DESTRUCTURING thongTinDatVe in userTicket
   let { thongTinDatVe } = userTicket;

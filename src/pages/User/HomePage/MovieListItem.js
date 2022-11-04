@@ -2,7 +2,7 @@ import React from "react";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-export default function MovieItem({ movie }) {
+export default function MovieListItem({ movie }) {
   //GET STATE FROM STORE-REDUX
   let user = useSelector((state) => state.userReducer.userInfo);
 

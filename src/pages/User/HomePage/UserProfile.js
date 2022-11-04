@@ -1,19 +1,17 @@
 import { Button, Form, Input } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   LockOutlined,
   MailOutlined,
   PhoneOutlined,
   IdcardOutlined,
 } from "@ant-design/icons";
-import Swal from "sweetalert2";
 
-import React, { useState, useEffect } from "react";
-import { userServ } from "../../../services/userService";
+import React, { useEffect } from "react";
 import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../../../redux/actions/loadingAction";
+  getUserProfileAction,
+  updateUserProfileAction,
+} from "../../../redux/actions/movieAction";
 
 const formItemLayout = {
   labelCol: {
@@ -34,67 +32,23 @@ const formItemLayout = {
 export default function UserProfile() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET USERPROFILE-DATA
   let dispatch = useDispatch();
-  const [userProfile, setUserProfile] = useState({});
-
-  useEffect(() => {
-    dispatch(loadingOnAction());
-    userServ
-      .getUserProfile()
-      .then((res) => {
-        console.log(res);
-        setUserProfile(res.data.content);
-        dispatch(loadingOffAction());
-        form.setFieldsValue({
-          matKhau: res.data.content.matKhau,
-          email: res.data.content.email,
-          soDT: res.data.content.soDT,
-          hoTen: res.data.content.hoTen,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch(loadingOffAction());
-      });
-  }, []);
-
-  //SET UP FORM AND SUBMIT
   const [form] = Form.useForm();
 
+  useEffect(() => {
+    dispatch(getUserProfileAction(form));
+  }, []);
+
+  let userProfile = useSelector((state) => state.userReducer.userProfile);
+  //SET UP FORM AND SUBMIT
+
   const onFinish = (values) => {
-    dispatch(loadingOnAction());
     values = {
       ...values,
       taiKhoan: userProfile.taiKhoan,
       maNhom: userProfile.maNhom,
       maLoaiNguoiDung: userProfile.maLoaiNguoiDung,
     };
-    userServ
-      .updateUserProfile(values)
-      .then((res) => {
-        console.log(res);
-        dispatch(loadingOffAction());
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Update Profile Successful",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch(loadingOffAction());
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: err.response.data.content,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
+    dispatch(updateUserProfileAction(values));
   };
 
   return (

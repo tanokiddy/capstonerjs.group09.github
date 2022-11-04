@@ -7,8 +7,8 @@ import {
   LockOutlined,
 } from "@ant-design/icons";
 import { Button, Form, Input, Select } from "antd";
-import Swal from "sweetalert2";
-import { userServ } from "../../../services/userService";
+import { useDispatch, useSelector } from "react-redux";
+import { userUpdate } from "../../../redux/actions/userAction";
 
 const { Option } = Select;
 const formItemLayout = {
@@ -27,46 +27,24 @@ const formItemLayout = {
   },
 };
 
-export default function UserEditing({ userEditing, setModal2Open }) {
+export default function UserEditing() {
+  let dispatch = useDispatch();
+  let userEdit = useSelector((state) => state.userReducer.userAdmin);
   //SET UP FORM AND SUBMIT FORM
   const [form] = Form.useForm();
   form.setFieldsValue({
-    taiKhoan: userEditing.taiKhoan,
-    matKhau: userEditing.matKhau,
-    email: userEditing.email,
-    soDT: userEditing.soDT,
-    hoTen: userEditing.hoTen,
-    maLoaiNguoiDung: userEditing.maLoaiNguoiDung,
+    taiKhoan: userEdit.taiKhoan,
+    matKhau: userEdit.matKhau,
+    email: userEdit.email,
+    soDT: userEdit.soDT,
+    hoTen: userEdit.hoTen,
+    maLoaiNguoiDung: userEdit.maLoaiNguoiDung,
     maNhom: "GP03",
   });
   //-Setup submit form
+
   const onFinish = (values) => {
-    userServ
-      .userEditinginAdmin(values)
-      .then((res) => {
-        console.log(res);
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Update successful",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setTimeout(() => {
-          setModal2Open(false);
-          window.location.reload();
-        }, 1500);
-      })
-      .catch((err) => {
-        console.log(err);
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: err.response.data.content,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
+    dispatch(userUpdate(values));
   };
 
   return (

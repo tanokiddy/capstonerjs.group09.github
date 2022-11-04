@@ -3,7 +3,7 @@ import moment from "moment";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function ItemTabMovie({ movie }) {
+export default function MovieTabItem({ movie }) {
   //GET STATE FROM STORE-REDUX
   let user = useSelector((state) => state.userReducer.userInfo);
 

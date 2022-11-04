@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import MovieItem from "./MovieItem";
+import { useDispatch, useSelector } from "react-redux";
+import MovieItem from "./MovieListItem";
 import { Pagination } from "antd";
 import { movieServ } from "../../../services/movieService";
-import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../../../redux/actions/loadingAction";
+import { getListMovieAction } from "../../../redux/actions/movieAction";
 
 const pageSize = 10;
 
 export default function MovieList() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   let dispatch = useDispatch();
-  const [movie, setMovie] = useState([]);
   const [page, setPage] = useState({
     data: [],
     totalPage: 0,
@@ -23,13 +19,11 @@ export default function MovieList() {
   });
 
   useEffect(() => {
-    dispatch(loadingOnAction());
     movieServ
       .getListMovie()
       .then((res) => {
         console.log(res);
-        setMovie(res.data.content);
-        dispatch(loadingOffAction());
+        dispatch(getListMovieAction(res.data.content));
         setPage({
           ...page,
           data: res.data.content,
@@ -40,9 +34,10 @@ export default function MovieList() {
       })
       .catch((err) => {
         console.log(err);
-        dispatch(loadingOffAction());
       });
   }, []);
+
+  let movie = useSelector((state) => state.movieReducer.movieList);
 
   //BUILD METHOD
   const handleOnChange = (page1) => {

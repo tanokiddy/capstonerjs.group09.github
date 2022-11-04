@@ -1,6 +1,6 @@
 import React from "react";
 import "antd/dist/antd.min.css";
-import TabMovie from "./TabMovie";
+import MovieTab from "./MovieTab";
 import MovieList from "./MovieList";
 import CarouselHome from "./CarouselHome";
 import Footer from "../../../components/Footer/Footer";
@@ -10,7 +10,7 @@ export default function HomePage() {
     <div>
       <CarouselHome />
       <MovieList />
-      <TabMovie />
+      <MovieTab />
       <Footer />
     </div>
   );

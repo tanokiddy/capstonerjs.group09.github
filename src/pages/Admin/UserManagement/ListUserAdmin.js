@@ -5,14 +5,13 @@ import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
-import Swal from "sweetalert2";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UserEditing from "./UserEditing";
-import { userServ } from "../../../services/userService";
 import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../../../redux/actions/loadingAction";
+  callUserList,
+  userDeleteAdmin,
+  userEditingAction,
+} from "../../../redux/actions/userAction";
 
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
@@ -21,31 +20,21 @@ export default function ListUserAdmin() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   const navigate = useNavigate();
   let dispatch = useDispatch();
-  const [dataUser, setDataUser] = useState([]);
 
   useEffect(() => {
-    dispatch(loadingOnAction());
-    userServ
-      .userList()
-      .then((res) => {
-        console.log(res);
-        setDataUser(res.data.content);
-        dispatch(loadingOffAction());
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(callUserList());
   }, []);
+
+  let userList = useSelector((state) => state.userReducer.userListAdmin);
 
   //SET UP MODAL USER EDITING
   const [modal2Open, setModal2Open] = useState(false);
-  const [userEditing, setUserEditing] = useState({});
   const handleUserEditing = (id) => {
     setModal2Open(true);
-    let index = dataUser.findIndex((item) => {
+    let index = userList.findIndex((item) => {
       return item.taiKhoan === id;
     });
-    setUserEditing(dataUser[index]);
+    dispatch(userEditingAction(userList[index]));
   };
 
   //SET UP FORM COLUMNS, SEARCH INPUT, PAGINATION
@@ -60,34 +49,7 @@ export default function ListUserAdmin() {
   };
   //-Declare handle function in COLUMNS
   const handleUserDelete = (taiKhoan) => {
-    dispatch(loadingOnAction());
-    userServ
-      .userDelete(taiKhoan)
-      .then((res) => {
-        console.log(res);
-        dispatch(loadingOffAction());
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Delete successful",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch(loadingOffAction());
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: err.response.data.content,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
+    dispatch(userDeleteAdmin(taiKhoan));
   };
   //-COLUMNS
   const columns = [
@@ -216,11 +178,7 @@ export default function ListUserAdmin() {
             style={{
               margin: "16px 0",
             }}
-          >
-            {/* <Breadcrumb.Item>
-              <NavLink to="/admin/userManagement">User Management</NavLink>
-            </Breadcrumb.Item> */}
-          </Breadcrumb>
+          ></Breadcrumb>
           <div
             className="site-layout-background"
             style={{
@@ -245,7 +203,7 @@ export default function ListUserAdmin() {
                 className="overflow-auto"
                 rowKey="taiKhoan"
                 columns={columns}
-                dataSource={dataUser}
+                dataSource={userList}
                 onChange={handleChange}
               />
               <Modal
@@ -256,10 +214,7 @@ export default function ListUserAdmin() {
                 onCancel={() => setModal2Open(false)}
                 footer={null}
               >
-                <UserEditing
-                  userEditing={userEditing}
-                  setModal2Open={setModal2Open}
-                />
+                <UserEditing />
               </Modal>
             </div>
           </div>

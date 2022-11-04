@@ -1,27 +1,11 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { TOKEN_CYBERSOFT } from "../../services/configURL";
+import React from "react";
 import { GrAndroid, GrApple } from "react-icons/gr";
+import { useSelector } from "react-redux";
 export default function ContactHome() {
-  const [tabMovie, setTabMovie] = useState([]);
-  useEffect(() => {
-    axios({
-      baseURL: ` https://movienew.cybersoft.edu.vn/api/QuanLyRap/LayThongTinLichChieuHeThongRap`,
-      method: "GET",
-      headers: {
-        TokenCybersoft: TOKEN_CYBERSOFT,
-      },
-    })
-      .then((res) => {
-        console.log(res);
-        setTabMovie(res.data.content);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  let movieTab = useSelector((state) => state.movieReducer.movieTab);
+
   const renderMovieLogo = () => {
-    return tabMovie.map((item, index) => {
+    return movieTab?.map((item, index) => {
       return (
         <img
           type="button"

@@ -25,8 +25,29 @@ import Layout from "./HOC/Layout";
 import AddNewFilm from "./pages/Admin/FilmManagement/AddNewFilm";
 import AddShowTimes from "./pages/Admin/FilmManagement/AddShowTimes";
 import FindingFilm from "./pages/Admin/FilmManagement/FindingFilm";
+import { https } from "./services/configURL";
 
 function App() {
+  https.interceptors.request.use(
+    function (config) {
+      document.getElementById("spinner").style.display = "flex";
+      return config;
+    },
+    function (error) {
+      return Promise.reject(error);
+    }
+  );
+
+  https.interceptors.response.use(
+    function (response) {
+      document.getElementById("spinner").style.display = "none";
+      return response;
+    },
+    function (error) {
+      return Promise.reject(error);
+    }
+  );
+
   return (
     <BrowserRouter>
       <Routes>

@@ -7,22 +7,24 @@ import {
   loadingOffAction,
   loadingOnAction,
 } from "../../../redux/actions/loadingAction";
-import { bookTicketAction } from "../../../redux/actions/movieAction";
+import {
+  bookTicketAction,
+  getListTheatre,
+} from "../../../redux/actions/movieAction";
 import { movieServ } from "../../../services/movieService";
 
 export default function BookingPage() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   let { id } = useParams();
   let dispatch = useDispatch();
-  const [movieBooking, setMovieBooking] = useState({});
 
   useEffect(() => {
     dispatch(loadingOnAction());
     movieServ
       .getListTheatre(id)
       .then((res) => {
-        console.log("res", res);
-        setMovieBooking(res.data.content);
+        console.log(res);
+        dispatch(getListTheatre(res.data.content));
         dispatch(loadingOffAction());
       })
       .catch((err) => {
@@ -34,6 +36,7 @@ export default function BookingPage() {
   let seatState = useSelector((state) => state.movieReducer.seat);
   let bookingState = useSelector((state) => state.movieReducer.booking);
   let holdingSeat = useSelector((state) => state.movieReducer.holdingSeat);
+  let listTheatre = useSelector((state) => state.movieReducer.listTheatre);
 
   //DECLARE HANDLE FUNCTION
   const handleBookNow = () => {
@@ -50,9 +53,6 @@ export default function BookingPage() {
           showConfirmButton: false,
           timer: 1500,
         });
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
       })
       .catch((err) => {
         console.log(err);
@@ -61,7 +61,7 @@ export default function BookingPage() {
   };
 
   //DESTRUCTURING thongTinPhim + danhSachGhe in movieBooking
-  let { thongTinPhim, danhSachGhe } = movieBooking;
+  let { thongTinPhim, danhSachGhe } = listTheatre;
 
   //DECLARE FUNCTION TO RENDER TO LAYOUT
   const renderSeatBooking = () => {

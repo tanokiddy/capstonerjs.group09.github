@@ -4,22 +4,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { BsPlayFill } from "react-icons/bs";
 // import required modules
 import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper";
-import { movieServ } from "../../../services/movieService";
+import { useDispatch, useSelector } from "react-redux";
+import { getMovieBannerAction } from "../../../redux/actions/movieAction";
 
 export default function CarouselHome() {
   //SET UP STATE AND CALL API TO GET DATA
-  const [carousel, setCarousel] = useState([]);
-
+  let dispatch = useDispatch();
+  let carousel = useSelector((state) => state.movieReducer.banner);
   useEffect(() => {
-    movieServ
-      .getMovieBanner()
-      .then((res) => {
-        console.log(res);
-        setCarousel(res.data.content);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(getMovieBannerAction());
   }, []);
 
   //DECLEAR FUNCTION TO RENDER TO LAYOUT
