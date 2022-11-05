@@ -1,9 +1,11 @@
 import { localServ } from "../services/localService";
 import {
+  ADD_USER,
   EDIT_USER,
   GET_LIST_USER,
   GET_USER_PROFILE,
   GET_USER_TICKET,
+  SEARCH_USER,
   UPDATE_USER,
   UPDATE_USER_PROFILE,
   USER_DELETE,
@@ -13,6 +15,7 @@ import {
 
 export const initialState = {
   userAdmin: {},
+  userSearching: [],
 
   userInfo: localServ.user.getDataUser(),
   userProfile: {},
@@ -23,6 +26,13 @@ export const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     //ADMIN
+    case ADD_USER: {
+      state.userList.push(action.userAdding);
+      return { ...state };
+    }
+    case SEARCH_USER: {
+      return { ...state, userSearching: action.userSearching };
+    }
     case GET_LIST_USER: {
       return { ...state, userList: action.userList };
     }

@@ -1,9 +1,13 @@
-export const LOADING_ON = "LOADING_ON";
-export const LOADING_OFF = "LOADING_OFF";
+//USER ADMIN
 export const GET_LIST_USER = "GET_LIST_USER";
-export const EDIT_USER = "EDIT_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const USER_DELETE = "USER_DELETE";
+export const EDIT_USER = "EDIT_USER";
+export const SEARCH_USER = "SEARCH_USER";
+export const ADD_USER = "ADD_USER";
+
+export const LOADING_ON = "LOADING_ON";
+export const LOADING_OFF = "LOADING_OFF";
 
 //USER HOMEPAGE
 export const GET_BANNER = "GET_BANNER";

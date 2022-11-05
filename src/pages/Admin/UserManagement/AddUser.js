@@ -11,18 +11,13 @@ import {
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
 
-import Swal from "sweetalert2";
-
 import { NavLink } from "react-router-dom";
 import React from "react";
-import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../../../redux/actions/loadingAction";
-import { userServ } from "../../../services/userService";
+import { userAddingAction } from "../../../redux/actions/userAction";
 
 const { Option } = Select;
 const { Header, Content, Sider } = Layout;
+
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -42,40 +37,12 @@ const formItemLayout = {
 export default function AddUser() {
   //SET UP REACT-HOOK METHOD
   let dispatch = useDispatch();
-  let navigate = useNavigate();
 
   //SET UP FORM AND SUBMIT FORM
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    dispatch(loadingOnAction());
-    userServ
-      .addUser(values)
-      .then((res) => {
-        console.log(res);
-        dispatch(loadingOffAction());
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Adding User Successful",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setTimeout(() => {
-          navigate("/admin/userManagement");
-        }, 1500);
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch(loadingOffAction());
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: err.response.data.content,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
+    dispatch(userAddingAction(values));
   };
 
   return (
@@ -88,10 +55,10 @@ export default function AddUser() {
         breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={(broken) => {
-          console.log(broken);
+          // console.log(broken);
         }}
         onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
+          // console.log(collapsed, type);
         }}
       >
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
@@ -221,10 +188,10 @@ export default function AddUser() {
                 className="text-left"
               >
                 <Select placeholder="select group code">
-                  {/* <Option value="GP00">GP00</Option>
-                  <Option value="GP01">GP01</Option>
+                  <Option value="GP00">GP00</Option>
+                  {/* <Option value="GP01">GP01</Option>
                   <Option value="GP02">GP02</Option> */}
-                  <Option value="GP03">GP03</Option>
+                  {/* <Option value="GP03">GP03</Option> */}
                   {/* <Option value="GP04">GP04</Option>
                   <Option value="GP05">GP05</Option>
                   <Option value="GP06">GP06</Option>

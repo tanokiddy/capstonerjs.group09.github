@@ -6,14 +6,63 @@ import {
   GET_LIST_USER,
   GET_USER_PROFILE,
   GET_USER_TICKET,
+  SEARCH_USER,
   UPDATE_USER,
   UPDATE_USER_PROFILE,
   USER_DELETE,
   USER_LOGIN,
   USER_REGISTER,
+  ADD_USER,
 } from "../constants/constants";
 
 //ADMIN
+//-ADD USER
+export const userAddingAction = (values) => {
+  return async (dispatch) => {
+    try {
+      let res = await userServ.addUser(values);
+      if (res.status === 200) {
+        await dispatch({
+          type: ADD_USER,
+          userAdding: values,
+        });
+        await Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Adding User Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        window.location.href = "/admin/userManagement";
+      }
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: err.response.data.content,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+};
+//-SEARCH USER
+export const userSearchAction = (id) => {
+  return async (dispatch) => {
+    try {
+      let res = await userServ.userSearch(id);
+      if (res.status === 200) {
+        dispatch({
+          type: SEARCH_USER,
+          userSearching: res.data.content,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
 //-GET USERLIST
 export const callUserList = () => {
   return async (dispatch) => {

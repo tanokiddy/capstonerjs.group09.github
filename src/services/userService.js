@@ -23,7 +23,7 @@ export const userServ = {
     });
   },
   userList: () => {
-    let uri = `/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP03`;
+    let uri = `/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP00`;
     return https.get(uri);
   },
   userDelete: (taiKhoan) => {
@@ -41,7 +41,7 @@ export const userServ = {
     });
   },
   userSearch: (keyWord) => {
-    let uri = `/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP03&tuKhoa=${keyWord}`;
+    let uri = `/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP00&tuKhoa=${keyWord}`;
     return https.get(uri);
   },
   addUser: (dataUser) => {
