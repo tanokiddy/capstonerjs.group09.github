@@ -6,15 +6,10 @@ import {
 } from "@ant-design/icons";
 import { Switch, DatePicker } from "antd";
 import { Button, Form, Input, InputNumber } from "antd";
-import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
-import { movieServ } from "../../../services/movieService";
-import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../../../redux/actions/loadingAction";
 import moment from "moment";
+import { updateMovieUploadAction } from "../../../redux/actions/movieAction";
 
 const formItemLayout = {
   labelCol: {
@@ -40,7 +35,7 @@ export default function FilmEditing({ filmEditing, setModal2Open }) {
   //-Set up Form
   const [form] = Form.useForm();
   //-Set fieldvalue for Image
-  const [imgSrc, setImgSrc] = useState("");
+  const [imgSrc, setImgSrc] = useState(filmEditing.hinhAnh);
   const handleChangeFileUpload = (e) => {
     let file = e.target.files[0];
     let reader = new FileReader();
@@ -83,7 +78,7 @@ export default function FilmEditing({ filmEditing, setModal2Open }) {
       hinhAnh: null,
       maNhom: "GP03",
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       let formData = new FormData();
       for (let key in values) {
         if (key !== "hinhAnh") {
@@ -94,35 +89,8 @@ export default function FilmEditing({ filmEditing, setModal2Open }) {
           }
         }
       }
-      dispatch(loadingOnAction());
-      movieServ
-        .updateMovieUpload(formData)
-        .then((res) => {
-          console.log(res);
-          dispatch(loadingOffAction());
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Update Film Successful",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          setModal2Open(false);
-          setTimeout(() => {
-            window.location.reload();
-          }, 1500);
-        })
-        .catch((err) => {
-          console.log(err);
-          dispatch(loadingOffAction());
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: err.response.data.content,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        });
+      await dispatch(updateMovieUploadAction(formData));
+      setModal2Open(false);
     },
   });
 
@@ -242,11 +210,7 @@ export default function FilmEditing({ filmEditing, setModal2Open }) {
       </Form.Item>
       <Form.Item name="hinhAnh" label="Poster:">
         <Input type="file" onChange={handleChangeFileUpload} />
-        {imgSrc !== "" ? (
-          <img className="mt-4 w-[150px] h-[250px]" src={imgSrc} alt="..." />
-        ) : (
-          <img className="mt-4" src={imgSrc} alt="..." />
-        )}
+        <img className="mt-4 w-[150px] h-[250px]" src={imgSrc} alt="..." />
       </Form.Item>
       <Form.Item>
         <Button size="large" className="" type="primary" htmlType="submit">

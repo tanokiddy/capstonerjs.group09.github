@@ -13,14 +13,12 @@ import { BiEdit, BiAlarm } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import Swal from "sweetalert2";
-import { useDispatch } from "react-redux";
-import { movieServ } from "../../../services/movieService";
-import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../../../redux/actions/loadingAction";
+import { useDispatch, useSelector } from "react-redux";
 import FilmEditing from "./FilmEditing";
+import {
+  getListMovieByIdAction,
+  handleDeleteMovieAction,
+} from "../../../redux/actions/movieAction";
 
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
@@ -30,49 +28,17 @@ export default function FindingFilm() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let { id } = useParams();
-  const [dataFilmFinding, setDataFilmFinding] = useState([]);
 
   useEffect(() => {
-    dispatch(loadingOnAction());
-    movieServ
-      .getListMoviebyId(id)
-      .then((res) => {
-        console.log(res);
-        setDataFilmFinding(res.data.content);
-        dispatch(loadingOffAction());
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(getListMovieByIdAction(id));
   }, [id]);
 
+  let movieSearchingList = useSelector(
+    (state) => state.movieReducer.movieSearchingList
+  );
   //DECLARE HANDLE FUNCTION
   const handleDeleteMovie = (movieId) => {
-    movieServ
-      .deleteMovie(movieId)
-      .then((res) => {
-        console.log(res);
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Delete successful",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      })
-      .catch((err) => {
-        console.log(err);
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: err.response.data.content,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
+    dispatch(handleDeleteMovieAction(movieId));
   };
   const handleAddShowTimes = (maPhim) => {
     navigate(`/admin/films/filmManagement/addShowTimes/${maPhim}`);
@@ -81,12 +47,13 @@ export default function FindingFilm() {
   //SET UP MODAL
   const [modal2Open, setModal2Open] = useState(false);
   const [filmEditing, setFilmEditing] = useState({});
+
   const handleFilmEditing = (id) => {
     setModal2Open(true);
-    let index = dataFilmFinding.findIndex((item) => {
+    let index = movieSearchingList.findIndex((item) => {
       return item.maPhim === id;
     });
-    setFilmEditing(dataFilmFinding[index]);
+    setFilmEditing(movieSearchingList[index]);
   };
 
   //SET UP FORM COLUMNS
@@ -261,7 +228,7 @@ export default function FindingFilm() {
               <Table
                 rowKey="maPhim"
                 columns={columns}
-                dataSource={dataFilmFinding}
+                dataSource={movieSearchingList}
                 onChange={handleChange}
               />
               <Modal

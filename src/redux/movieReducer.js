@@ -1,12 +1,17 @@
 import {
-  BOOK_TICKET,
   BOOK_TICKET_NOW,
   CLICK_SEAT,
+  DELETE_MOVIE,
   GET_BANNER,
   GET_LIST_SEAT,
   GET_MOVIELIST,
   GET_MOVIETAB,
   GET_MOVIE_DETAIL,
+  GET_THEATRE,
+  GET_THEATRESYSTEM,
+  SEARCH_MOVIE,
+  UPDATE_MOVIE,
+  UPLOAD_NEWMOVIE,
 } from "./constants/constants";
 
 export const initialState = {
@@ -21,11 +26,19 @@ export const initialState = {
     danhSachVe: [],
   },
   seatListInTheatre: {},
+  //Admin
+  movieSearchingList: [],
+  //add new showtimes
+  theatreSystem: [],
+  theatre: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     //BOOKING PAGE
+    case GET_MOVIE_DETAIL: {
+      return { ...state, movieDetail_Schedule: action.movieDetail_Schedule };
+    }
     case GET_LIST_SEAT: {
       return { ...state, seatListInTheatre: action.seatListInTheatre };
     }
@@ -84,9 +97,29 @@ export default (state = initialState, action) => {
     case GET_MOVIETAB: {
       return { ...state, movieTab: action.movieTab };
     }
-    //BOOING PAGE
-    case GET_MOVIE_DETAIL: {
-      return { ...state, movieDetail_Schedule: action.movieDetail_Schedule };
+    //ADMIN MOVIE
+    case DELETE_MOVIE: {
+      let cloneMovieList = state.movieList.filter((item) => {
+        return item.maPhim !== action.movieId;
+      });
+      state.movieList = cloneMovieList;
+      return { ...state };
+    }
+    case UPDATE_MOVIE: {
+      return { ...state, movieList: action.movieList };
+    }
+    case SEARCH_MOVIE: {
+      return { ...state, movieSearchingList: action.movieSearchingList };
+    }
+    case UPLOAD_NEWMOVIE: {
+      return { ...state, movieList: action.movieList };
+    }
+    //Add new showtimes
+    case GET_THEATRESYSTEM: {
+      return { ...state, theatreSystem: action.theatreSystem };
+    }
+    case GET_THEATRE: {
+      return { ...state, theatre: action.theatre };
     }
     default:
       return { ...state };

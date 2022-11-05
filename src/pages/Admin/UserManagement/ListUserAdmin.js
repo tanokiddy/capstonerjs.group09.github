@@ -214,7 +214,7 @@ export default function ListUserAdmin() {
                 onCancel={() => setModal2Open(false)}
                 footer={null}
               >
-                <UserEditing />
+                <UserEditing setModal2Open={setModal2Open} />
               </Modal>
             </div>
           </div>

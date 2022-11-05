@@ -27,7 +27,7 @@ const formItemLayout = {
   },
 };
 
-export default function UserEditing() {
+export default function UserEditing({ setModal2Open }) {
   let dispatch = useDispatch();
   let userEdit = useSelector((state) => state.userReducer.userAdmin);
   //SET UP FORM AND SUBMIT FORM
@@ -43,8 +43,9 @@ export default function UserEditing() {
   });
   //-Setup submit form
 
-  const onFinish = (values) => {
-    dispatch(userUpdate(values));
+  const onFinish = async (values) => {
+    await dispatch(userUpdate(values));
+    setModal2Open(false);
   };
 
   return (

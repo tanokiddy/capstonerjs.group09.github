@@ -26,3 +26,12 @@ export const GET_MOVIE_DETAIL = "GET_MOVIE_DETAIL";
 export const GET_LIST_SEAT = "GET_LIST_SEAT";
 export const CLICK_SEAT = "CLICK_SEAT";
 export const BOOK_TICKET_NOW = "BOOK_TICKET_NOW";
+
+//ADMIN MOVIE
+export const DELETE_MOVIE = "DELETE_MOVIE";
+export const UPDATE_MOVIE = "UPDATE_MOVIE";
+export const SEARCH_MOVIE = "SEARCH_MOVIE";
+export const UPLOAD_NEWMOVIE = "UPLOAD_NEWMOVIE";
+//-Add new showtimes
+export const GET_THEATRESYSTEM = "GET_THEATRESYSTEM";
+export const GET_THEATRE = "GET_THEATRE";

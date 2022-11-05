@@ -10,12 +10,17 @@ import { useFormik } from "formik";
 import moment from "moment";
 import React, { useState, useEffect } from "react";
 import { movieServ } from "../../../services/movieService";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   loadingOffAction,
   loadingOnAction,
 } from "../../../redux/actions/loadingAction";
 import Swal from "sweetalert2";
+import {
+  addShowTimesAction,
+  getTheatreAction,
+  getTheatreSystemAction,
+} from "../../../redux/actions/movieAction";
 
 const { Header, Content, Sider } = Layout;
 const { Option } = Select;
@@ -39,20 +44,14 @@ export default function AddShowTimes() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   let dispatch = useDispatch();
   let { id } = useParams();
-  const [theatreSystem, setTheatreSystem] = useState([]);
-  const [theatre, setTheatre] = useState();
 
   useEffect(() => {
-    movieServ
-      .getTheatreSystem()
-      .then((res) => {
-        console.log(res);
-        setTheatreSystem(res.data.content);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(getTheatreSystemAction());
   }, []);
+
+  let theatreSystem = useSelector((state) => state.movieReducer.theatreSystem);
+
+  let theatre = useSelector((state) => state.movieReducer.theatre);
 
   //SETUP FORMIK TO FORM
   //-Set Form
@@ -70,15 +69,7 @@ export default function AddShowTimes() {
   };
   //-Set FieldValue for Select
   const handleOnchangeTheatreSystem = (value) => {
-    movieServ
-      .getTheatre(value)
-      .then((res) => {
-        console.log(res);
-        setTheatre(res.data.content);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(getTheatreAction(value));
   };
   const handleOnchangeTheatre = (value) => {
     formik.setFieldValue("maRap", value);
@@ -93,31 +84,7 @@ export default function AddShowTimes() {
       giaVe: 0,
     },
     onSubmit: (values) => {
-      dispatch(loadingOnAction());
-      movieServ
-        .addShowtimes(values)
-        .then((res) => {
-          console.log(res);
-          dispatch(loadingOffAction());
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Add Showtimes Successful",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-          dispatch(loadingOffAction());
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: err.response.data.content,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        });
+      dispatch(addShowTimesAction(values));
     },
   });
 
@@ -181,7 +148,7 @@ export default function AddShowTimes() {
               </NavLink>
             </Menu.Item>
             <Menu.Item key="addFilm">
-              <NavLink to="/admin/films/">Add New</NavLink>
+              <NavLink to="/admin/films/addNewFilm">Add New</NavLink>
             </Menu.Item>
           </Menu.SubMenu>
         </Menu>

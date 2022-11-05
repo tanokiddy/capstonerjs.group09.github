@@ -7,17 +7,12 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, Space, Switch, DatePicker } from "antd";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
 import moment from "moment";
 import React, { useState } from "react";
-import { movieServ } from "../../../services/movieService";
 import { useDispatch } from "react-redux";
-import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../../../redux/actions/loadingAction";
-import Swal from "sweetalert2";
+import { uploadNewMovieAction } from "../../../redux/actions/movieAction";
 
 const { Header, Content, Sider } = Layout;
 const { Option } = Select;
@@ -39,7 +34,6 @@ const formItemLayout = {
 
 export default function AddNewFilm() {
   //SET UP STATE, REACT-HOOK METHOD
-  let navigate = useNavigate();
   let dispatch = useDispatch();
 
   //SETUP FORMIK TO FORM
@@ -47,7 +41,7 @@ export default function AddNewFilm() {
   const [form] = Form.useForm();
   //-Set FieldValue for Image
   const [imgSrc, setImgSrc] = useState("");
-  console.log("imgSrc: ", imgSrc);
+
   const handleChangeFileUpload = (e) => {
     let file = e.target.files[0];
     let reader = new FileReader();
@@ -98,34 +92,7 @@ export default function AddNewFilm() {
           }
         }
       }
-      dispatch(loadingOnAction());
-      movieServ
-        .uploadMovie(formData)
-        .then((res) => {
-          console.log(res);
-          dispatch(loadingOffAction());
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Add New Film Successful",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          setTimeout(() => {
-            navigate(`/admin/films/filmManagement`);
-          }, 1500);
-        })
-        .catch((err) => {
-          console.log(err.response.data.content);
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: err.response.data.content,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          dispatch(loadingOffAction());
-        });
+      dispatch(uploadNewMovieAction(formData));
     },
   });
 

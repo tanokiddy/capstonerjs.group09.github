@@ -89,7 +89,7 @@ export const userDeleteAdmin = (taiKhoan) => {
           type: USER_DELETE,
           taiKhoan,
         });
-        Swal.fire({
+        await Swal.fire({
           position: "center",
           icon: "success",
           title: "Delete successful",
@@ -119,7 +119,7 @@ export const userUpdate = (values) => {
           type: UPDATE_USER,
           user: values,
         });
-        Swal.fire({
+        await Swal.fire({
           position: "center",
           icon: "success",
           title: "Update successful",
@@ -187,7 +187,7 @@ export const updateUserProfileAction = (values) => {
           type: UPDATE_USER_PROFILE,
           userProfile: values,
         });
-        Swal.fire({
+        await Swal.fire({
           position: "center",
           icon: "success",
           title: "Update Profile Successful",
@@ -213,7 +213,7 @@ export const userTicketAction = () => {
     try {
       let res = await userServ.userTicket();
       if ((res.status = 200)) {
-        dispatch({
+        await dispatch({
           type: GET_USER_TICKET,
           userTicket: res.data.content,
         });

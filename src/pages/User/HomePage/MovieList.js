@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MovieItem from "./MovieListItem";
 import { Pagination } from "antd";
-import { movieServ } from "../../../services/movieService";
 import { getListMovieAction } from "../../../redux/actions/movieAction";
 
 const pageSize = 10;
@@ -19,26 +18,20 @@ export default function MovieList() {
   });
 
   useEffect(() => {
-    movieServ
-      .getListMovie()
-      .then((res) => {
-        console.log(res);
-        dispatch(getListMovieAction(res.data.content));
-        setPage({
-          ...page,
-          data: res.data.content,
-          totalPage: res.data.content.length / pageSize,
-          minIndex: 0,
-          maxIndex: pageSize,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(getListMovieAction());
   }, []);
 
-  let movie = useSelector((state) => state.movieReducer.movieList);
+  let movieList = useSelector((state) => state.movieReducer.movieList);
 
+  useEffect(() => {
+    setPage({
+      ...page,
+      data: movieList,
+      totalPage: movieList.length / pageSize,
+      minIndex: 0,
+      maxIndex: pageSize,
+    });
+  }, [movieList]);
   //BUILD METHOD
   const handleOnChange = (page1) => {
     setPage({
@@ -51,7 +44,7 @@ export default function MovieList() {
 
   //DECLARE FUNCTION TO RENDER TO LAYOUT
   const renderMovie = () => {
-    return movie?.map((movie, index) => {
+    return movieList?.map((movie, index) => {
       return (
         index >= page.minIndex &&
         index < page.maxIndex && <MovieItem key={index} movie={movie} />

@@ -13,14 +13,12 @@ import { BiEdit, BiAlarm } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { NavLink, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import { useDispatch } from "react-redux";
-import { movieServ } from "../../../services/movieService";
-import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../../../redux/actions/loadingAction";
+import { useDispatch, useSelector } from "react-redux";
 import FilmEditing from "./FilmEditing";
+import {
+  getListMovieAction,
+  handleDeleteMovieAction,
+} from "../../../redux/actions/movieAction";
 
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
@@ -29,49 +27,16 @@ export default function ListFilmAdmin() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   let dispatch = useDispatch();
   let navigate = useNavigate();
-  const [dataFilm, setDataFilm] = useState([]);
 
   useEffect(() => {
-    dispatch(loadingOnAction());
-    movieServ
-      .getListMovie()
-      .then((res) => {
-        console.log(res);
-        setDataFilm(res.data.content);
-        dispatch(loadingOffAction());
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(getListMovieAction());
   }, []);
+
+  let movieList = useSelector((state) => state.movieReducer.movieList);
 
   //DECLARE HANDLE FUNCTION
   const handleDeleteMovie = (movieId) => {
-    movieServ
-      .deleteMovie(movieId)
-      .then((res) => {
-        console.log(res);
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Delete successful",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      })
-      .catch((err) => {
-        console.log(err);
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: err.response.data.content,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
+    dispatch(handleDeleteMovieAction(movieId));
   };
   const handleAddShowTimes = (maPhim) => {
     navigate(`/admin/films/filmManagement/addShowTimes/${maPhim}`);
@@ -82,10 +47,10 @@ export default function ListFilmAdmin() {
   const [filmEditing, setFilmEditing] = useState({});
   const handleFilmEditing = (id) => {
     setModal2Open(true);
-    let index = dataFilm.findIndex((item) => {
+    let index = movieList.findIndex((item) => {
       return item.maPhim === id;
     });
-    setFilmEditing(dataFilm[index]);
+    setFilmEditing(movieList[index]);
   };
 
   //SET UP FORM COLUMNS
@@ -258,7 +223,7 @@ export default function ListFilmAdmin() {
               <Table
                 rowKey="maPhim"
                 columns={columns}
-                dataSource={dataFilm}
+                dataSource={movieList}
                 onChange={handleChange}
               />
               <Modal
