@@ -14,16 +14,17 @@ import { MdDelete } from "react-icons/md";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import FilmEditing from "./MovieEditing";
+import FilmEditing from "./EditMovie";
 import {
   getListMovieByIdAction,
   handleDeleteMovieAction,
+  movieEditingAction,
 } from "../../../redux/actions/movieAction";
 
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
 
-export default function FindingMovie() {
+export default function SearchingMovie() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   let dispatch = useDispatch();
   let navigate = useNavigate();
@@ -46,14 +47,13 @@ export default function FindingMovie() {
 
   //SET UP MODAL
   const [modal2Open, setModal2Open] = useState(false);
-  const [filmEditing, setFilmEditing] = useState({});
 
   const handleFilmEditing = (id) => {
     setModal2Open(true);
     let index = movieSearchingList.findIndex((item) => {
       return item.maPhim === id;
     });
-    setFilmEditing(movieSearchingList[index]);
+    dispatch(movieEditingAction(movieSearchingList[index]));
   };
 
   //SET UP FORM COLUMNS
@@ -213,7 +213,7 @@ export default function FindingMovie() {
             }}
           >
             <div>
-              <div className="text-2xl bold mb-4">Finding Film</div>
+              <div className="text-2xl bold mb-4">Searching Movie</div>
               <Space
                 style={{
                   marginBottom: 16,
@@ -239,10 +239,7 @@ export default function FindingMovie() {
                 onCancel={() => setModal2Open(false)}
                 footer={null}
               >
-                <FilmEditing
-                  filmEditing={filmEditing}
-                  setModal2Open={setModal2Open}
-                />
+                <FilmEditing setModal2Open={setModal2Open} />
               </Modal>
             </div>
           </div>

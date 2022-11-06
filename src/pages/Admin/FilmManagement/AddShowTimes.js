@@ -8,14 +8,8 @@ import { Breadcrumb, Layout, Menu, Space, DatePicker } from "antd";
 import { NavLink, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import moment from "moment";
-import React, { useState, useEffect } from "react";
-import { movieServ } from "../../../services/movieService";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../../../redux/actions/loadingAction";
-import Swal from "sweetalert2";
 import {
   addShowTimesAction,
   getTheatreAction,

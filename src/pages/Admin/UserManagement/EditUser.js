@@ -27,7 +27,7 @@ const formItemLayout = {
   },
 };
 
-export default function UserEditing({ setModal2Open }) {
+export default function EditUser({ setModal2Open }) {
   let dispatch = useDispatch();
   let userEdit = useSelector((state) => state.userReducer.userAdmin);
   //SET UP FORM AND SUBMIT FORM

@@ -6,7 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import UserEditing from "./UserEditing";
+import UserEditing from "./EditUser";
 import {
   callUserList,
   userDeleteAdmin,

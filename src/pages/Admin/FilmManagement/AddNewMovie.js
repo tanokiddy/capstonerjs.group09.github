@@ -32,7 +32,7 @@ const formItemLayout = {
   },
 };
 
-export default function AddNewFilm() {
+export default function AddNewMovie() {
   //SET UP STATE, REACT-HOOK METHOD
   let dispatch = useDispatch();
 

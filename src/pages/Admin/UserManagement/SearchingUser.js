@@ -19,12 +19,12 @@ import {
   userEditingAction,
   userSearchAction,
 } from "../../../redux/actions/userAction";
-import UserEditing from "./UserEditing";
+import UserEditing from "./EditUser";
 
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
 
-export default function FindingUser() {
+export default function SearchingUser() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   const navigate = useNavigate();
   let dispatch = useDispatch();
@@ -186,7 +186,7 @@ export default function FindingUser() {
             }}
           >
             <div>
-              <div className="text-2xl bold">Finding User</div>
+              <div className="text-2xl bold">Searching User</div>
               <NavLink to="/admin/userManagement/addUser">
                 <button className="border text-white font-bold bg-blue-500 rounded p-2 my-1">
                   + Thêm người dùng

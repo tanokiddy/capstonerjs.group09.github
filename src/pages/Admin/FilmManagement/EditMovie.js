@@ -27,7 +27,7 @@ const formItemLayout = {
   },
 };
 
-export default function MovieEditing({ setModal2Open }) {
+export default function EditMovie({ setModal2Open }) {
   //SET UP REACT-HOOK METHOD
   let dispatch = useDispatch();
   let movieEditing = useSelector((state) => state.movieReducer.movieEditing);

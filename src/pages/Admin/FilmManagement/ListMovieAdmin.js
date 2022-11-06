@@ -14,11 +14,10 @@ import { MdDelete } from "react-icons/md";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import FilmEditing from "./MovieEditing";
+import FilmEditing from "./EditMovie";
 import {
   getListMovieAction,
   handleDeleteMovieAction,
-  handleOnCancelAction,
   movieEditingAction,
 } from "../../../redux/actions/movieAction";
 
@@ -53,8 +52,6 @@ export default function ListMovieAdmin() {
     });
     dispatch(movieEditingAction(movieList[index]));
   };
-
-  let movieEditing = useSelector((state) => state.movieReducer.movieEditing);
 
   //SET UP FORM COLUMNS
   //-Set up pagination

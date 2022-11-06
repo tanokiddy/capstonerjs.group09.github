@@ -10,7 +10,7 @@ import UserTickets from "./pages/User/HomePage/UserTickets";
 import UserProfile from "./pages/User/HomePage/UserProfile";
 //ADMIN - USER MANAGEMENT
 import ListUserAdmin from "./pages/Admin/UserManagement/ListUserAdmin";
-import FindingUser from "./pages/Admin/UserManagement/FindingUser";
+import SearchingUser from "./pages/Admin/UserManagement/SearchingUser";
 import AddUser from "./pages/Admin/UserManagement/AddUser";
 //ADMIN - FILM MANAGEMENT
 import ListMovieAdmin from "./pages/Admin/FilmManagement/ListMovieAdmin";
@@ -22,9 +22,9 @@ import SecureViewAdmin from "./HOC/SecureViewAdmin";
 import SecureView from "./HOC/SecureView";
 import LayoutNon from "./HOC/LayoutNon";
 import Layout from "./HOC/Layout";
-import AddNewFilm from "./pages/Admin/FilmManagement/AddNewFilm";
+import AddNewMovie from "./pages/Admin/FilmManagement/AddNewMovie";
 import AddShowTimes from "./pages/Admin/FilmManagement/AddShowTimes";
-import FindingMovie from "./pages/Admin/FilmManagement/FindingMovie";
+import SearchingMovie from "./pages/Admin/FilmManagement/SearchingMovie";
 import { https } from "./services/configURL";
 
 function App() {
@@ -95,7 +95,7 @@ function App() {
             </SecureView>
           }
         ></Route>
-        {/* -------------ADMIN ACTION---------- */}
+        {/* -------------ADMIN ACTION-------- */}
         <Route
           path="/admin"
           element={
@@ -124,7 +124,7 @@ function App() {
           path="/admin/userManagement/search/:id"
           element={
             <SecureViewAdmin>
-              <LayoutNon Component={FindingUser} />
+              <LayoutNon Component={SearchingUser} />
             </SecureViewAdmin>
           }
         ></Route>
@@ -140,7 +140,7 @@ function App() {
           path="/admin/films/addNewFilm"
           element={
             <SecureViewAdmin>
-              <LayoutNon Component={AddNewFilm} />
+              <LayoutNon Component={AddNewMovie} />
             </SecureViewAdmin>
           }
         ></Route>
@@ -156,7 +156,7 @@ function App() {
           path="/admin/films/filmManagement/search/:id"
           element={
             <SecureViewAdmin>
-              <LayoutNon Component={FindingMovie} />
+              <LayoutNon Component={SearchingMovie} />
             </SecureViewAdmin>
           }
         ></Route>
