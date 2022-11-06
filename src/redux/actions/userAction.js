@@ -37,7 +37,7 @@ export const userAddingAction = (values) => {
       }
     } catch (err) {
       console.log(err);
-      Swal.fire({
+      await Swal.fire({
         position: "center",
         icon: "error",
         title: err.response.data.content,
@@ -53,7 +53,7 @@ export const userSearchAction = (id) => {
     try {
       let res = await userServ.userSearch(id);
       if (res.status === 200) {
-        dispatch({
+        await dispatch({
           type: SEARCH_USER,
           userSearching: res.data.content,
         });
@@ -69,7 +69,7 @@ export const callUserList = () => {
     try {
       let res = await userServ.userList();
       if (res.status === 200) {
-        dispatch({
+        await dispatch({
           type: GET_LIST_USER,
           userList: res.data.content,
         });
@@ -99,12 +99,12 @@ export const userDeleteAdmin = (taiKhoan) => {
       }
     } catch (err) {
       console.log(err);
-      Swal.fire({
+      await Swal.fire({
         position: "center",
         icon: "error",
         title: err.response.data.content,
         showConfirmButton: false,
-        timer: 200,
+        timer: 1500,
       });
     }
   };
@@ -129,7 +129,7 @@ export const userUpdate = (values) => {
       }
     } catch (err) {
       console.log(err);
-      Swal.fire({
+      await Swal.fire({
         position: "center",
         icon: "error",
         title: err.response.data.content,
@@ -182,7 +182,7 @@ export const updateUserProfileAction = (values) => {
   return async (dispatch) => {
     try {
       let res = await userServ.updateUserProfile(values);
-      if ((res.status = 200)) {
+      if (res.status === 200) {
         await dispatch({
           type: UPDATE_USER_PROFILE,
           userProfile: values,
@@ -197,7 +197,7 @@ export const updateUserProfileAction = (values) => {
       }
     } catch (err) {
       console.log(err);
-      Swal.fire({
+      await Swal.fire({
         position: "center",
         icon: "error",
         title: err.response.data.content,
@@ -212,7 +212,7 @@ export const userTicketAction = () => {
   return async (dispatch) => {
     try {
       let res = await userServ.userTicket();
-      if ((res.status = 200)) {
+      if (res.status === 200) {
         await dispatch({
           type: GET_USER_TICKET,
           userTicket: res.data.content,
@@ -229,7 +229,7 @@ export const userLoginAction = (values) => {
     try {
       let res = await userServ.userLogin(values);
       if (res.status === 200) {
-        localServ.user.setDataUser(res.data.content);
+        await localServ.user.setDataUser(res.data.content);
         await dispatch({
           type: USER_LOGIN,
           user: res.data.content,
@@ -245,7 +245,7 @@ export const userLoginAction = (values) => {
       }
     } catch (err) {
       console.log(err);
-      Swal.fire({
+      await Swal.fire({
         position: "center",
         icon: "error",
         title: err.response.data.content,
@@ -260,7 +260,6 @@ export const userRegisterAction = (values) => {
   return async (dispatch) => {
     try {
       let res = await userServ.userRegister(values);
-      console.log("res", res);
       if (res.status === 200) {
         await dispatch({
           type: USER_REGISTER,
@@ -277,7 +276,7 @@ export const userRegisterAction = (values) => {
       }
     } catch (err) {
       console.log(err);
-      Swal.fire({
+      await Swal.fire({
         position: "center",
         icon: "error",
         title: err.response.data.content,

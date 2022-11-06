@@ -11,6 +11,7 @@ import {
   GET_MOVIE_DETAIL,
   GET_THEATRE,
   GET_THEATRESYSTEM,
+  MOVIE_EDITING,
   SEARCH_MOVIE,
   UPDATE_MOVIE,
 } from "../constants/constants";
@@ -21,7 +22,7 @@ export const getMovieBannerAction = () => {
     try {
       let res = await movieServ.getMovieBanner();
       if (res.status === 200) {
-        dispatch({
+        await dispatch({
           type: GET_BANNER,
           banner: res.data.content,
         });
@@ -37,7 +38,7 @@ export const getListMovieAction = () => {
     try {
       let res = await movieServ.getListMovie();
       if (res.status === 200) {
-        dispatch({
+        await dispatch({
           type: GET_MOVIELIST,
           movieList: res.data.content,
         });
@@ -53,7 +54,7 @@ export const getScheduleMovieByTheatreAction = () => {
     return async (dispatch) => {
       let res = await movieServ.getScheduleMovieByTheatre();
       if (res.status === 200) {
-        dispatch({
+        await dispatch({
           type: GET_MOVIETAB,
           movieTab: res.data.content,
         });
@@ -70,7 +71,7 @@ export const getScheduleInfoByIdMovieAction = (id) => {
     try {
       let res = await movieServ.getScheduleInfoByIdMovie(id);
       if (res.status === 200) {
-        dispatch({
+        await dispatch({
           type: GET_MOVIE_DETAIL,
           movieDetail_Schedule: res.data.content,
         });
@@ -85,7 +86,7 @@ export const getListSeatInTheatreAction = (id) => {
     try {
       let res = await movieServ.getListTheatre(id);
       if (res.status === 200) {
-        dispatch({
+        await dispatch({
           type: GET_LIST_SEAT,
           seatListInTheatre: res.data.content,
         });
@@ -104,7 +105,7 @@ export const handleBookingNowAction = (bookingState) => {
           type: BOOK_TICKET_NOW,
           bookingState,
         });
-        Swal.fire({
+        await Swal.fire({
           position: "center",
           icon: "success",
           title: "Booking Successful",
@@ -115,7 +116,7 @@ export const handleBookingNowAction = (bookingState) => {
     } catch (err) {
       // }
       console.log(err);
-      Swal.fire({
+      await Swal.fire({
         position: "center",
         icon: "success",
         title: err.responde.data.message,
@@ -141,7 +142,7 @@ export const handleDeleteMovieAction = (movieId) => {
           type: DELETE_MOVIE,
           movieId,
         });
-        Swal.fire({
+        await Swal.fire({
           position: "center",
           icon: "success",
           title: "Delete successful",
@@ -151,7 +152,7 @@ export const handleDeleteMovieAction = (movieId) => {
       }
     } catch (err) {
       console.log(err);
-      Swal.fire({
+      await Swal.fire({
         position: "center",
         icon: "success",
         title: err.response.data.content,
@@ -182,13 +183,26 @@ export const updateMovieUploadAction = (formData) => {
       }
     } catch (err) {
       console.log(err);
-      Swal.fire({
+      await Swal.fire({
         position: "center",
         icon: "error",
         title: err.response.data.content,
         showConfirmButton: false,
         timer: 1500,
       });
+    }
+  };
+};
+//-
+export const movieEditingAction = (movieEditing) => {
+  return async (dispatch) => {
+    try {
+      await dispatch({
+        type: MOVIE_EDITING,
+        movieEditing,
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 };
@@ -230,7 +244,7 @@ export const uploadNewMovieAction = (formData) => {
       }
     } catch (err) {
       console.log(err);
-      Swal.fire({
+      await Swal.fire({
         position: "center",
         icon: "error",
         title: err.response.data.content,
@@ -286,7 +300,7 @@ export const addShowTimesAction = (values) => {
       }
     } catch (err) {
       console.log(err);
-      Swal.fire({
+      await Swal.fire({
         position: "center",
         icon: "error",
         title: err.response.data.content,

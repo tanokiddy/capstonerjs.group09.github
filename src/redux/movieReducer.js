@@ -9,6 +9,7 @@ import {
   GET_MOVIE_DETAIL,
   GET_THEATRE,
   GET_THEATRESYSTEM,
+  MOVIE_EDITING,
   SEARCH_MOVIE,
   UPDATE_MOVIE,
   UPLOAD_NEWMOVIE,
@@ -28,6 +29,7 @@ export const initialState = {
   seatListInTheatre: {},
   //Admin
   movieSearchingList: [],
+  movieEditing: {},
   //add new showtimes
   theatreSystem: [],
   theatre: [],
@@ -113,6 +115,9 @@ export default (state = initialState, action) => {
     }
     case UPLOAD_NEWMOVIE: {
       return { ...state, movieList: action.movieList };
+    }
+    case MOVIE_EDITING: {
+      return { ...state, movieEditing: action.movieEditing };
     }
     //Add new showtimes
     case GET_THEATRESYSTEM: {

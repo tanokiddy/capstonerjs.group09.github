@@ -41,19 +41,34 @@ export default (state = initialState, action) => {
       return { ...state };
     }
     case UPDATE_USER: {
-      let cloneUserList = state.userList;
-      let index = cloneUserList.findIndex((item) => {
+      let cloneUserList = [...state.userList];
+      let index1 = cloneUserList.findIndex((item) => {
         return item.taiKhoan === action.user.taiKhoan;
       });
-      cloneUserList[index] = action.user;
+      cloneUserList[index1] = action.user;
+
+      let cloneUserSearching = [...state.userSearching];
+      let index2 = cloneUserSearching.findIndex((item) => {
+        return item.taiKhoan === action.user.taiKhoan;
+      });
+      cloneUserSearching[index2] = action.user;
+
+      state.userSearching = cloneUserSearching;
       state.userList = cloneUserList;
+      state.userAdmin = action.user;
       return { ...state };
     }
     case USER_DELETE: {
       let cloneUserList = state.userList.filter((item) => {
         return item.taiKhoan !== action.taiKhoan;
       });
+
+      let cloneUserSearching = state.userSearching.filter((item) => {
+        return item.taiKhoan !== action.taiKhoan;
+      });
+
       state.userList = cloneUserList;
+      state.userSearching = cloneUserSearching;
       return { ...state };
     }
     //USER
@@ -61,8 +76,7 @@ export default (state = initialState, action) => {
       return { ...state, userInfo: action.user };
     }
     case USER_REGISTER: {
-      console.log(action.userRegister);
-      // state.userList.push(action.userRegister);
+      state.userList.push(action.userRegister);
       return { ...state };
     }
     case GET_USER_PROFILE: {

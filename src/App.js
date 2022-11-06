@@ -13,7 +13,7 @@ import ListUserAdmin from "./pages/Admin/UserManagement/ListUserAdmin";
 import FindingUser from "./pages/Admin/UserManagement/FindingUser";
 import AddUser from "./pages/Admin/UserManagement/AddUser";
 //ADMIN - FILM MANAGEMENT
-import ListFilmAdmin from "./pages/Admin/FilmManagement/ListFilmAdmin";
+import ListMovieAdmin from "./pages/Admin/FilmManagement/ListMovieAdmin";
 //GENERAL ADMIN PAGES
 import AdminPage from "./pages/Admin/AdminPage";
 import Error403 from "./pages/Admin/ErrorLandingPage";
@@ -24,7 +24,7 @@ import LayoutNon from "./HOC/LayoutNon";
 import Layout from "./HOC/Layout";
 import AddNewFilm from "./pages/Admin/FilmManagement/AddNewFilm";
 import AddShowTimes from "./pages/Admin/FilmManagement/AddShowTimes";
-import FindingFilm from "./pages/Admin/FilmManagement/FindingFilm";
+import FindingMovie from "./pages/Admin/FilmManagement/FindingMovie";
 import { https } from "./services/configURL";
 
 function App() {
@@ -95,7 +95,7 @@ function App() {
             </SecureView>
           }
         ></Route>
-        {/* -------------ADMIN ACTION------------ */}
+        {/* -------------ADMIN ACTION---------- */}
         <Route
           path="/admin"
           element={
@@ -132,7 +132,7 @@ function App() {
           path="/admin/films/filmManagement"
           element={
             <SecureViewAdmin>
-              <LayoutNon Component={ListFilmAdmin} />
+              <LayoutNon Component={ListMovieAdmin} />
             </SecureViewAdmin>
           }
         ></Route>
@@ -156,11 +156,11 @@ function App() {
           path="/admin/films/filmManagement/search/:id"
           element={
             <SecureViewAdmin>
-              <LayoutNon Component={FindingFilm} />
+              <LayoutNon Component={FindingMovie} />
             </SecureViewAdmin>
           }
         ></Route>
-        {/* -------------ERROR PAGE-------------- */}
+        {/* -------------ERROR PAGE--------- */}
         <Route path="/Error" element={<Error403 />}></Route>
       </Routes>
       <Spinner />

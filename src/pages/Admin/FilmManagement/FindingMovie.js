@@ -14,7 +14,7 @@ import { MdDelete } from "react-icons/md";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import FilmEditing from "./FilmEditing";
+import FilmEditing from "./MovieEditing";
 import {
   getListMovieByIdAction,
   handleDeleteMovieAction,
@@ -23,7 +23,7 @@ import {
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
 
-export default function FindingFilm() {
+export default function FindingMovie() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   let dispatch = useDispatch();
   let navigate = useNavigate();

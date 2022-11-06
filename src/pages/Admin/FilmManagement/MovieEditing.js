@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   VideoCameraAddOutlined,
   LinkOutlined,
@@ -6,7 +6,7 @@ import {
 } from "@ant-design/icons";
 import { Switch, DatePicker } from "antd";
 import { Button, Form, Input, InputNumber } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import moment from "moment";
 import { updateMovieUploadAction } from "../../../redux/actions/movieAction";
@@ -27,16 +27,17 @@ const formItemLayout = {
   },
 };
 
-export default function FilmEditing({ filmEditing, setModal2Open }) {
+export default function MovieEditing({ setModal2Open }) {
   //SET UP REACT-HOOK METHOD
   let dispatch = useDispatch();
-
+  let movieEditing = useSelector((state) => state.movieReducer.movieEditing);
   //SET UP FORMIK TO FORM
   //-Set up Form
   const [form] = Form.useForm();
   //-Set fieldvalue for Image
-  const [imgSrc, setImgSrc] = useState(filmEditing.hinhAnh);
+  const [imgSrc, setImgSrc] = useState("");
   const handleChangeFileUpload = (e) => {
+    console.log(e);
     let file = e.target.files[0];
     let reader = new FileReader();
     reader.readAsDataURL(file);
@@ -45,6 +46,10 @@ export default function FilmEditing({ filmEditing, setModal2Open }) {
     };
     formik.setFieldValue("hinhAnh", file);
   };
+  useEffect(() => {
+    setImgSrc(movieEditing.hinhAnh);
+  }, [movieEditing]);
+
   //-Set fieldvalue for Datepicker
   const handleChangeDatepicker = (value) => {
     let ngayKhoiChieu = moment(value).format("DD/MM/YYYY");
@@ -66,15 +71,15 @@ export default function FilmEditing({ filmEditing, setModal2Open }) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      maPhim: filmEditing?.maPhim,
-      tenPhim: filmEditing?.tenPhim,
-      trailer: filmEditing?.trailer,
-      moTa: filmEditing?.moTa,
-      ngayKhoiChieu: filmEditing?.ngayKhoiChieu,
-      sapChieu: filmEditing?.sapChieu,
-      dangChieu: filmEditing?.dangChieu,
-      hot: filmEditing?.hot,
-      danhGia: filmEditing?.danhGia,
+      maPhim: movieEditing?.maPhim,
+      tenPhim: movieEditing?.tenPhim,
+      trailer: movieEditing?.trailer,
+      moTa: movieEditing?.moTa,
+      ngayKhoiChieu: movieEditing?.ngayKhoiChieu,
+      sapChieu: movieEditing?.sapChieu,
+      dangChieu: movieEditing?.dangChieu,
+      hot: movieEditing?.hot,
+      danhGia: movieEditing?.danhGia,
       hinhAnh: null,
       maNhom: "GP03",
     },
@@ -210,7 +215,11 @@ export default function FilmEditing({ filmEditing, setModal2Open }) {
       </Form.Item>
       <Form.Item name="hinhAnh" label="Poster:">
         <Input type="file" onChange={handleChangeFileUpload} />
+        {/* {imgSrc !== "" ? (
+          <img className="mt-4 w-[150px] h-[250px]" src={imgSrc} alt="..." />
+        ) : ( */}
         <img className="mt-4 w-[150px] h-[250px]" src={imgSrc} alt="..." />
+        {/* )} */}
       </Form.Item>
       <Form.Item>
         <Button size="large" className="" type="primary" htmlType="submit">

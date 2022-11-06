@@ -6,9 +6,6 @@ export const EDIT_USER = "EDIT_USER";
 export const SEARCH_USER = "SEARCH_USER";
 export const ADD_USER = "ADD_USER";
 
-export const LOADING_ON = "LOADING_ON";
-export const LOADING_OFF = "LOADING_OFF";
-
 //USER HOMEPAGE
 export const GET_BANNER = "GET_BANNER";
 export const GET_MOVIELIST = "GET_MOVIELIST";
@@ -32,6 +29,7 @@ export const DELETE_MOVIE = "DELETE_MOVIE";
 export const UPDATE_MOVIE = "UPDATE_MOVIE";
 export const SEARCH_MOVIE = "SEARCH_MOVIE";
 export const UPLOAD_NEWMOVIE = "UPLOAD_NEWMOVIE";
+export const MOVIE_EDITING = "MOVIE_EDITING";
 //-Add new showtimes
 export const GET_THEATRESYSTEM = "GET_THEATRESYSTEM";
 export const GET_THEATRE = "GET_THEATRE";

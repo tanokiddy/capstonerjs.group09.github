@@ -39,7 +39,11 @@ export default function FindingUser() {
   const onSearch = (value) => {
     navigate(`/admin/userManagement/search/${value}`);
   };
-
+  //-Set up pagination
+  const [sortedInfo, setSortedInfo] = useState({});
+  const handleChange = (pagination, filters, sorter) => {
+    setSortedInfo(sorter);
+  };
   //SET UP FORM COLUMNS
   //-Declare handle function in COLUMNS
   const handleUserDelete = (taiKhoan) => {
@@ -199,6 +203,7 @@ export default function FindingUser() {
                 rowKey="taiKhoan"
                 columns={columns}
                 dataSource={userSearching}
+                onChange={handleChange}
               />
               <Modal
                 title="User Editing"
@@ -208,7 +213,7 @@ export default function FindingUser() {
                 onCancel={() => setModal2Open(false)}
                 footer={null}
               >
-                <UserEditing />
+                <UserEditing setModal2Open={setModal2Open} />
               </Modal>
             </div>
           </div>

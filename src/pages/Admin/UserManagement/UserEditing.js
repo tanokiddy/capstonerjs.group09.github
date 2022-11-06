@@ -39,7 +39,7 @@ export default function UserEditing({ setModal2Open }) {
     soDT: userEdit.soDT,
     hoTen: userEdit.hoTen,
     maLoaiNguoiDung: userEdit.maLoaiNguoiDung,
-    maNhom: "GP03",
+    maNhom: "GP00",
   });
   //-Setup submit form
 

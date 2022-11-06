@@ -14,16 +14,18 @@ import { MdDelete } from "react-icons/md";
 import { FileOutlined, UserOutlined } from "@ant-design/icons";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import FilmEditing from "./FilmEditing";
+import FilmEditing from "./MovieEditing";
 import {
   getListMovieAction,
   handleDeleteMovieAction,
+  handleOnCancelAction,
+  movieEditingAction,
 } from "../../../redux/actions/movieAction";
 
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
 
-export default function ListFilmAdmin() {
+export default function ListMovieAdmin() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA
   let dispatch = useDispatch();
   let navigate = useNavigate();
@@ -44,14 +46,15 @@ export default function ListFilmAdmin() {
 
   //SET UP MODAL
   const [modal2Open, setModal2Open] = useState(false);
-  const [filmEditing, setFilmEditing] = useState({});
   const handleFilmEditing = (id) => {
     setModal2Open(true);
     let index = movieList.findIndex((item) => {
       return item.maPhim === id;
     });
-    setFilmEditing(movieList[index]);
+    dispatch(movieEditingAction(movieList[index]));
   };
+
+  let movieEditing = useSelector((state) => state.movieReducer.movieEditing);
 
   //SET UP FORM COLUMNS
   //-Set up pagination
@@ -62,23 +65,24 @@ export default function ListFilmAdmin() {
   //-COLUMNS
   const columns = [
     {
-      title: "Mã Phim",
+      title: "Movie code",
       dataIndex: "maPhim",
+      align: "center",
       key: "maPhim",
       sorter: (a, b) => a.maPhim - b.maPhim,
       sortOrder: sortedInfo.columnKey === "maPhim" ? sortedInfo.order : null,
       className: "sm:w-[110px] w-[62px] sm:text-base text-[9px]",
     },
     {
-      title: "Hình ảnh",
+      title: "Poster",
       dataIndex: "hinhAnh",
       render: (t, r) => <img alt="" src={`${r.hinhAnh}`} />,
       key: "hinhAnh",
       align: "center",
-      className: "sm:table-cell hidden",
+      className: "sm:table-cell hidden sm:text-base text-[9px]",
     },
     {
-      title: "Tên Phim",
+      title: "Movie title",
       dataIndex: "tenPhim",
       key: "tenPhim",
       sorter: (a, b) => a.tenPhim.localeCompare(b.tenPhim),
@@ -88,10 +92,10 @@ export default function ListFilmAdmin() {
     },
 
     {
-      title: "Mô tả",
+      title: "Description",
       dataIndex: "moTa",
       key: "moTa",
-      align: "justify",
+      align: "center",
       ellipsis: {
         showTitle: false,
       },
@@ -103,7 +107,7 @@ export default function ListFilmAdmin() {
       ),
     },
     {
-      title: "Hành động",
+      title: "Action",
       dataIndex: "maPhim",
       render: (maPhim) => {
         return (
@@ -137,7 +141,7 @@ export default function ListFilmAdmin() {
       },
       key: "hanhDong",
       align: "center",
-      className: "sm:w-2/12 w-[60px] sm:text-base text-[9px]",
+      className: "sm:w-2/12 w-[61px] sm:text-base text-[9px]",
     },
   ];
 
@@ -234,10 +238,7 @@ export default function ListFilmAdmin() {
                 onCancel={() => setModal2Open(false)}
                 footer={null}
               >
-                <FilmEditing
-                  filmEditing={filmEditing}
-                  setModal2Open={setModal2Open}
-                />
+                <FilmEditing setModal2Open={setModal2Open} />
               </Modal>
             </div>
           </div>

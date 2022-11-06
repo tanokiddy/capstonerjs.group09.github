@@ -1,8 +1,6 @@
 import React from "react";
 import loading from "../../assets/loading.json";
 import Lottie from "lottie-react";
-import { useSelector } from "react-redux";
-import { https } from "../../services/configURL";
 
 export default function Spinner() {
   //   let isLoading = useSelector((state) => state.spinnerReducer.isLoading);
