@@ -15,13 +15,23 @@ export default function Header() {
         </NavLink>
       </div>
       <div className="lg:flex hidden items-center justify-between">
-        <a href="#nowShowing" className="text-black font-bold text-xl" to="">
+        <a
+          href="#nowShowing"
+          className="text-black font-bold 2xl:text-2xl text-xl"
+          to=""
+        >
           Now Showing
         </a>
-        <a href="#TabMovie" className="text-black font-bold text-xl">
+        <a
+          href="#TabMovie"
+          className="text-black font-bold 2xl:text-2xl text-xl"
+        >
           Schedule
         </a>
-        <NavLink to="/userTickets" className="text-black font-bold text-xl">
+        <NavLink
+          to="/userTickets"
+          className="text-black font-bold 2xl:text-2xl text-xl"
+        >
           My Tickets
         </NavLink>
       </div>

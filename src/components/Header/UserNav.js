@@ -19,7 +19,7 @@ export default function UserNav() {
       items={[
         {
           label: (
-            <NavLink className="font-bold text-md" to="/profile">
+            <NavLink className="font-bold sm:text-base text-sm" to="/profile">
               My Profile
             </NavLink>
           ),
@@ -27,7 +27,10 @@ export default function UserNav() {
         },
         {
           label: (
-            <NavLink className="font-bold text-md" to="/userTickets">
+            <NavLink
+              className="font-bold sm:text-base text-sm"
+              to="/userTickets"
+            >
               My Tickets
             </NavLink>
           ),
@@ -36,12 +39,12 @@ export default function UserNav() {
         {
           label:
             user?.maLoaiNguoiDung.toUpperCase() === "QUANTRI" ? (
-              <NavLink className="font-bold text-md" to="/admin">
+              <NavLink className="font-bold sm:text-base text-sm" to="/admin">
                 Administrator
               </NavLink>
             ) : (
               <NavLink to="/admin">
-                <button className="font-bold text-md text-gray-300">
+                <button className="font-bold sm:text-base text-sm text-gray-300">
                   Administrator
                 </button>
               </NavLink>
@@ -56,7 +59,7 @@ export default function UserNav() {
     if (user) {
       return (
         <div className="space-x-5 flex items-center">
-          <Dropdown overlay={menu} className="text-2xl font-bold">
+          <Dropdown overlay={menu} className="2xl:text-4xl text-3xl font-bold">
             <Space type="button">
               <UserOutlined className="mb-2" />
               {user.hoTen}
@@ -70,7 +73,7 @@ export default function UserNav() {
             onClick={() => {
               handleLogOut();
             }}
-            className="bg-gray-500 duration-200 hover:bg-gray-700 px-2 py-1 md:!px-4 md:!py-2 rounded font-bold text-white"
+            className="bg-gray-500 duration-200 hover:bg-gray-700 px-2 py-1 md:!px-4 md:!py-2 2xl:px-6 2xl:py-4 rounded font-bold text-white"
           >
             Sign Out
           </button>
@@ -80,13 +83,13 @@ export default function UserNav() {
       return (
         <div className="space-x-3 flex items-center">
           <NavLink to="/login">
-            <button className="bg-red-500 duration-200 hover:bg-red-700 px-2 py-1 md:!px-4 md:!py-2 rounded font-bold text-white">
+            <button className="bg-red-500 duration-200 hover:bg-red-700 px-2 py-1 md:!px-4 md:!py-2 2xl:px-6 2xl:py-4 rounded font-bold text-white">
               Sign In
             </button>
           </NavLink>
 
           <NavLink to="/register">
-            <button className="bg-blue-500 duration-200 hover:bg-blue-700 px-2 py-1 md:!px-4 md:!py-2 rounded font-bold text-white">
+            <button className="bg-blue-500 duration-200 hover:bg-blue-700 px-2 py-1 md:!px-4 md:!py-2 2xl:px-6 2xl:py-4 rounded font-bold text-white">
               Sign Up
             </button>
           </NavLink>
