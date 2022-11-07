@@ -174,9 +174,7 @@ export default function SearchingUser() {
               margin: "16px 0",
             }}
           >
-            <Breadcrumb.Item>
-              <NavLink to="/admin/userManagement">User Management</NavLink>
-            </Breadcrumb.Item>
+            <NavLink to="/admin/userManagement">User Management</NavLink>
           </Breadcrumb>
           <div
             className="site-layout-background"

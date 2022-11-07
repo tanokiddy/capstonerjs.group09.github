@@ -78,7 +78,7 @@ export default function SearchingMovie() {
       render: (t, r) => <img alt="" src={`${r.hinhAnh}`} />,
       key: "hinhAnh",
       align: "center",
-      className: "sm:table-cell hidden",
+      className: "sm:table-cell hidden sm:text-base text-[9px]",
     },
     {
       title: "Tên Phim",

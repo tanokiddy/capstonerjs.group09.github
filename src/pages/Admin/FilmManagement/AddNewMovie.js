@@ -149,7 +149,9 @@ export default function AddNewMovie() {
             style={{
               margin: "16px 0",
             }}
-          ></Breadcrumb>
+          >
+            <NavLink to="/admin/films/filmManagement">Film Management</NavLink>
+          </Breadcrumb>
           <div
             className="site-layout-background"
             style={{
@@ -291,7 +293,7 @@ export default function AddNewMovie() {
                     type="primary"
                     htmlType="submit"
                   >
-                    Update
+                    Add
                   </Button>
                 </Form.Item>
               </Form>
