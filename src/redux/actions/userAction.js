@@ -157,7 +157,7 @@ export const userUpdateAction = (user) => {
 
 //USER
 //USER PROFILE HOMEPAGE
-export const getUserProfileAction = (form) => {
+export const getUserProfileAction = () => {
   return async (dispatch) => {
     try {
       let res = await userServ.getUserProfile();
@@ -165,12 +165,6 @@ export const getUserProfileAction = (form) => {
         await dispatch({
           type: GET_USER_PROFILE,
           userProfile: res.data.content,
-        });
-        form.setFieldsValue({
-          matKhau: res.data.content.matKhau,
-          email: res.data.content.email,
-          soDT: res.data.content.soDT,
-          hoTen: res.data.content.hoTen,
         });
       }
     } catch (err) {

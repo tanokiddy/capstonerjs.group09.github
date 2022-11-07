@@ -34,11 +34,20 @@ export default function UserProfile() {
   let dispatch = useDispatch();
   const [form] = Form.useForm();
   //SET UP FORM AND SUBMIT
-  let userProfile = useSelector((state) => state.userReducer.userProfile);
 
   useEffect(() => {
-    dispatch(getUserProfileAction(form));
+    dispatch(getUserProfileAction());
   }, []);
+
+  let userProfile = useSelector((state) => state.userReducer.userProfile);
+  console.log("userProfile: ", userProfile);
+
+  form.setFieldsValue({
+    matKhau: userProfile.matKhau,
+    email: userProfile.email,
+    soDT: userProfile.soDT,
+    hoTen: userProfile.hoTen,
+  });
 
   const onFinish = (values) => {
     values = {

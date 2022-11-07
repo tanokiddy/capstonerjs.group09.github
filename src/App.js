@@ -26,8 +26,30 @@ import AddNewMovie from "./pages/Admin/FilmManagement/AddNewMovie";
 import AddShowTimes from "./pages/Admin/FilmManagement/AddShowTimes";
 import SearchingMovie from "./pages/Admin/FilmManagement/SearchingMovie";
 import { https } from "./services/configURL";
+import axios from "axios";
 
 function App() {
+  axios.interceptors.request.use(
+    function (config) {
+      document.getElementById("spinner").style.display = "flex";
+      return config;
+    },
+    function (error) {
+      document.getElementById("spinner").style.display = "flex";
+      return Promise.reject(error);
+    }
+  );
+
+  axios.interceptors.response.use(
+    function (response) {
+      document.getElementById("spinner").style.display = "none";
+      return response;
+    },
+    function (error) {
+      document.getElementById("spinner").style.display = "none";
+      return Promise.reject(error);
+    }
+  );
   https.interceptors.request.use(
     function (config) {
       document.getElementById("spinner").style.display = "flex";
