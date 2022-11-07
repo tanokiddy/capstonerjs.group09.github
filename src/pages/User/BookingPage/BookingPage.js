@@ -1,17 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Swal from "sweetalert2";
-import {
-  loadingOffAction,
-  loadingOnAction,
-} from "../../../redux/actions/loadingAction";
 import {
   ClickToSeatAction,
   getListSeatInTheatreAction,
   handleBookingNowAction,
 } from "../../../redux/actions/movieAction";
-import { movieServ } from "../../../services/movieService";
 
 export default function BookingPage() {
   //SET UP STATE, REACT-HOOK METHOD AND CALL API TO GET DATA

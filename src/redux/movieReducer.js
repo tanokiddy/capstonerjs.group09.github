@@ -73,13 +73,13 @@ export default (state = initialState, action) => {
       return { ...state };
     }
     case BOOK_TICKET_NOW: {
-      let cloneSeatListInTheatre = state.seatListInTheatre;
+      let cloneSeatListInTheatre = { ...state.seatListInTheatre };
       let { thongTinPhim, danhSachGhe } = cloneSeatListInTheatre;
       if (thongTinPhim.maLichChieu === action.bookingState.maLichChieu) {
-        let indexArray = action.bookingState.danhSachVe.map((itemDSV) =>
+        let indexArray = action.bookingState.danhSachVe?.map((itemDSV) =>
           danhSachGhe.findIndex((itemDSG) => itemDSG.maGhe === itemDSV.maGhe)
         );
-        indexArray.map((index) => {
+        indexArray?.map((index) => {
           return (danhSachGhe[index].daDat = true);
         });
       }

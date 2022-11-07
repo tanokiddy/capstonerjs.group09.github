@@ -22,21 +22,14 @@ export default function CarouselHome() {
         <SwiperSlide className="relative" key={index}>
           <img
             src={carousel.hinhAnh}
-            className="sm:w-[] object-contain pb-[50px] pt-[82px]"
+            className="w-full object-contain pb-[50px] sm:pt-[85px] pt-[75px]"
             alt=""
           />
           <BsPlayFill
             id="playBannerButton"
             type="button"
-            style={{
-              position: "absolute",
-              top: "40%",
-              color: "white",
-              border: "4px solid white",
-              borderRadius: "50%",
-              opacity: 0.5,
-              fontSize: "100px",
-            }}
+            className="absolute sm:top-[40%] top-[45%] text-white border-4 border-white rounded-full opacity-50 xl:text-[150px] md:text-[120px] sm:text-[80px] text-[60px]"
+            //
           />
         </SwiperSlide>
       );
@@ -44,7 +37,7 @@ export default function CarouselHome() {
   };
 
   return (
-    <div className="mx-auto container ">
+    <div className="mx-auto">
       <Swiper
         cssMode={true}
         navigation={true}

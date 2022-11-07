@@ -53,7 +53,7 @@ export default function MovieList() {
   };
 
   return (
-    <div id="nowShowing" className="container pt-[82px] pb-2 mb-5 ">
+    <div id="nowShowing" className="container sm:pt-[82px] pb-2 mb-5 ">
       <div className="grid xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-4 mb-3 relative ">
         {renderMovie()}
       </div>

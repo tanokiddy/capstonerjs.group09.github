@@ -58,7 +58,10 @@ export default function MovieTab() {
   };
 
   return (
-    <div id="TabMovie" className="container mb-2 py-20 border-t border-red-500">
+    <div
+      id="TabMovie"
+      className="container mb-2 sm:!py-20 py-3 border-t border-gray-200"
+    >
       <Tabs
         className="border-black border"
         defaultActiveKey="1"
