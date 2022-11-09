@@ -92,6 +92,8 @@ export default function AddNewMovie() {
           }
         }
       }
+      console.log("values", values);
+      console.log("formData", formData.get("maPhim"));
       dispatch(uploadNewMovieAction(formData));
     },
   });

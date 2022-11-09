@@ -105,6 +105,12 @@ export default (state = initialState, action) => {
         return item.maPhim !== action.movieId;
       });
       state.movieList = cloneMovieList;
+
+      let cloneMovieSearchingList = state.movieSearchingList.filter((item) => {
+        return item.maPhim !== action.movieId;
+      });
+      state.movieSearchingList = cloneMovieSearchingList;
+
       return { ...state };
     }
     case UPDATE_MOVIE: {

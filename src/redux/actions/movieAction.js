@@ -240,7 +240,7 @@ export const uploadNewMovieAction = (formData) => {
           showConfirmButton: false,
           timer: 1500,
         });
-        window.location.href = "/admin/films/filmManagement";
+        // window.location.href = "/admin/films/filmManagement";
       }
     } catch (err) {
       console.log(err);
