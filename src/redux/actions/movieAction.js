@@ -114,12 +114,11 @@ export const handleBookingNowAction = (bookingState) => {
         });
       }
     } catch (err) {
-      // }
       console.log(err);
       await Swal.fire({
         position: "center",
-        icon: "success",
-        title: err.responde.data.message,
+        icon: "error",
+        title: err.response.data.content,
         showConfirmButton: false,
         timer: 1500,
       });
@@ -154,7 +153,7 @@ export const handleDeleteMovieAction = (movieId) => {
       console.log(err);
       await Swal.fire({
         position: "center",
-        icon: "success",
+        icon: "error",
         title: err.response.data.content,
         showConfirmButton: false,
         timer: 1500,

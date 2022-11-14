@@ -40,7 +40,6 @@ export default function UserProfile() {
   }, []);
 
   let userProfile = useSelector((state) => state.userReducer.userProfile);
-  console.log("userProfile: ", userProfile);
 
   form.setFieldsValue({
     matKhau: userProfile.matKhau,

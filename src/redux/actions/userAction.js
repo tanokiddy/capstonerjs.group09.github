@@ -223,7 +223,7 @@ export const userLoginAction = (values) => {
     try {
       let res = await userServ.userLogin(values);
       if (res.status === 200) {
-        await localServ.user.setDataUser(res.data.content);
+        localServ.user.setDataUser(res.data.content);
         await dispatch({
           type: USER_LOGIN,
           user: res.data.content,
