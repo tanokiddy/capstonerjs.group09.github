@@ -4,7 +4,7 @@ import UserNav from "./UserNav";
 
 export default function Header() {
   return (
-    <div className="p-[12px] grid lg:grid-cols-3 w-full grid-cols-2 bg-white opacity-90 fixed border-b shadow z-50">
+    <div className="lg:p-[24px] p-[12px] grid  lg:grid-cols-3 w-full grid-cols-2 bg-white opacity-90 sticky top-0 border-b shadow z-50">
       <div className="flex items-center">
         <NavLink to="/">
           <img

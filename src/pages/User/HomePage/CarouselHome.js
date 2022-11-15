@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { BsPlayFill } from "react-icons/bs";
@@ -22,7 +22,7 @@ export default function CarouselHome() {
         <SwiperSlide className="relative" key={index}>
           <img
             src={carousel.hinhAnh}
-            className="w-full object-contain pb-[50px] 2xl:pt-[100px] sm:pt-[85px] pt-[75px]"
+            className="w-full object-contain pb-[50px]"
             alt=""
           />
           <BsPlayFill
