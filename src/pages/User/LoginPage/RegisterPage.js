@@ -42,9 +42,9 @@ export default function RegisterPage() {
 
   return (
     <div className="flex items-center container pt-32">
-      <Lottie className="w-2/3 h-96" animationData={bg_login} />
+      <Lottie className="sm:w-2/3 w-1/2 h-96" animationData={bg_login} />
       <Form
-        className="w-1/3 text-right"
+        className="sm:w-1/3 w-1/2 text-right"
         {...formItemLayout}
         form={form}
         name="register"

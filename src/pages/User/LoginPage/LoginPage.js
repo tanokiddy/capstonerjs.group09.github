@@ -18,13 +18,13 @@ export default function LoginPage() {
 
   return (
     <div className="flex justify-center container items-center pt-32">
-      <Lottie className="w-2/3 h-96" animationData={bg_login} />
+      <Lottie className="sm:w-2/3 w-1/2 h-96" animationData={bg_login} />
       <Form
         name="normal_login"
-        className="login-form w-1/3"
-        initialValues={{
-          remember: true,
-        }}
+        className="login-form sm:w-1/3 w-1/2"
+        // initialValues={{
+        //   remember: true,
+        // }}
         onFinish={onFinish}
       >
         <Form.Item
@@ -57,11 +57,18 @@ export default function LoginPage() {
             placeholder="Password"
           />
         </Form.Item>
-        <Form.Item className="flex justify-end ">
-          <NavLink className="login-form-forgot text-red-500" href="">
-            Forgot password?
-          </NavLink>
-        </Form.Item>
+        <div className="flex justify-between">
+          <Form.Item className="!mb-3 text-left">
+            <NavLink className="text-blue-500" to="/register">
+              Register Now!
+            </NavLink>
+          </Form.Item>
+          <Form.Item className="!mb-3 text-right">
+            <NavLink className="text-red-500 hover:text-red-400" to="">
+              Forgot password?
+            </NavLink>
+          </Form.Item>
+        </div>
 
         <Form.Item>
           <Button
